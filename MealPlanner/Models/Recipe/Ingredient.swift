@@ -55,18 +55,26 @@ class Ingredient: NSObject, NSCopying {
         
         case Bread = "Bread"
         case Dairy = "Dairy"
+        case Deli = "Deli"
         case Produce = "Produce"
+        case Spices = "Spices"
+        case Baking = "Baking"
         case Meat = "Meat"
         case Frozen = "Frozen"
+        case Hygeine = "Hygeine"
         case Miscellaneous = "Miscellaneous"
     }
     
     static let ingredientTypes = [
         IngredientType.Bread,
         IngredientType.Dairy,
+        IngredientType.Deli,
         IngredientType.Produce,
+        IngredientType.Spices,
+        IngredientType.Baking,
         IngredientType.Meat,
         IngredientType.Frozen,
+        IngredientType.Hygeine,
         IngredientType.Miscellaneous
     ]
 }

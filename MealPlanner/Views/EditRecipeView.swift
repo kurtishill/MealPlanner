@@ -54,7 +54,7 @@ struct EditRecipeView: View {
                     AddCategoryButton(makeNewCategory: self.$makeNewCategory, recipe: self.recipe)
                 }.padding(.trailing, 20)
             }.frame(alignment: .bottomTrailing)
-                .offset(y: 125)
+                .offset(y: 60)
         }
     }
 }
@@ -76,7 +76,7 @@ struct CategorySelectionModal: View {
                         }
                 }
             }
-        }.frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 3, minHeight: 0, maxHeight: ((CGFloat(Ingredient.ingredientTypes.count) + 3) * 17))
+        }.frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 3, minHeight: 0, maxHeight: ((CGFloat(Ingredient.ingredientTypes.count) + 3) * 20))
             .background(Color("primaryText"))
             .cornerRadius(10)
             .shadow(radius: 3)
