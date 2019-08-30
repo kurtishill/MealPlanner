@@ -46,7 +46,7 @@ class AppState: ObservableObject {
                         if ingredients[type] == nil {
                             ingredients[type] = [Ingredient]()
                         }
-                        ingredients[type] = i
+                        ingredients[type]?.append(contentsOf: i)
                     }
                 }
             }
