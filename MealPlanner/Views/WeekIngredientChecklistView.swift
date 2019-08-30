@@ -9,17 +9,23 @@
 import SwiftUI
 
 struct WeekIngredientChecklistView: View {
-    @ObservedObject var recipeStore: AppState
+    @ObservedObject var appState: AppState
     var date: CalendarDate
     var color: String
     
+    let numberFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.groupingSeparator = ""
+        return nf
+    }()
+    
     var body: some View {
-        let ingredients = recipeStore.getIngredientsForWeekDisplay()
+        let ingredients = appState.getIngredientsForWeekDisplay()
         let keys = ingredients.keys.map {$0}.sorted()
         
         return VStack(alignment: .leading) {
             Group {
-                Text("Week \(date.week.week.first!.day) - \(date.week.week.last!.day)")
+                Text("\(Helper().monthToString(date.month.month)) \(date.week.week.first!.day) - \(date.week.week.last!.day), \(numberFormatter.string(for: date.year.year)!)")
                     .font(.title)
                     .bold()
                 Divider()
@@ -32,10 +38,10 @@ struct WeekIngredientChecklistView: View {
                             .font(.title)
                             .padding(.leading, 20)
                         ForEach(ingredients[type] ?? [], id: \.self) { (ingredient: Ingredient) in
-                            IngredientChecklistRow(ingredient: ingredient, color: self.color, appState: self.recipeStore)
+                            IngredientChecklistRow(ingredient: ingredient, color: self.color, appState: self.appState)
                                 .onTapGesture {
                                     ingredient.isSelected.toggle()
-                                    self.recipeStore.updateIngredient(ingredient)
+                                    self.appState.updateIngredient(ingredient)
                             }
                         }
                     }

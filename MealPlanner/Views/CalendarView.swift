@@ -11,7 +11,8 @@ import SwiftUI
 let daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"]
 
 struct CalendarView: View {
-    var calendarStore: CalendarStore
+    @EnvironmentObject var calendarState: CalendarState
+    var color: String
     
     let calendarWidth = UIScreen.main.bounds.width - 60
     
@@ -22,20 +23,19 @@ struct CalendarView: View {
                 Divider()
             }
             Group {
-                ForEach(calendarStore.calendar.weeks, id: \.id) { (week: CalendarWeek) in
+                ForEach(self.calendarState.calendar.weeks, id: \.id) { (week: CalendarWeek) in
                     ZStack {
                         if week.isCurrentWeek {
-                            WeekHighlight()
-                                .frame(width: (self.calendarWidth + 30) / 7 * (8 - (CGFloat(self.calendarStore.calendar.currDayOfWeek!))), height: 50)
-                                .offset(x: (CGFloat(self.calendarStore.calendar.currDayOfWeek!) - 1) * 28)
+                            WeekHighlight(color: self.color)
+                                .frame(width: (self.calendarWidth + 30) / 7 * (8 - (CGFloat(self.calendarState.calendar.currDayOfWeek!))), height: 50)
+                                .offset(x: (CGFloat(self.calendarState.calendar.currDayOfWeek!) - 1) * 28)
                         }
                         WeekRow(week: week)
                             .frame(width: self.calendarWidth)
                     }
                 }
             }
-        }.frame(width: calendarWidth)
-            .padding(.top, 30)
+        }.padding(.top, 30)
     }
 }
 
@@ -80,9 +80,11 @@ struct WeekRow: View {
 }
 
 struct WeekHighlight: View {
+    var color: String
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 30)
-            .foregroundColor(Color("mainColor"))
+            .foregroundColor(Color(color))
     }
 }
 

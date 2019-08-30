@@ -16,7 +16,7 @@ struct RecipeView: View {
     
     @State var recipeTitle: String = ""
     
-    @EnvironmentObject var recipeStore: AppState
+    @EnvironmentObject var appState: AppState
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
@@ -36,7 +36,7 @@ struct RecipeView: View {
                 }
                 
                 self.recipe = self.draftRecipe.copy() as! Recipe
-                self.recipeStore.updateRecipe(self.recipe)
+                self.appState.updateRecipe(self.recipe)
                 self.editMode?.animation().wrappedValue = .inactive
             }
         }) {
@@ -97,7 +97,7 @@ struct RecipeView: View {
                 .padding(.trailing, 20)
             
             if self.editMode?.wrappedValue == .inactive {
-                RecipeChecklistView(recipe: $recipe, recipeStore: recipeStore, color: self.color)
+                RecipeChecklistView(recipe: $recipe, appState: appState, color: self.color)
             } else {
                 EditRecipeView(recipe: draftRecipe)
             }

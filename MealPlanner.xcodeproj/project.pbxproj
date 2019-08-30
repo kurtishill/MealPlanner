@@ -27,7 +27,7 @@
 		0A4050ED231963E6009CB15B /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E7231963E6009CB15B /* CalendarDay.swift */; };
 		0A4050EE231963E6009CB15B /* CalendarMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E8231963E6009CB15B /* CalendarMonth.swift */; };
 		0A4050EF231963E6009CB15B /* CalendarYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E9231963E6009CB15B /* CalendarYear.swift */; };
-		0A4050F323196408009CB15B /* CalendarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F123196408009CB15B /* CalendarStore.swift */; };
+		0A4050F323196408009CB15B /* CalendarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F123196408009CB15B /* CalendarState.swift */; };
 		0A4050F423196408009CB15B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F223196408009CB15B /* AppState.swift */; };
 		0A4050F923196421009CB15B /* RecipeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F723196421009CB15B /* RecipeDto.swift */; };
 		0A4050FA23196421009CB15B /* IngredientDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F823196421009CB15B /* IngredientDto.swift */; };
@@ -70,7 +70,7 @@
 		0A4050E7231963E6009CB15B /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		0A4050E8231963E6009CB15B /* CalendarMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonth.swift; sourceTree = "<group>"; };
 		0A4050E9231963E6009CB15B /* CalendarYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarYear.swift; sourceTree = "<group>"; };
-		0A4050F123196408009CB15B /* CalendarStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarStore.swift; sourceTree = "<group>"; };
+		0A4050F123196408009CB15B /* CalendarState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarState.swift; sourceTree = "<group>"; };
 		0A4050F223196408009CB15B /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		0A4050F723196421009CB15B /* RecipeDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDto.swift; sourceTree = "<group>"; };
 		0A4050F823196421009CB15B /* IngredientDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientDto.swift; sourceTree = "<group>"; };
@@ -170,9 +170,9 @@
 		0A4050DE231963D1009CB15B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				0A4050E6231963E6009CB15B /* CalendarModel.swift */,
 				0A4050E4231963E6009CB15B /* CalendarDate.swift */,
 				0A4050E7231963E6009CB15B /* CalendarDay.swift */,
-				0A4050E6231963E6009CB15B /* CalendarModel.swift */,
 				0A4050E8231963E6009CB15B /* CalendarMonth.swift */,
 				0A4050E5231963E6009CB15B /* CalendarWeek.swift */,
 				0A4050E9231963E6009CB15B /* CalendarYear.swift */,
@@ -193,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				0A4050F223196408009CB15B /* AppState.swift */,
-				0A4050F123196408009CB15B /* CalendarStore.swift */,
+				0A4050F123196408009CB15B /* CalendarState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 				0A40510023196438009CB15B /* Storage.swift in Sources */,
 				0A40511923196474009CB15B /* IngredientService.swift in Sources */,
 				0A4050E2231963DD009CB15B /* Ingredient.swift in Sources */,
-				0A4050F323196408009CB15B /* CalendarStore.swift in Sources */,
+				0A4050F323196408009CB15B /* CalendarState.swift in Sources */,
 				0A4051102319644F009CB15B /* SqlStorage.swift in Sources */,
 				0A4050DA231963BF009CB15B /* CalendarView.swift in Sources */,
 				0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */,

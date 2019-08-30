@@ -15,7 +15,12 @@ class AppState: ObservableObject {
     // key is day of week
     var weekRecipes: [Int:[Recipe.Category:Recipe?]]
     
-    let date: CalendarDate
+    var date: CalendarDate {
+        didSet {
+            self.weekRecipes = self.recipeService.getAllRecipesForWeek(with: date)
+        }
+    }
+    
     let recipeService: RecipeService
     let ingredientService: IngredientService
     

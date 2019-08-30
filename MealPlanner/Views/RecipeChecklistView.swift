@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RecipeChecklistView: View {
     @Binding var recipe: Recipe
-    @ObservedObject var recipeStore: AppState
+    @ObservedObject var appState: AppState
     
     var color: String
     
@@ -24,10 +24,10 @@ struct RecipeChecklistView: View {
                         .font(.title)
                         .padding(.leading, 20)
                     ForEach(self.recipe.ingredients[key]!, id: \.self) { (ingredient: Ingredient) in
-                        IngredientChecklistRow(ingredient: ingredient, color: self.color, appState: self.recipeStore)
+                        IngredientChecklistRow(ingredient: ingredient, color: self.color, appState: self.appState)
                             .onTapGesture {
                                 self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.isSelected.toggle()
-                                self.recipeStore.updateRecipe(self.recipe)
+                                self.appState.updateRecipe(self.recipe)
                         }
                     }
                 }

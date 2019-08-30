@@ -22,20 +22,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "primaryText") ?? .black]
         
         // Create the SwiftUI view that provides the window contents.
-        let calendarStore = CalendarStore()
+        let calendarState = CalendarState()
         
         let storage: Storage = SqlStorage()
         let dbInit = storage.initStorage()
         print(dbInit)
     
         let appState = AppState(
-            date: calendarStore.calendar.currDate!,
+            date: calendarState.calendar.currDate!,
             recipeService: RecipeService(
                 storage: storage,
                 ingredientService: IngredientService(storage: storage)),
             ingredientService: IngredientService(storage: storage))
         
-        let contentView = ContentView(calendar: calendarStore).environmentObject(appState)
+        let contentView = ContentView()
+            .environmentObject(calendarState)
+            .environmentObject(appState)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

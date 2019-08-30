@@ -13,32 +13,14 @@ struct RecipeOverviewCard: View {
     var day: CalendarDay
     var date: CalendarDate
     
-    @EnvironmentObject var recipeStore: AppState
+    @ObservedObject var appState: AppState
     
     let cardHeight: CGFloat = 250
     
     var body: some View {
-        let breakfastCopy: Recipe = recipeStore.getRecipe(for: day.day, with: Recipe.Category.Breakfast)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Breakfast, title: "", ingredients: [:], date: date)
-        let lunchCopy: Recipe = recipeStore.getRecipe(for: day.day, with: Recipe.Category.Lunch)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Lunch, title: "", ingredients: [:], date: date)
-        let dinnerCopy: Recipe = recipeStore.getRecipe(for: day.day, with: Recipe.Category.Dinner)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Dinner, title: "", ingredients: [:], date: date)
-        
-//        if recipeStore.weekRecipes[day.day]!.isEmpty {
-//            breakfastCopy = Recipe(category: Recipe.Category.Breakfast, title: "", ingredients: [:], date: date)
-//        } else {
-//            breakfastCopy = recipeStore.weekRecipes[day.day]?[0]?.copy() as! Recipe
-//        }
-        
-//        if recipeStore.weekRecipes[day.day]!.count < 2 {
-//            lunchCopy = Recipe(category: Recipe.Category.Lunch, title: "", ingredients: [:], date: date)
-//        } else {
-//            lunchCopy = recipeStore.weekRecipes[day.day]?[1]?.copy() as! Recipe
-//        }
-        
-//        if recipeStore.weekRecipes[day.day]!.count < 3 {
-//            dinnerCopy = Recipe(category: Recipe.Category.Dinner, title: "", ingredients: [:], date: date)
-//        } else {
-//            dinnerCopy = recipeStore.weekRecipes[day.day]?[2]?.copy() as! Recipe
-//        }
+        let breakfastCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Breakfast)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Breakfast, title: "", ingredients: [:], date: date)
+        let lunchCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Lunch)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Lunch, title: "", ingredients: [:], date: date)
+        let dinnerCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Dinner)?.copy() as? Recipe ?? Recipe(category: Recipe.Category.Dinner, title: "", ingredients: [:], date: date)
         
         return HStack(alignment: VerticalAlignment.top) {
             DateCard(day: day, dayName: dayName, cardHeight: cardHeight)
@@ -51,11 +33,11 @@ struct RecipeOverviewCard: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    RecipeRow(destination: RecipeView(recipe: breakfastCopy, draftRecipe: breakfastCopy.copy() as! Recipe, color: "greenColor", day: self.day).environmentObject(recipeStore), color: "greenColor", recipe: breakfastCopy, height: cardHeight / 3)
+                    RecipeRow(destination: RecipeView(recipe: breakfastCopy, draftRecipe: breakfastCopy.copy() as! Recipe, color: "greenColor", day: day).environmentObject(appState), color: "greenColor", recipe: breakfastCopy, height: cardHeight / 3)
 
-                    RecipeRow(destination: RecipeView(recipe: lunchCopy, draftRecipe: lunchCopy.copy() as! Recipe, color: "yellowColor", day: self.day).environmentObject(recipeStore), color: "yellowColor", recipe: lunchCopy, height: cardHeight / 3)
+                    RecipeRow(destination: RecipeView(recipe: lunchCopy, draftRecipe: lunchCopy.copy() as! Recipe, color: "yellowColor", day: day).environmentObject(appState), color: "yellowColor", recipe: lunchCopy, height: cardHeight / 3)
 
-                    RecipeRow(destination: RecipeView(recipe: dinnerCopy, draftRecipe: dinnerCopy.copy() as! Recipe, color: "purpleColor", day: self.day).environmentObject(recipeStore), color: "purpleColor", recipe: dinnerCopy, height: cardHeight / 3)
+                    RecipeRow(destination: RecipeView(recipe: dinnerCopy, draftRecipe: dinnerCopy.copy() as! Recipe, color: "purpleColor", day: day).environmentObject(appState), color: "purpleColor", recipe: dinnerCopy, height: cardHeight / 3)
                 }
                 
                 VStack {
