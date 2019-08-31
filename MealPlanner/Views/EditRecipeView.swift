@@ -31,8 +31,8 @@ struct EditRecipeView: View {
                                               measurementType: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.measurementType ?? "",
                                               recipe: self.recipe,
                                               key: key,
-                                              ingredient: (self.recipe.ingredients[key]?.first(where: {$0 == ingredient}))!
-                                ).frame(height: 60)
+                                              ingredient: (self.recipe.ingredients[key]?.first(where: {$0 == ingredient}))!)
+                                    .frame(height: 60)
                                     .background(Color("cardColor"))
                                     .mask(RoundedRectangle(cornerRadius: 10.0))
                                     .padding(.leading, 20)
@@ -110,21 +110,21 @@ struct IngredientRow: View {
                     .background(Color.white)
                     .mask(RoundedRectangle(cornerRadius: 5))
                 HStack {
-                    TextField("", value: self.$quantity, formatter: numberFormatter, onEditingChanged: { _ in
+                    TextField("Amount", value: self.$quantity, formatter: numberFormatter, onEditingChanged: { _ in
                         self.recipe.ingredients[self.key]?.first(where: {$0 == self.ingredient})?.quantity = self.quantity
                     })
                         .keyboardType(.decimalPad)
                         .padding(.all, 1)
-                        .frame(width: 50)
+                        .frame(width: UIScreen.main.bounds.width / 3)
                         .background(Color.white)
                         .mask(RoundedRectangle(cornerRadius: 5))
                     
-                    TextField("", text: self.$measurementType, onEditingChanged: { _ in
+                    TextField("Measurement", text: self.$measurementType, onEditingChanged: { _ in
                         self.recipe.ingredients[self.key]?.first(where: {$0 == self.ingredient})?.measurementType = self.measurementType
                     })
                         .autocapitalization(.none)
                         .padding(.all, 1)
-                        .frame(width: 60)
+                        .frame(width: UIScreen.main.bounds.width / 3)
                         .background(Color.white)
                         .mask(RoundedRectangle(cornerRadius: 5))
                     Spacer()

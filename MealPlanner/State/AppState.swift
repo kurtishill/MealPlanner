@@ -75,4 +75,8 @@ class AppState: ObservableObject {
         let _ = self.ingredientService.updateIngredient(ingredient)
         objectWillChange.send(self)
     }
+    
+    func deleteIngredient(with id: String) {
+        let _ = self.ingredientService.deleteIngredient(with: id)
+    }
 }

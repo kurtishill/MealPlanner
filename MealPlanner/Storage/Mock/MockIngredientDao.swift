@@ -20,4 +20,8 @@ class MockIngredientDao: IngredientDao {
     func updateIngredient(_ ingredient: IngredientDto) -> Bool {
         return true
     }
+    
+    func deleteIngredient(with id: String) -> Bool {
+        return true
+    }
 }

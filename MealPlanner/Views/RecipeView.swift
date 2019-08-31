@@ -29,9 +29,22 @@ struct RecipeView: View {
                 self.draftRecipe.title = self.recipeTitle
                 self.draftRecipe.date.day = self.day
                 for (key, _) in self.draftRecipe.ingredients {
-                    self.draftRecipe.ingredients[key] = self.draftRecipe.ingredients[key]?.filter({$0.name != "" && $0.quantity != 0.0})
+                    self.draftRecipe.ingredients[key] = self.draftRecipe.ingredients[key]?.filter({$0.name != "" /*&& $0.quantity != 0.0*/})
                     if self.draftRecipe.ingredients[key]!.isEmpty {
                         self.draftRecipe.ingredients[key] = nil
+                    }
+                }
+                
+                for (key, ingredients) in self.recipe.ingredients {
+                    for ingredient in ingredients {
+                        if self.draftRecipe.ingredients[key] == nil {
+                            for ingredient in self.recipe.ingredients[key]! {
+                                self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                            }
+                        }
+                        else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
+                            self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                        }
                     }
                 }
                 

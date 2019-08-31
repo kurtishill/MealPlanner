@@ -45,4 +45,8 @@ class IngredientService {
         
         return storage.ingredientDao().updateIngredient(ingredientDto)
     }
+    
+    func deleteIngredient(with id: String) -> Bool {
+        return storage.ingredientDao().deleteIngredient(with: id)
+    }
 }

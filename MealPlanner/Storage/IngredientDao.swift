@@ -12,4 +12,5 @@ protocol IngredientDao {
     func createIngredient(_ ingredient: IngredientDto) -> Bool
     func getIngredients(for recipe: String) -> [IngredientDto]?
     func updateIngredient(_ ingredient: IngredientDto) -> Bool
+    func deleteIngredient(with id: String) -> Bool
 }

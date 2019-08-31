@@ -58,6 +58,7 @@ class Ingredient: NSObject, NSCopying {
         case Deli = "Deli"
         case Produce = "Produce"
         case Spices = "Spices"
+        case CannedGoods = "Canned Goods"
         case Baking = "Baking"
         case Meat = "Meat"
         case Frozen = "Frozen"
@@ -71,6 +72,7 @@ class Ingredient: NSObject, NSCopying {
         IngredientType.Deli,
         IngredientType.Produce,
         IngredientType.Spices,
+        IngredientType.CannedGoods,
         IngredientType.Baking,
         IngredientType.Meat,
         IngredientType.Frozen,

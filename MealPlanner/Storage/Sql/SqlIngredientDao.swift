@@ -124,4 +124,27 @@ class SqlIngredientDao: SqlDao, IngredientDao {
         
         return true
     }
+    
+    func deleteIngredient(with id: String) -> Bool {
+        let conn = ConnectionFactory.open()
+        var stmt: OpaquePointer?
+        let sql = "delete from ingredients where id = ?"
+        
+        if sqlite3_prepare(conn, sql, -1, &stmt, nil) != SQLITE_OK {
+            self.handleSqliteError(op: conn, errMsg: "failure preparing ingredient delete statement")
+            return false
+        }
+        
+        if sqlite3_bind_text(stmt, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
+            self.handleSqliteError(op: conn, errMsg: "error binding ingredient id")
+            return false
+        }
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            self.handleSqliteError(op: conn, errMsg: "failure deleting ingredient")
+            return false
+        }
+        
+        return true 
+    }
 }
