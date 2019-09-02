@@ -21,7 +21,7 @@ struct RecipeView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
     
-    var leadingButton: some View {
+    private var leadingButton: some View {
         Button(action: {
             if self.editMode?.wrappedValue == .inactive {
                 self.presentationMode.wrappedValue.dismiss()
@@ -64,7 +64,7 @@ struct RecipeView: View {
         }.foregroundColor(Color("mainColor"))
     }
     
-    var editButton: some View {
+    private var editButton: some View {
         Button(action: {
             if self.editMode?.wrappedValue == .inactive {
                 self.editMode?.animation().wrappedValue = .active
@@ -102,7 +102,7 @@ struct RecipeView: View {
                     TextField("Title", text: self.$recipeTitle, onEditingChanged: { _ in
                         self.draftRecipe.title = self.recipeTitle
                     }).padding(.all, 5)
-                        .background(Color("secondaryText"))
+                        .background(Color("textFieldColor"))
                         .mask(RoundedRectangle(cornerRadius: 5))
                 }
                 Divider()

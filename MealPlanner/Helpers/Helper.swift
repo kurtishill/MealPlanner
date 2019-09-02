@@ -54,23 +54,54 @@ struct Helper {
         }
     }
     
-    func ingredientTypeStringToEnum(_ type: String) -> Ingredient.IngredientType {
+    /**
+     static let ingredientTypes = [
+         IngredientType.Bread,
+         IngredientType.Dairy,
+         IngredientType.Deli,
+         IngredientType.Produce,
+         IngredientType.Spices,
+         IngredientType.CannedGoods,
+         IngredientType.Baking,
+         IngredientType.Meat,
+         IngredientType.Frozen,
+         IngredientType.Miscellaneous
+     ]
+     
+     static var weeklyItemTypes: [IngredientType] {
+         return [IngredientType.Snacks, IngredientType.Hygeine] + ingredientTypes
+     }
+     */
+    
+    func ingredientTypeStringToEnum(_ type: String) -> IngredientType {
         switch type {
         case "Bread":
-            return Ingredient.IngredientType.Bread
+            return IngredientType.Bread
         case "Dairy":
-            return Ingredient.IngredientType.Dairy
+            return IngredientType.Dairy
+        case "Deli":
+            return IngredientType.Deli
         case "Produce":
-            return Ingredient.IngredientType.Produce
+            return IngredientType.Produce
+        case "Spices":
+            return IngredientType.Spices
+        case "Canned Goods":
+            return IngredientType.CannedGoods
+        case "Baking":
+            return IngredientType.Baking
         case "Meat":
-            return Ingredient.IngredientType.Meat
+            return IngredientType.Meat
         case "Frozen":
-            return Ingredient.IngredientType.Frozen
+            return IngredientType.Frozen
+        case "Snacks":
+            return IngredientType.Snacks
+        case "Hygeine":
+            return IngredientType.Hygeine
         case "Miscellaneous":
-            return Ingredient.IngredientType.Miscellaneous
+            return IngredientType.Miscellaneous
         default:
             // should never get here
-            return Ingredient.IngredientType.Bread
+            return IngredientType.Bread
         }
     }
     

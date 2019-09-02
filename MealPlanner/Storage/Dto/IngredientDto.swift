@@ -15,5 +15,6 @@ struct IngredientDto {
     let measurementType: String?
     let type: String
     let isSelected: Int
-    let recipeId: String
+    let recipeId: String?
+    let week: String?
 }

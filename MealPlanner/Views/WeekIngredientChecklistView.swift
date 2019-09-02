@@ -13,7 +13,7 @@ struct WeekIngredientChecklistView: View {
     var date: CalendarDate
     var color: String
     
-    let numberFormatter: NumberFormatter = {
+    private let numberFormatter: NumberFormatter = {
         let nf = NumberFormatter()
         nf.groupingSeparator = ""
         return nf
@@ -32,7 +32,7 @@ struct WeekIngredientChecklistView: View {
             }.padding(.leading, 20)
                 .padding(.trailing, 20)
             ScrollView(.vertical, showsIndicators: false) {
-                ForEach(keys, id: \.self) { (type: Ingredient.IngredientType) in
+                ForEach(keys, id: \.self) { (type: IngredientType) in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(type.rawValue)
                             .font(.title)

@@ -11,17 +11,17 @@ import Foundation
 let recipes = [
     Recipe(category: Recipe.Category.Breakfast,
            title: "Omelet",
-           ingredients: [Ingredient.IngredientType.Dairy : [Ingredient(name: "eggs", quantity: 3.0, measurementType: nil, type: Ingredient.IngredientType.Dairy, isSelected: false)]],
+           ingredients: [IngredientType.Dairy : [Ingredient(name: "eggs", quantity: 3.0, measurementType: nil, type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))
     ),
     Recipe(category: Recipe.Category.Lunch,
            title: "Sandwich",
-           ingredients: [Ingredient.IngredientType.Bread : [Ingredient(name: "bread", quantity: 1.0, measurementType: "loaf", type: Ingredient.IngredientType.Dairy, isSelected: false)]],
+           ingredients: [IngredientType.Bread : [Ingredient(name: "bread", quantity: 1.0, measurementType: "loaf", type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))
     ),
     Recipe(category: Recipe.Category.Dinner,
            title: "Hamburgers",
-           ingredients: [Ingredient.IngredientType.Meat : [Ingredient(name: "ground beef", quantity: 1.0, measurementType: "lb", type: Ingredient.IngredientType.Dairy, isSelected: false)]],
+           ingredients: [IngredientType.Meat : [Ingredient(name: "ground beef", quantity: 1.0, measurementType: "lb", type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))
     ),
 ]

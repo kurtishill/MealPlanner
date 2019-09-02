@@ -27,7 +27,8 @@ quantity real not null,
 measurementType text,
 type text not null,
 isSelected integer not null,
-recipe text not null
+recipe text,
+week text
 );
 """
 

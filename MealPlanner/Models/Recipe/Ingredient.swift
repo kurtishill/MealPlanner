@@ -47,36 +47,4 @@ class Ingredient: NSObject, NSCopying {
         let copy = Ingredient(id: self.id, name: self.name, quantity: self.quantity, measurementType: self.measurementType, type: self.type, isSelected: self.isSelected)
         return copy
     }
-    
-    enum IngredientType: String, Comparable {
-        static func < (lhs: Ingredient.IngredientType, rhs: Ingredient.IngredientType) -> Bool {
-            return lhs.rawValue < rhs.rawValue
-        }
-        
-        case Bread = "Bread"
-        case Dairy = "Dairy"
-        case Deli = "Deli"
-        case Produce = "Produce"
-        case Spices = "Spices"
-        case CannedGoods = "Canned Goods"
-        case Baking = "Baking"
-        case Meat = "Meat"
-        case Frozen = "Frozen"
-        case Hygeine = "Hygeine"
-        case Miscellaneous = "Miscellaneous"
-    }
-    
-    static let ingredientTypes = [
-        IngredientType.Bread,
-        IngredientType.Dairy,
-        IngredientType.Deli,
-        IngredientType.Produce,
-        IngredientType.Spices,
-        IngredientType.CannedGoods,
-        IngredientType.Baking,
-        IngredientType.Meat,
-        IngredientType.Frozen,
-        IngredientType.Hygeine,
-        IngredientType.Miscellaneous
-    ]
 }

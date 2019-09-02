@@ -1,20 +1,19 @@
 //
-//  EditRecipeView.swift
-//  Calendar
+//  EditMiscWeeklyItemsView.swift
+//  MealPlanner
 //
-//  Created by Kurtis Hill on 8/27/19.
+//  Created by Kurtis Hill on 9/1/19.
 //  Copyright © 2019 Kurtis Hill. All rights reserved.
 //
 
 import SwiftUI
 
-struct EditRecipeView: View {
-    @ObservedObject var recipe: Recipe
-    
+struct EditMiscWeeklyItemsView: View {
+    @Binding var items: [IngredientType:[Ingredient]]
     @State var makeNewCategory = false
     
     var body: some View {
-        let keys = recipe.ingredients.keys.map {$0.self}
+        let keys = items.keys.map {$0.self}
         
         return ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -24,24 +23,24 @@ struct EditRecipeView: View {
                             .font(.title)
                             .foregroundColor(Color("primaryText"))
                             .padding(.leading, 20)
-                        ForEach(self.recipe.ingredients[key]!, id: \.self) { (ingredient: Ingredient) in
+                        ForEach(self.items[key]!, id: \.self) { (ingredient: Ingredient) in
                             VStack {
                                 EditableIngredientRow(name: ingredient.name,
-                                                      quantity: (self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.quantity)!,
-                                                      measurementType: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.measurementType ?? "",
+                                                      quantity: (self.items[key]?.first(where: {$0 == ingredient})!.quantity)!,
+                                                      measurementType: self.items[key]?.first(where: {$0 == ingredient})!.measurementType ?? "",
                                                       onNamedEdited: { name in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.name = name
+                                                        self.items[key]?.first(where: {$0 == ingredient})?.name = name
                                                         
                                 },
                                                       onQuantityEdited: { quantity in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.quantity = quantity
+                                                        self.items[key]?.first(where: {$0 == ingredient})?.quantity = quantity
                                 },
                                                       onMeasurementTypeEdited: { measurementType in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.measurementType = measurementType
+                                                        self.items[key]?.first(where: {$0 == ingredient})?.measurementType = measurementType
                                                         
                                 },
                                                       onDelete: {
-                                                        self.recipe.removeIngredient(ingredient, with: key)
+                                                        self.items[key]?.remove(at: (self.items[key]?.firstIndex(of: ingredient))!)
                                 })
                                     .frame(height: 60)
                                     .background(Color("cardColor"))
@@ -53,7 +52,10 @@ struct EditRecipeView: View {
                         HStack {
                             Spacer()
                             AddIngredientButton(add: {
-                                self.recipe.addIngredient(Ingredient(name: "", quantity: 0.0, measurementType: nil, type: key), for: key)
+                                if self.items[key] == nil {
+                                    self.items[key] = [Ingredient]()
+                                }
+                                self.items[key]?.append(Ingredient(name: "", quantity: 0.0, measurementType: nil, type: key))
                             })
                         }.padding(.trailing, 20)
                     }
@@ -63,23 +65,23 @@ struct EditRecipeView: View {
                 Spacer()
                 HStack(alignment: .bottom) {
                     Spacer()
-                    CategorySelectionModal(makeNewCategory: self.$makeNewCategory, ingredients: self.recipe.ingredients, ingredientTypes: IngredientType.ingredientTypes, onCategorySelected: { type in
-                        if !self.recipe.ingredients.keys.contains(type) {
-                            self.recipe.addIngredientSection(type)
+                    CategorySelectionModal(makeNewCategory: self.$makeNewCategory, ingredients: self.items, ingredientTypes: IngredientType.weeklyItemTypes, onCategorySelected: { type in
+                        if !self.items.keys.contains(type) {
+                            self.items[type] = []
                             self.makeNewCategory = false
                         }
                     })
-                    AddCategoryButton(makeNewCategory: self.$makeNewCategory, typesAvailable: recipe.ingredients.count < IngredientType.ingredientTypes.count, add: { self.makeNewCategory.toggle()
+                    AddCategoryButton(makeNewCategory: self.$makeNewCategory, typesAvailable: self.items.count < IngredientType.weeklyItemTypes.count, add: { self.makeNewCategory.toggle()
                     })
                 }.padding(.trailing, 20)
+                    .frame(minHeight: 0, maxHeight: ((CGFloat(IngredientType.weeklyItemTypes.count) + 3) * 20))
             }.frame(alignment: .bottomTrailing)
-                .offset(y: 40)
         }
     }
 }
 
-//struct EditRecipeView_Previews: PreviewProvider {
+//struct EditMiscWeeklyItemsView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        EditRecipeView()
+//        EditMiscWeeklyItemsView()
 //    }
 //}

@@ -14,10 +14,10 @@ class Recipe: NSObject, ObservableObject, NSCopying {
     
     var category: Category = Category.Breakfast
     var title: String = ""
-    var ingredients: [Ingredient.IngredientType:[Ingredient]] = [:]
+    var ingredients: [IngredientType:[Ingredient]] = [:]
     var date: CalendarDate = CalendarDate()
     
-    init(category: Category, title: String, ingredients: [Ingredient.IngredientType:[Ingredient]], date: CalendarDate) {
+    init(category: Category, title: String, ingredients: [IngredientType:[Ingredient]], date: CalendarDate) {
         self.category = category
         self.title = title
         self.ingredients = ingredients
@@ -25,7 +25,7 @@ class Recipe: NSObject, ObservableObject, NSCopying {
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        var ingredientsCopy: [Ingredient.IngredientType:[Ingredient]] = [:]
+        var ingredientsCopy: [IngredientType:[Ingredient]] = [:]
         for (key, value) in self.ingredients {
             ingredientsCopy[key] = []
             ingredientsCopy[key]?.append(contentsOf: value.map({$0.copy() as! Ingredient}))
@@ -35,7 +35,7 @@ class Recipe: NSObject, ObservableObject, NSCopying {
         return copy
     }
     
-    func removeIngredient(_ ingredient: Ingredient, with key: Ingredient.IngredientType) {
+    func removeIngredient(_ ingredient: Ingredient, with key: IngredientType) {
         if let index = self.ingredients[key]?.firstIndex(of: ingredient) {
             self.ingredients[key]?.remove(at: index)
             if (self.ingredients[key]?.isEmpty)! {
@@ -45,12 +45,12 @@ class Recipe: NSObject, ObservableObject, NSCopying {
         objectWillChange.send(self)
     }
     
-    func addIngredient(_ ingredient: Ingredient, for key: Ingredient.IngredientType) {
+    func addIngredient(_ ingredient: Ingredient, for key: IngredientType) {
         self.ingredients[key]?.append(ingredient)
         objectWillChange.send(self)
     }
     
-    func addIngredientSection(_ section: Ingredient.IngredientType) {
+    func addIngredientSection(_ section: IngredientType) {
         self.ingredients[section] = []
         objectWillChange.send(self)
     }

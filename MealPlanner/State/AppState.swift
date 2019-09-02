@@ -14,10 +14,12 @@ class AppState: ObservableObject {
     
     // key is day of week
     var weekRecipes: [Int:[Recipe.Category:Recipe?]]
+    @Published var itemsForWeek: [IngredientType:[Ingredient]]
     
     var date: CalendarDate {
         didSet {
             self.weekRecipes = self.recipeService.getAllRecipesForWeek(with: date)
+            self.itemsForWeek = self.ingredientService.getIngredients(for: nil, week: "\(self.date.month.month)_\(self.date.week.week.first!.day)-\(self.date.week.week.last!.day)_\(self.date.year.year)")!
         }
     }
     
@@ -30,14 +32,21 @@ class AppState: ObservableObject {
         self.ingredientService = ingredientService
         
         self.weekRecipes = self.recipeService.getAllRecipesForWeek(with: date)
+        self.itemsForWeek = self.ingredientService.getIngredients(for: nil, week: "\(self.date.month.month)_\(self.date.week.week.first!.day)-\(self.date.week.week.last!.day)_\(self.date.year.year)")!
     }
     
     func getRecipe(for day: Int, with category: Recipe.Category) -> Recipe? {
         return self.weekRecipes[day]![category] ?? nil
     }
     
-    func getIngredientsForWeekDisplay() -> [Ingredient.IngredientType:[Ingredient]] {
-        var ingredients: [Ingredient.IngredientType:[Ingredient]] = [:]
+    func getIngredientsForWeekDisplay() -> [IngredientType:[Ingredient]] {
+        var ingredients: [IngredientType:[Ingredient]] = [:]
+        
+//        let ingredientsForOnlyWeek = self.ingredientService.getIngredients(for: nil, week: "\(self.date.month.month)_\(self.date.week.id)_\(self.date.year.year)")
+        
+//        ingredients.merge(ingredientsForOnlyWeek!) { (_, new) in new }
+        
+        ingredients.merge(self.itemsForWeek) { (_, new) in new }
         
         for (_, value) in self.weekRecipes {
             for (_, recipe) in value/*.sorted(by: {$0.key.rawValue < $1.key.rawValue}) */{
@@ -66,9 +75,14 @@ class AppState: ObservableObject {
         
         for (_, value) in recipe.ingredients {
             for ingredient in value {
-                let _ = self.ingredientService.createIngredient(ingredient, for: recipe)
+                let _ = self.ingredientService.createIngredient(ingredient, for: recipe, week: nil)
             }
         }
+    }
+    
+    func createIngredientForWeek(_ ingredient: Ingredient) {
+        let _ = self.ingredientService.createIngredient(ingredient, for: nil, week: "\(self.date.month.month)_\(self.date.week.week.first!.day)-\(self.date.week.week.last!.day)_\(self.date.year.year)")
+        objectWillChange.send(self)
     }
     
     func updateIngredient(_ ingredient: Ingredient) {

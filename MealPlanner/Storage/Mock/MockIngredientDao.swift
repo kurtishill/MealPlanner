@@ -13,7 +13,7 @@ class MockIngredientDao: IngredientDao {
         return true
     }
     
-    func getIngredients(for recipe: String) -> [IngredientDto]? {
+    func getIngredients(for recipe: String?, week: String?) -> [IngredientDto]? {
         return nil
     }
     

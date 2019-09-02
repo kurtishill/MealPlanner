@@ -13,7 +13,7 @@ class SqlIngredientDao: SqlDao, IngredientDao {
     func createIngredient(_ ingredient: IngredientDto) -> Bool {
         let conn = ConnectionFactory.open()
         var stmt: OpaquePointer?
-        let sql = "insert or replace into ingredients (id, name, quantity, measurementType, type, isSelected, recipe) values (?, ?, ?, ?, ?, ?, ?)"
+        let sql = "insert or replace into ingredients (id, name, quantity, measurementType, type, isSelected, recipe, week) values (?, ?, ?, ?, ?, ?, ?, ?)"
         
         if sqlite3_prepare(conn, sql, -1, &stmt, nil) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "failure preparing ingredient creation statement")
@@ -50,9 +50,18 @@ class SqlIngredientDao: SqlDao, IngredientDao {
             return false
         }
         
-        if sqlite3_bind_text(stmt, 7, (ingredient.recipeId as NSString).utf8String, -1, nil) != SQLITE_OK {
-            self.handleSqliteError(op: conn, errMsg: "failure binding ingredient recipeId in ingredient creation")
-            return false
+        if let recipeId = ingredient.recipeId {
+            if sqlite3_bind_text(stmt, 7, (recipeId as NSString).utf8String, -1, nil) != SQLITE_OK {
+                self.handleSqliteError(op: conn, errMsg: "failure binding ingredient recipeId in ingredient creation")
+                return false
+            }
+        }
+        
+        if let week = ingredient.week {
+            if sqlite3_bind_text(stmt, 8, (week as NSString).utf8String, -1, nil) != SQLITE_OK {
+                self.handleSqliteError(op: conn, errMsg: "failure binding ingredient week in ingredient creation")
+                return false
+            }
         }
         
         if sqlite3_step(stmt) != SQLITE_DONE {
@@ -63,10 +72,12 @@ class SqlIngredientDao: SqlDao, IngredientDao {
         return true
     }
     
-    func getIngredients(for recipe: String) -> [IngredientDto]? {
+    func getIngredients(for recipe: String?, week: String?) -> [IngredientDto]? {
         let conn = ConnectionFactory.open()
         var stmt: OpaquePointer?
-        let sql = "select * from ingredients where recipe = ?"
+        let getForRecipe: Bool = recipe != nil
+        let toBind = getForRecipe ? recipe : week
+        let sql = getForRecipe ? "select * from ingredients where recipe = ?" : "select * from ingredients where week = ?"
         
         var ingredients = [IngredientDto]()
         
@@ -75,7 +86,7 @@ class SqlIngredientDao: SqlDao, IngredientDao {
             return nil
         }
         
-        if sqlite3_bind_text(stmt, 1, (recipe as NSString).utf8String, -1, nil) != SQLITE_OK {
+        if sqlite3_bind_text(stmt, 1, (toBind as NSString?)?.utf8String, -1, nil) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "error binding recipe id")
             return nil
         }
@@ -89,7 +100,7 @@ class SqlIngredientDao: SqlDao, IngredientDao {
             let type = String(cString: sqlite3_column_text(stmt, 4))
             let isSelected = sqlite3_column_int(stmt, 5)
             
-            let ingredientDto = IngredientDto(id: String(describing: id), name: String(describing: name), quantity: Double(quantity), measurementType: String(describing: measurementType), type: String(describing: type), isSelected: Int(isSelected), recipeId: recipe)
+            let ingredientDto = IngredientDto(id: String(describing: id), name: String(describing: name), quantity: Double(quantity), measurementType: String(describing: measurementType), type: String(describing: type), isSelected: Int(isSelected), recipeId: recipe, week: week)
             
             ingredients.append(ingredientDto)
         }

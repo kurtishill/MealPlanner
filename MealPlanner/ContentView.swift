@@ -75,10 +75,7 @@ struct ContentView: View {
                                     }
                                 }
                             }.padding(.trailing, 20)
-                            Text("Current week's recipes")
-                                .font(.headline)
-                                .foregroundColor(Color("primaryText"))
-                                .bold()
+                            
                             NavigationLink(
                                 destination: WeekIngredientChecklistView(appState: self.appState,
                                                                          date: calendar.calendar.currDate!,
@@ -97,6 +94,25 @@ struct ContentView: View {
                                     Spacer()
                                 }
                             }
+                            
+                            NavigationLink(destination: MiscWeeklyItemsView(date: calendar.calendar.currDate!, items: self.appState.itemsForWeek, draftItems: [:].merging( self.appState.itemsForWeek) { _, new in new }).environmentObject(self.appState)) {
+                                HStack {
+                                    Text("Miscellaneous items for the week")
+                                        .font(.system(size: 15))
+                                        .foregroundColor(Color("primaryText"))
+                                    Image(systemName: "chevron.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 10, height: 10)
+                                        .foregroundColor(Color("primaryText"))
+                                    Spacer()
+                                }
+                            }
+                            
+                            Text("Current week's recipes")
+                                .font(.headline)
+                                .foregroundColor(Color("primaryText"))
+                                .bold()
                             
                             Spacer(minLength: 20)
                             

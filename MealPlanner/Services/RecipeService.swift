@@ -34,7 +34,7 @@ class RecipeService {
         if let rcs = recipeDtos {
             for recipeDto in rcs {
                 
-                let ingredientsForRecipe = self.ingredientService.getIngredients(for: recipeDto.id)
+                let ingredientsForRecipe = self.ingredientService.getIngredients(for: recipeDto.id, week: nil)
                 
                 let d = date
                 d.day = CalendarDay(day: recipeDto.day)
