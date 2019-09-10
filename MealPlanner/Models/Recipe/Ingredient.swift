@@ -12,16 +12,14 @@ import Combine
 class Ingredient: NSObject, NSCopying {
     var id: UUID
     var name: String
-    var quantity: Double
-    var measurementType: String?
+    var notes: String?
     let type: IngredientType
     var isSelected: Bool
     
-    init(id: UUID = UUID(), name: String, quantity: Double, measurementType: String?, type: IngredientType, isSelected: Bool = false) {
+    init(id: UUID = UUID(), name: String, notes: String?, type: IngredientType, isSelected: Bool = false) {
         self.id = id
         self.name = name
-        self.quantity = quantity
-        self.measurementType = measurementType
+        self.notes = notes
         self.type = type
         self.isSelected = isSelected
     }
@@ -38,13 +36,12 @@ class Ingredient: NSObject, NSCopying {
         return
             lhs.id.uuidString == rhs.id.uuidString &&
             lhs.name == rhs.name &&
-            lhs.quantity == rhs.quantity &&
-            lhs.measurementType == rhs.measurementType &&
+            lhs.notes == rhs.notes &&
             lhs.type == rhs.type
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Ingredient(id: self.id, name: self.name, quantity: self.quantity, measurementType: self.measurementType, type: self.type, isSelected: self.isSelected)
+        let copy = Ingredient(id: self.id, name: self.name, notes: self.notes, type: self.type, isSelected: self.isSelected)
         return copy
     }
 }

@@ -10,18 +10,10 @@ import SwiftUI
 
 struct EditableIngredientRow: View {
     @State var name: String
-    @State var quantity: Double
-    @State var measurementType: String
+    @State var notes: String
     var onNamedEdited: (String) -> Void
-    var onQuantityEdited: (Double) -> Void
-    var onMeasurementTypeEdited: (String) -> Void
+    var onNotesEdited: (String) -> Void
     var onDelete: () -> Void
-    
-    let numberFormatter: NumberFormatter = {
-        let nf = NumberFormatter()
-        nf.allowsFloats = true
-        return nf
-    }()
     
     var body: some View {
         HStack(alignment: .center) {
@@ -30,28 +22,18 @@ struct EditableIngredientRow: View {
                     self.onNamedEdited(self.name)
                 }).autocapitalization(.none)
                     .padding(.all, 1)
-                    .frame(width: UIScreen.main.bounds.width / 2)
+                    .frame(width: UIScreen.main.bounds.width - 80)
                     .background(Color.white)
                     .mask(RoundedRectangle(cornerRadius: 5))
                 HStack {
-                    TextField("Amount", value: self.$quantity, formatter: numberFormatter, onEditingChanged: { _ in
-                        self.onQuantityEdited(self.quantity)
-                    })
-                        .keyboardType(.decimalPad)
-                        .padding(.all, 1)
-                        .frame(width: UIScreen.main.bounds.width / 3)
-                        .background(Color.white)
-                        .mask(RoundedRectangle(cornerRadius: 5))
-                    
-                    TextField("Measurement", text: self.$measurementType, onEditingChanged: { _ in
-                        self.onMeasurementTypeEdited(self.measurementType)
+                    TextField("Notes", text: self.$notes, onEditingChanged: { _ in
+                        self.onNotesEdited(self.notes)
                     })
                         .autocapitalization(.none)
                         .padding(.all, 1)
-                        .frame(width: UIScreen.main.bounds.width / 3)
+                        .frame(width: UIScreen.main.bounds.width - 80)
                         .background(Color.white)
                         .mask(RoundedRectangle(cornerRadius: 5))
-                    Spacer()
                 }
             }.padding(.leading, 8)
             

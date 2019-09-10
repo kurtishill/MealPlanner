@@ -19,15 +19,15 @@ day integer not null,
 year integer not null
 );
 """
+
 fileprivate let INGREDIENT_CREATE_STATEMENT = """
 create table if not exists ingredients (
 id text primary key not null,
 name text not null,
-quantity real not null,
-measurementType text,
+notes text,
 type text not null,
 isSelected integer not null,
-recipe text,
+recipeId text,
 week text
 );
 """

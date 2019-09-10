@@ -27,17 +27,13 @@ struct EditRecipeView: View {
                         ForEach(self.recipe.ingredients[key]!, id: \.self) { (ingredient: Ingredient) in
                             VStack {
                                 EditableIngredientRow(name: ingredient.name,
-                                                      quantity: (self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.quantity)!,
-                                                      measurementType: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.measurementType ?? "",
+                                                      notes: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.notes ?? "",
                                                       onNamedEdited: { name in
                                                         self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.name = name
                                                         
                                 },
-                                                      onQuantityEdited: { quantity in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.quantity = quantity
-                                },
-                                                      onMeasurementTypeEdited: { measurementType in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.measurementType = measurementType
+                                                      onNotesEdited: { notes in
+                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.notes = notes
                                                         
                                 },
                                                       onDelete: {
@@ -53,7 +49,7 @@ struct EditRecipeView: View {
                         HStack {
                             Spacer()
                             AddIngredientButton(add: {
-                                self.recipe.addIngredient(Ingredient(name: "", quantity: 0.0, measurementType: nil, type: key), for: key)
+                                self.recipe.addIngredient(Ingredient(name: "", notes: nil, type: key), for: key)
                             })
                         }.padding(.trailing, 20)
                     }

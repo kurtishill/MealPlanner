@@ -26,17 +26,13 @@ struct EditMiscWeeklyItemsView: View {
                         ForEach(self.items[key]!, id: \.self) { (ingredient: Ingredient) in
                             VStack {
                                 EditableIngredientRow(name: ingredient.name,
-                                                      quantity: (self.items[key]?.first(where: {$0 == ingredient})!.quantity)!,
-                                                      measurementType: self.items[key]?.first(where: {$0 == ingredient})!.measurementType ?? "",
+                                                      notes: self.items[key]?.first(where: {$0 == ingredient})!.notes ?? "",
                                                       onNamedEdited: { name in
                                                         self.items[key]?.first(where: {$0 == ingredient})?.name = name
                                                         
                                 },
-                                                      onQuantityEdited: { quantity in
-                                                        self.items[key]?.first(where: {$0 == ingredient})?.quantity = quantity
-                                },
-                                                      onMeasurementTypeEdited: { measurementType in
-                                                        self.items[key]?.first(where: {$0 == ingredient})?.measurementType = measurementType
+                                                      onNotesEdited: { notes in
+                                                        self.items[key]?.first(where: {$0 == ingredient})?.notes = notes
                                                         
                                 },
                                                       onDelete: {
@@ -55,7 +51,7 @@ struct EditMiscWeeklyItemsView: View {
                                 if self.items[key] == nil {
                                     self.items[key] = [Ingredient]()
                                 }
-                                self.items[key]?.append(Ingredient(name: "", quantity: 0.0, measurementType: nil, type: key))
+                                self.items[key]?.append(Ingredient(name: "", notes: nil, type: key))
                             })
                         }.padding(.trailing, 20)
                     }

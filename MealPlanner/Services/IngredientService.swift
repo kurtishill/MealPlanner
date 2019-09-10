@@ -22,7 +22,7 @@ class IngredientService {
             recipeId = "\(recipe.category)_\(recipe.date.month.month)_\( recipe.date.day.day)_\(recipe.date.year.year)"
         }
         
-        let ingredientDto = IngredientDto(id: ingredient.id.uuidString, name: ingredient.name, quantity: ingredient.quantity, measurementType: ingredient.measurementType, type: ingredient.type.rawValue, isSelected: ingredient.isSelected ? 1 : 0, recipeId: recipeId, week: week)
+        let ingredientDto = IngredientDto(id: ingredient.id.uuidString, name: ingredient.name, notes: ingredient.notes, type: ingredient.type.rawValue, isSelected: ingredient.isSelected ? 1 : 0, recipeId: recipeId, week: week)
         
         return storage.ingredientDao().createIngredient(ingredientDto)
     }
@@ -34,7 +34,7 @@ class IngredientService {
         
         if let ids = ingredientDtos {
             for id in ids {
-                let ingredient = Ingredient(id: UUID.init(uuidString: id.id)!, name: id.name, quantity: id.quantity, measurementType: id.measurementType, type: Helper().ingredientTypeStringToEnum(id.type), isSelected: id.isSelected == 0 ? false : true)
+                let ingredient = Ingredient(id: UUID.init(uuidString: id.id)!, name: id.name, notes: id.notes, type: Helper().ingredientTypeStringToEnum(id.type), isSelected: id.isSelected == 0 ? false : true)
                 
                 if ingredients[Helper().ingredientTypeStringToEnum(id.type)] == nil {
                     ingredients[Helper().ingredientTypeStringToEnum(id.type)] = []
@@ -47,7 +47,7 @@ class IngredientService {
     }
     
     func updateIngredient(_ ingredient: Ingredient) -> Bool {
-        let ingredientDto = IngredientDto(id: ingredient.id.uuidString, name: ingredient.name, quantity: ingredient.quantity, measurementType: ingredient.measurementType, type: ingredient.type.rawValue, isSelected: ingredient.isSelected ? 1 : 0, recipeId: "", week: "")
+        let ingredientDto = IngredientDto(id: ingredient.id.uuidString, name: ingredient.name, notes: ingredient.notes, type: ingredient.type.rawValue, isSelected: ingredient.isSelected ? 1 : 0, recipeId: "", week: "")
         
         return storage.ingredientDao().updateIngredient(ingredientDto)
     }

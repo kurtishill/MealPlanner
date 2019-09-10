@@ -29,8 +29,29 @@ struct MiscWeeklyItemsView: View {
             if self.editMode?.wrappedValue == .inactive {
                 self.presentationMode.wrappedValue.dismiss()
             } else {
-                self.items = self.items.merging(self.draftItems) { _, new in new }
-                self.appState.itemsForWeek = self.appState.itemsForWeek.merging(self.items) { _, new in new }
+                
+                for (key, _) in self.draftItems {
+                    self.draftItems[key] = self.draftItems[key]?.filter({$0.name != ""})
+                    if self.draftItems[key]!.isEmpty {
+                        self.draftItems[key] = nil
+                    }
+                }
+                
+                for (key, ingredients) in self.items {
+                    for ingredient in ingredients {
+                        if self.draftItems[key] == nil {
+                            for ingredient in self.items[key]! {
+                                self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                            }
+                        }
+                        else if !self.draftItems[key]!.contains(ingredient) {
+                            self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                        }
+                    }
+                }
+                
+                self.items = self.draftItems
+                self.appState.itemsForWeek = self.items
                 for (_, ingredients) in self.items {
                     for ingredient in ingredients {
                         self.appState.createIngredientForWeek(ingredient)

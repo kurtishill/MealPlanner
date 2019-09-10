@@ -29,7 +29,7 @@ struct RecipeView: View {
                 self.draftRecipe.title = self.recipeTitle
                 self.draftRecipe.date.day = self.day
                 for (key, _) in self.draftRecipe.ingredients {
-                    self.draftRecipe.ingredients[key] = self.draftRecipe.ingredients[key]?.filter({$0.name != "" /*&& $0.quantity != 0.0*/})
+                    self.draftRecipe.ingredients[key] = self.draftRecipe.ingredients[key]?.filter({$0.name != ""})
                     if self.draftRecipe.ingredients[key]!.isEmpty {
                         self.draftRecipe.ingredients[key] = nil
                     }

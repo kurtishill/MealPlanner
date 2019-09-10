@@ -15,17 +15,21 @@ struct IngredientChecklistRow: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(ingredient.name)
-                    .font(.headline)
-                    .foregroundColor(Color("primaryText"))
-                HStack {
-                    Text(ingredient.quantity == floor(ingredient.quantity) ? String(Int(ingredient.quantity)) : String(format: "%.2f", ingredient.quantity))
-                        .font(.subheadline)
-                        .foregroundColor(Color("secondaryCardText"))
-                    Text(ingredient.measurementType ?? "")
-                        .font(.subheadline)
-                        .foregroundColor(Color("secondaryCardText"))
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack {
+                        Text(ingredient.name)
+                            .font(.headline)
+                            .foregroundColor(Color("primaryText"))
+                    }
+                    HStack {
+                        Text(ingredient.notes ?? "")
+                            .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
+                            .font(.subheadline)
+                            .foregroundColor(Color("secondaryCardText"))
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(nil)
+                    }
                 }
             }.padding(.leading, 8)
             
@@ -46,13 +50,21 @@ struct IngredientChecklistRow: View {
                     .padding(.trailing, 8)
             }
             
-        }.frame(height: 60)
+        }.frame(height: 40.0 + (ingredient.notes?.heightWithConstrainedWidth(width: UIScreen.main.bounds.width - 80, font: UIFont.systemFont(ofSize: 17)) ?? 0.0))
             .background(ingredient.isSelected ? Color("cardColor") : Color("peachColor"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(.leading, ingredient.isSelected ? 35 : 20)
             .padding(.trailing, ingredient.isSelected ? 0 : 20)
             .opacity(ingredient.isSelected ? 0.4 : 1)
             .animation(.spring())
+    }
+}
+
+extension String {
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font: font], context: nil)
+        return boundingBox.height
     }
 }
 

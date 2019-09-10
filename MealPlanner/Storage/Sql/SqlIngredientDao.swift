@@ -13,7 +13,7 @@ class SqlIngredientDao: SqlDao, IngredientDao {
     func createIngredient(_ ingredient: IngredientDto) -> Bool {
         let conn = ConnectionFactory.open()
         var stmt: OpaquePointer?
-        let sql = "insert or replace into ingredients (id, name, quantity, measurementType, type, isSelected, recipe, week) values (?, ?, ?, ?, ?, ?, ?, ?)"
+        let sql = "insert or replace into ingredients (id, name, notes, type, isSelected, recipeId, week) values (?, ?, ?, ?, ?, ?, ?)"
         
         if sqlite3_prepare(conn, sql, -1, &stmt, nil) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "failure preparing ingredient creation statement")
@@ -30,35 +30,30 @@ class SqlIngredientDao: SqlDao, IngredientDao {
             return false
         }
         
-        if sqlite3_bind_double(stmt, 3, ingredient.quantity) != SQLITE_OK {
-            self.handleSqliteError(op: conn, errMsg: "failure binding ingredient quantity in ingredient creation")
-            return false
-        }
-        
-        if sqlite3_bind_text(stmt, 4, (ingredient.measurementType as NSString?)?.utf8String, -1, nil) != SQLITE_OK {
+        if sqlite3_bind_text(stmt, 3, (ingredient.notes as NSString?)?.utf8String, -1, nil) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "failure binding ingredient measurementType in ingredient creation")
             return false
         }
         
-        if sqlite3_bind_text(stmt, 5, (ingredient.type as NSString).utf8String, -1, nil) != SQLITE_OK {
+        if sqlite3_bind_text(stmt, 4, (ingredient.type as NSString).utf8String, -1, nil) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "failure binding ingredient type in ingredient creation")
             return false
         }
         
-        if sqlite3_bind_int(stmt, 6, Int32(ingredient.isSelected)) != SQLITE_OK {
+        if sqlite3_bind_int(stmt, 5, Int32(ingredient.isSelected)) != SQLITE_OK {
             self.handleSqliteError(op: conn, errMsg: "failure binding ingredient isSelected in ingredient creation")
             return false
         }
         
         if let recipeId = ingredient.recipeId {
-            if sqlite3_bind_text(stmt, 7, (recipeId as NSString).utf8String, -1, nil) != SQLITE_OK {
+            if sqlite3_bind_text(stmt, 6, (recipeId as NSString).utf8String, -1, nil) != SQLITE_OK {
                 self.handleSqliteError(op: conn, errMsg: "failure binding ingredient recipeId in ingredient creation")
                 return false
             }
         }
         
         if let week = ingredient.week {
-            if sqlite3_bind_text(stmt, 8, (week as NSString).utf8String, -1, nil) != SQLITE_OK {
+            if sqlite3_bind_text(stmt, 7, (week as NSString).utf8String, -1, nil) != SQLITE_OK {
                 self.handleSqliteError(op: conn, errMsg: "failure binding ingredient week in ingredient creation")
                 return false
             }
@@ -94,13 +89,12 @@ class SqlIngredientDao: SqlDao, IngredientDao {
         while(sqlite3_step(stmt) == SQLITE_ROW) {
             let id = String(cString: sqlite3_column_text(stmt, 0))
             let name = String(cString: sqlite3_column_text(stmt, 1))
-            let quantity = sqlite3_column_double(stmt, 2)
-            let mt = sqlite3_column_text(stmt, 3)
-            let measurementType = mt != nil ? String(cString: mt!) : ""
-            let type = String(cString: sqlite3_column_text(stmt, 4))
-            let isSelected = sqlite3_column_int(stmt, 5)
+            let n = sqlite3_column_text(stmt, 2)
+            let notes = n != nil ? String(cString: n!) : ""
+            let type = String(cString: sqlite3_column_text(stmt, 3))
+            let isSelected = sqlite3_column_int(stmt, 4)
             
-            let ingredientDto = IngredientDto(id: String(describing: id), name: String(describing: name), quantity: Double(quantity), measurementType: String(describing: measurementType), type: String(describing: type), isSelected: Int(isSelected), recipeId: recipe, week: week)
+            let ingredientDto = IngredientDto(id: String(describing: id), name: String(describing: name), notes: String(describing: notes), type: String(describing: type), isSelected: Int(isSelected), recipeId: recipe, week: week)
             
             ingredients.append(ingredientDto)
         }

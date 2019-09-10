@@ -42,10 +42,6 @@ class AppState: ObservableObject {
     func getIngredientsForWeekDisplay() -> [IngredientType:[Ingredient]] {
         var ingredients: [IngredientType:[Ingredient]] = [:]
         
-//        let ingredientsForOnlyWeek = self.ingredientService.getIngredients(for: nil, week: "\(self.date.month.month)_\(self.date.week.id)_\(self.date.year.year)")
-        
-//        ingredients.merge(ingredientsForOnlyWeek!) { (_, new) in new }
-        
         ingredients.merge(self.itemsForWeek) { (_, new) in new }
         
         for (_, value) in self.weekRecipes {

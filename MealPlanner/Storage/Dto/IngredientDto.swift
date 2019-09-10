@@ -11,8 +11,7 @@ import Foundation
 struct IngredientDto {
     let id: String
     let name: String
-    let quantity: Double
-    let measurementType: String?
+    let notes: String?
     let type: String
     let isSelected: Int
     let recipeId: String?
