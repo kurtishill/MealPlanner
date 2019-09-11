@@ -77,7 +77,7 @@ struct MiscWeeklyItemsView: View {
                 self.editMode?.animation().wrappedValue = .active
             } else {
                 self.draftItems = [:]
-                self.draftItems = self.draftItems.merging(self.items) { _, new in new }
+                self.draftItems = self.items
                 self.editMode?.animation().wrappedValue = .inactive
             }
         }) {
@@ -116,7 +116,6 @@ struct MiscWeeklyItemsView: View {
             } else {
                 EditMiscWeeklyItemsView(items: self.$draftItems)
             }
-//            Spacer()
         }.navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitle("")

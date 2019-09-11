@@ -95,7 +95,7 @@ struct ContentView: View {
                                 }
                             }
                             
-                            NavigationLink(destination: MiscWeeklyItemsView(date: calendar.calendar.currDate!, items: self.appState.itemsForWeek, draftItems: [:].merging( self.appState.itemsForWeek) { _, new in new }).environmentObject(self.appState)) {
+                            NavigationLink(destination: MiscWeeklyItemsView(date: calendar.calendar.currDate!, items: self.appState.itemsForWeek, draftItems: [:].merging(self.appState.itemsForWeek) { _, new in new }).environmentObject(self.appState)) {
                                 HStack {
                                     Text("Miscellaneous items for the week")
                                         .font(.system(size: 15))

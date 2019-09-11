@@ -14,12 +14,13 @@ class AppState: ObservableObject {
     
     // key is day of week
     var weekRecipes: [Int:[Recipe.Category:Recipe?]]
-    @Published var itemsForWeek: [IngredientType:[Ingredient]]
+    var itemsForWeek: [IngredientType:[Ingredient]]
     
     var date: CalendarDate {
         didSet {
             self.weekRecipes = self.recipeService.getAllRecipesForWeek(with: date)
             self.itemsForWeek = self.ingredientService.getIngredients(for: nil, week: "\(self.date.month.month)_\(self.date.week.week.first!.day)-\(self.date.week.week.last!.day)_\(self.date.year.year)")!
+            objectWillChange.send(self)
         }
     }
     
@@ -88,5 +89,6 @@ class AppState: ObservableObject {
     
     func deleteIngredient(with id: String) {
         let _ = self.ingredientService.deleteIngredient(with: id)
+        objectWillChange.send(self)
     }
 }
