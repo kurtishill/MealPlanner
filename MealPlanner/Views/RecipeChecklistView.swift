@@ -15,7 +15,7 @@ struct RecipeChecklistView: View {
     var color: String
     
     var body: some View {
-        let keys = recipe.ingredients.keys.map {$0.self}
+        let keys = recipe.ingredients.keys.map {$0.self}.sorted()
         
         return ScrollView(.vertical, showsIndicators: false) {
             ForEach(keys, id: \.self) { (key: IngredientType) in

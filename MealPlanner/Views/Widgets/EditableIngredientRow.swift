@@ -42,7 +42,7 @@ struct EditableIngredientRow: View {
             }) {
                 Image(systemName: "xmark")
                     .resizable()
-                    .frame(width: 15, height: 15)
+                    .frame(width: 16, height: 16)
                     .foregroundColor(Color("mainColor"))
                     .padding(.trailing, 12)
             }

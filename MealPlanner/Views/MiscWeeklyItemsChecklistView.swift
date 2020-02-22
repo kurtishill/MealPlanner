@@ -14,7 +14,7 @@ struct MiscWeeklyItemsChecklistView: View {
     var color: String
     
     var body: some View {
-        let keys = self.appState.itemsForWeek.keys.map {$0.self}
+        let keys = self.appState.itemsForWeek.keys.map {$0.self}.sorted()
         
         return ScrollView(.vertical, showsIndicators: false) {
             ForEach(keys, id: \.self) { (key: IngredientType) in

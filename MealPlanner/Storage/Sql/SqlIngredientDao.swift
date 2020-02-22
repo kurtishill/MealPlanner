@@ -72,7 +72,7 @@ class SqlIngredientDao: SqlDao, IngredientDao {
         var stmt: OpaquePointer?
         let getForRecipe: Bool = recipe != nil
         let toBind = getForRecipe ? recipe : week
-        let sql = getForRecipe ? "select * from ingredients where recipe = ?" : "select * from ingredients where week = ?"
+        let sql = getForRecipe ? "select * from ingredients where recipeId = ?" : "select * from ingredients where week = ?"
         
         var ingredients = [IngredientDto]()
         

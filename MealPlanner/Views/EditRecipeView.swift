@@ -14,7 +14,7 @@ struct EditRecipeView: View {
     @State var makeNewCategory = false
     
     var body: some View {
-        let keys = recipe.ingredients.keys.map {$0.self}
+        let keys = recipe.ingredients.keys.map {$0.self}.sorted()
         
         return ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -47,11 +47,12 @@ struct EditRecipeView: View {
                             }
                         }
                         HStack {
-                            Spacer()
+//                            Spacer()
                             AddIngredientButton(add: {
                                 self.recipe.addIngredient(Ingredient(name: "", notes: nil, type: key), for: key)
                             })
-                        }.padding(.trailing, 20)
+                            Spacer()
+                        }.padding(.leading, 20)
                     }
                 }
             }
@@ -69,7 +70,8 @@ struct EditRecipeView: View {
                     })
                 }.padding(.trailing, 20)
             }.frame(alignment: .bottomTrailing)
-                .offset(y: 40)
+                .padding(.bottom, 10)
+//                .offset(y: 40)
         }
     }
 }

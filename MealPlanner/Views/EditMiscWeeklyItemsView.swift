@@ -13,7 +13,7 @@ struct EditMiscWeeklyItemsView: View {
     @State var makeNewCategory = false
     
     var body: some View {
-        let keys = items.keys.map {$0.self}
+        let keys = items.keys.map {$0.self}.sorted()
         
         return ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -46,14 +46,15 @@ struct EditMiscWeeklyItemsView: View {
                             }
                         }
                         HStack {
-                            Spacer()
+//                            Spacer()
                             AddIngredientButton(add: {
                                 if self.items[key] == nil {
                                     self.items[key] = [Ingredient]()
                                 }
                                 self.items[key]?.append(Ingredient(name: "", notes: nil, type: key))
                             })
-                        }.padding(.trailing, 20)
+                            Spacer()
+                        }.padding(.leading, 20)
                     }
                 }
             }
@@ -72,6 +73,7 @@ struct EditMiscWeeklyItemsView: View {
                 }.padding(.trailing, 20)
                     .frame(minHeight: 0, maxHeight: ((CGFloat(IngredientType.weeklyItemTypes.count) + 3) * 20))
             }.frame(alignment: .bottomTrailing)
+                .padding(.bottom, 10)
         }
     }
 }

@@ -37,7 +37,7 @@ class AppState: ObservableObject {
     }
     
     func getRecipe(for day: Int, with category: Recipe.Category) -> Recipe? {
-        return self.weekRecipes[day]![category] ?? nil
+        return self.weekRecipes[day]?[category] ?? nil
     }
     
     func getIngredientsForWeekDisplay() -> [IngredientType:[Ingredient]] {

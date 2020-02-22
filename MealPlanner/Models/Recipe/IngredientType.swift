@@ -33,19 +33,19 @@ struct IngredientType: RawRepresentable, Equatable, Hashable, Comparable {
     }
     
     static let ingredientTypes = [
+        IngredientType.Baking,
         IngredientType.Bread,
+        IngredientType.CannedGoods,
         IngredientType.Dairy,
         IngredientType.Deli,
-        IngredientType.Produce,
-        IngredientType.Spices,
-        IngredientType.CannedGoods,
-        IngredientType.Baking,
-        IngredientType.Meat,
         IngredientType.Frozen,
-        IngredientType.Miscellaneous
+        IngredientType.Meat,
+        IngredientType.Miscellaneous,
+        IngredientType.Produce,
+        IngredientType.Spices
     ]
     
     static var weeklyItemTypes: [IngredientType] {
-        return [IngredientType.Snacks, IngredientType.Hygeine] + ingredientTypes
+        return ([IngredientType.Snacks, IngredientType.Hygeine] + ingredientTypes).sorted()
     }
 }

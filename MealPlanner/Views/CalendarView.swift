@@ -28,7 +28,7 @@ struct CalendarView: View {
                         if week.isCurrentWeek {
                             WeekHighlight(color: self.color)
                                 .frame(width: (self.calendarWidth + 30) / 7 * (8 - (CGFloat(self.calendarState.calendar.currDayOfWeek!))), height: 50)
-                                .offset(x: (CGFloat(self.calendarState.calendar.currDayOfWeek!) - 1) * 28)
+                                .offset(x: (CGFloat(self.calendarState.calendar.currDayOfWeek!) - 1) * UIScreen.main.bounds.width / 15/*25*/) // 'UIScreen.main.bounds.width / 15' used to be 28
                         }
                         WeekRow(week: week)
                             .frame(width: self.calendarWidth)

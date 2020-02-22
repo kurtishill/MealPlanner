@@ -66,7 +66,8 @@ struct DateCard: View {
             VStack(alignment: .center) {
 //                Spacer()
                 Text(String(day.day))
-                    .font(.system(size: 24))
+                    .font(.headline)
+//                    .font(.system(size: 24))
                     .foregroundColor(day.isCurrentDay ? .white : Color("primaryText"))
                     .bold()
                 Text(dayName)

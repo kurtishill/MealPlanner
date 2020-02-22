@@ -135,7 +135,7 @@ struct CardList: View {
             ForEach(calendar.calendar.currDate!.week.week, id: \.id) { (day: CalendarDay) in
                 RecipeOverviewCard(dayName: day.dayName!, day: day, date: self.calendar.calendar.currDate!, appState: self.appState)
             }
-        }
+        }.padding(.bottom, 10)
     }
 }
 //struct ContentView_Previews: PreviewProvider {
