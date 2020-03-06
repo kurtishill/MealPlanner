@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MockStorage: Storage {
+class MockStorage: Storage, ObservableObject {
     private var mockRecipeDao: RecipeDao
     private var mockIngredientDao: IngredientDao
     

@@ -7,10 +7,12 @@
 //
 
 import SwiftUI
+import SwiftDI
+import RxSwift
 
 struct ContentView: View {
-    @EnvironmentObject var calendar: CalendarState
-    @EnvironmentObject var appState: AppState
+    private let bag = DisposeBag()
+    @EnvironmentObservedInject var appState: AppState
     
     @State var selectedWeek: Int = 0
     
@@ -24,116 +26,120 @@ struct ContentView: View {
             highlightColor = "purpleColor"
         }
         
-        return NavigationView {
-            ZStack(alignment: .topLeading) {
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        Group {
-                            CalendarView(color: highlightColor)
-                                .environmentObject(self.calendar)
-                                .padding(.horizontal, 20)
-                                .animation(.spring())
+        return LoadingView(isShowing: self.appState.calendarLoading) {
+            NavigationView {
+                ZStack(alignment: .topLeading) {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(alignment: .leading) {
+                            Group {
+                                if self.appState.calendarState.calendar.value != nil {
+                                    CalendarView(color: highlightColor)
+                                        .padding(.horizontal, 20)
+                                }
+                            }
+                            
+                            Spacer(minLength: 30)
+                            
+                            Group {
+                                HStack {
+                                    Button(action: {
+                                        self.selectedWeek -= 1
+                                        self.appState.calendarState.setCalendar(for: self.selectedWeek)
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "arrow.left")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 10, height: 10)
+                                                .foregroundColor(Color("primaryText"))
+                                            Text("Previous week")
+                                                .font(.system(size: 15))
+                                                .foregroundColor(Color("primaryText"))
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        self.selectedWeek += 1
+                                        self.appState.calendarState.setCalendar(for: self.selectedWeek)
+                                    }) {
+                                        HStack {
+                                            Text("Next week")
+                                                .font(.system(size: 15))
+                                                .foregroundColor(Color("primaryText"))
+                                            Image(systemName: "arrow.right")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 10, height: 10)
+                                                .foregroundColor(Color("primaryText"))
+                                        }
+                                    }
+                                }.padding(.trailing, 20)
+                                
+                               
+                                NavigationLink(
+                                    destination: WeekIngredientChecklistView(color: "purpleColor")
+                                ) {
+                                    HStack {
+                                        Text("Week's ingredients")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(Color("primaryText"))
+                                        Image(systemName: "chevron.right")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 10, height: 10)
+                                            .foregroundColor(Color("primaryText"))
+                                        Spacer()
+                                    }
+                                }
+                                
+                                
+                                NavigationLink(
+                                    destination: MiscWeeklyItemsView(
+                                        items: self.appState.miscItems,
+                                        draftItems: [:].merging(self.appState.miscItems) { _, new in new })
+                                ) {
+                                    HStack {
+                                        Text("Miscellaneous items for the week")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(Color("primaryText"))
+                                        Image(systemName: "chevron.right")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 10, height: 10)
+                                            .foregroundColor(Color("primaryText"))
+                                        Spacer()
+                                    }
+                                }
+                                
+                                Text("Current week's recipes")
+                                    .font(.headline)
+                                    .foregroundColor(Color("primaryText"))
+                                    .bold()
+                                
+                                Spacer(minLength: 20)
+                                
+                                if self.appState.calendarState.calendar.value != nil {
+                                    CardList(calendar: self.appState.calendarState.calendar.value!)
+                                }
+                                
+                            }.padding(.leading, 20)
                         }
-                        
-                        Spacer(minLength: 30)
-                        
-                        Group {
-                            HStack {
-                                Button(action: {
-                                    self.selectedWeek -= 1
-                                    self.calendar.setCalendar(for: self.selectedWeek)
-                                    self.appState.date = self.calendar.calendar.currDate!
-                                }) {
-                                    HStack {
-                                        Image(systemName: "arrow.left")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 10, height: 10)
-                                            .foregroundColor(Color("primaryText"))
-                                        Text("Previous week")
-                                            .font(.system(size: 15))
-                                            .foregroundColor(Color("primaryText"))
-                                    }
-                                }
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    self.selectedWeek += 1
-                                    self.calendar.setCalendar(for: self.selectedWeek)
-                                    self.appState.date = self.calendar.calendar.currDate!
-                                }) {
-                                    HStack {
-                                        Text("Next week")
-                                            .font(.system(size: 15))
-                                            .foregroundColor(Color("primaryText"))
-                                        Image(systemName: "arrow.right")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 10, height: 10)
-                                            .foregroundColor(Color("primaryText"))
-                                    }
-                                }
-                            }.padding(.trailing, 20)
-                            
-                            NavigationLink(
-                                destination: WeekIngredientChecklistView(appState: self.appState,
-                                                                         date: calendar.calendar.currDate!,
-                                                                         color: "purpleColor"
-                                )
-                            ) {
-                                HStack {
-                                    Text("Week's ingredients")
-                                        .font(.system(size: 15))
-                                        .foregroundColor(Color("primaryText"))
-                                    Image(systemName: "chevron.right")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 10, height: 10)
-                                        .foregroundColor(Color("primaryText"))
-                                    Spacer()
-                                }
-                            }
-                            
-                            NavigationLink(destination: MiscWeeklyItemsView(date: calendar.calendar.currDate!, items: self.appState.itemsForWeek, draftItems: [:].merging(self.appState.itemsForWeek) { _, new in new }).environmentObject(self.appState)) {
-                                HStack {
-                                    Text("Miscellaneous items for the week")
-                                        .font(.system(size: 15))
-                                        .foregroundColor(Color("primaryText"))
-                                    Image(systemName: "chevron.right")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 10, height: 10)
-                                        .foregroundColor(Color("primaryText"))
-                                    Spacer()
-                                }
-                            }
-                            
-                            Text("Current week's recipes")
-                                .font(.headline)
-                                .foregroundColor(Color("primaryText"))
-                                .bold()
-                            
-                            Spacer(minLength: 20)
-                            
-                            CardList(calendar: self.calendar, appState: self.appState)
-                            
-                        }.padding(.leading, 20)
                     }
-                }
-            }.navigationBarTitle(Text(calendar.calendar.currMonthName!))
+                }.navigationBarTitle(Text(self.appState.calendarState.calendar.value == nil ? "" : self.appState.calendarState.calendar.value!.currMonthName!))
+            }
         }
     }
 }
 
 struct CardList: View {
-    @ObservedObject var calendar: CalendarState
-    @ObservedObject var appState: AppState
+    var calendar: CalendarModel
     
     var body: some View {
-        VStack {
-            ForEach(calendar.calendar.currDate!.week.week, id: \.id) { (day: CalendarDay) in
-                RecipeOverviewCard(dayName: day.dayName!, day: day, date: self.calendar.calendar.currDate!, appState: self.appState)
+        return VStack {
+            ForEach(calendar.currDate!.week.week, id: \.id) { (day: CalendarDay) in
+                RecipeOverviewCard(day: day, date: self.calendar.currDate!)
             }
         }.padding(.bottom, 10)
     }

@@ -7,13 +7,13 @@
 //
 
 import SwiftUI
+import SwiftDI
 
 struct MiscWeeklyItemsView: View {
-    var date: CalendarDate
     @State var items: [IngredientType:[Ingredient]]
     @State var draftItems: [IngredientType:[Ingredient]]
     
-    @EnvironmentObject var appState: AppState
+    @EnvironmentObservedInject var appState: AppState
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
@@ -41,11 +41,11 @@ struct MiscWeeklyItemsView: View {
                     for ingredient in ingredients {
                         if self.draftItems[key] == nil {
                             for ingredient in self.items[key]! {
-                                self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                                self.appState.deleteIngredient(ingredient)
                             }
                         }
                         else if !self.draftItems[key]!.contains(ingredient) {
-                            self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                            self.appState.deleteIngredient(ingredient)
                         }
                     }
                 }
@@ -90,7 +90,9 @@ struct MiscWeeklyItemsView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        let date = appState.calendarState.calendar.value!.currDate!
+        
+        return VStack(alignment: .leading) {
             Group {
                 HStack {
                     leadingButton
@@ -112,7 +114,7 @@ struct MiscWeeklyItemsView: View {
                 .padding(.trailing, 20)
             
             if self.editMode?.wrappedValue == .inactive {
-                MiscWeeklyItemsChecklistView(appState: self.appState, color: "purpleColor")
+                MiscWeeklyItemsChecklistView(color: "purpleColor")
             } else {
                 EditMiscWeeklyItemsView(items: self.$draftItems)
             }

@@ -8,7 +8,18 @@
 
 import Foundation
 
-class CalendarDate {
+class CalendarDate: Equatable {
+    static func == (lhs: CalendarDate, rhs: CalendarDate) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.year.year == rhs.year.year &&
+            lhs.month.month == rhs.month.month &&
+            lhs.week.week == rhs.week.week &&
+            lhs.day == rhs.day
+    }
+    
+    var id: String {
+        String((year.year + month.month + day.day) * 31)
+    }
     var year: CalendarYear
     var month: CalendarMonth
     var week: CalendarWeek

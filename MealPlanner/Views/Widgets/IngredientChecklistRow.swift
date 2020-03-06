@@ -7,47 +7,58 @@
 //
 
 import SwiftUI
+import SwiftDI
+import RxSwift
 
 struct IngredientChecklistRow: View {
     var ingredient: Ingredient
     var color: String
-    @ObservedObject var appState: AppState
+    @EnvironmentObservedInject var appState: AppState
+    
+    @State var animationHack: Animation?
+    
+    private let bag = DisposeBag()
     
     var body: some View {
-        HStack(alignment: .center) {
-            HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    HStack {
-                        Text(ingredient.name)
-                            .font(.headline)
-                            .foregroundColor(Color("primaryText"))
+        HStack {
+            HStack(alignment: .center) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 3) {
+                        HStack {
+                            Text(ingredient.name)
+                                .font(.headline)
+                                .foregroundColor(Color("primaryText"))
+                        }
+                        
+                        if ingredient.notes != nil {
+                            HStack {
+                                Text(ingredient.notes!)
+                                    .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
+                                    .font(.subheadline)
+                                    .foregroundColor(Color("secondaryCardText"))
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(nil)
+                            }
+                        }
                     }
-                    HStack {
-                        Text(ingredient.notes ?? "")
-                            .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
-                            .font(.subheadline)
-                            .foregroundColor(Color("secondaryCardText"))
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                    }
-                }
-            }.padding(.leading, 8)
-            
-            Spacer()
-            
-            ZStack {
-                Circle()
-                    .frame(width: 30, height: 30)
-                    .overlay(Circle().stroke(Color(self.color), lineWidth: 1))
-                    .foregroundColor( Color.white)
-                    .padding(.trailing, 8)
+                }.padding(.leading, 8)
                 
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .scaleEffect(x: ingredient.isSelected ? 1 : 0.001, y: ingredient.isSelected ? 1 : 0.001)
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(Color(self.color))
-                    .padding(.trailing, 8)
+                Spacer()
+                
+                ZStack {
+                    Circle()
+                        .frame(width: 30, height: 30)
+                        .overlay(Circle().stroke(Color(self.color), lineWidth: 1))
+                        .foregroundColor( Color.white)
+                        .padding(.trailing, 8)
+                    
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .scaleEffect(x: ingredient.isSelected ? 1 : 0.001, y: ingredient.isSelected ? 1 : 0.001)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color(self.color))
+                        .padding(.trailing, 8)
+                }
             }
             
         }.frame(height: 40.0 + (ingredient.notes?.heightWithConstrainedWidth(width: UIScreen.main.bounds.width - 80, font: UIFont.systemFont(ofSize: 17)) ?? 0.0))
@@ -56,7 +67,17 @@ struct IngredientChecklistRow: View {
             .padding(.leading, ingredient.isSelected ? 35 : 20)
             .padding(.trailing, ingredient.isSelected ? 0 : 20)
             .opacity(ingredient.isSelected ? 0.4 : 1)
-            .animation(.spring())
+            .animation(animationHack)
+            .onTapGesture {
+                self.ingredient.isSelected.toggle()
+                self.appState.updateIngredient(self.ingredient)
+        }.onAppear {
+            Observable<NSInteger>.interval(RxTimeInterval.milliseconds(100), scheduler: MainScheduler())
+                .take(1)
+                .subscribe(onNext: { _ in
+                    self.animationHack = .spring()
+                }).disposed(by: self.bag)
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftDI
 
 struct RecipeView: View {
     @State var recipe: Recipe
@@ -16,7 +17,7 @@ struct RecipeView: View {
     
     @State var recipeTitle: String = ""
     
-    @EnvironmentObject var appState: AppState
+    @EnvironmentObservedInject var appState: AppState
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
@@ -24,6 +25,7 @@ struct RecipeView: View {
     private var leadingButton: some View {
         Button(action: {
             if self.editMode?.wrappedValue == .inactive {
+                self.appState.fetchRecipe(with: self.recipe.id.uuidString)
                 self.presentationMode.wrappedValue.dismiss()
             } else {
                 self.draftRecipe.title = self.recipeTitle
@@ -39,11 +41,14 @@ struct RecipeView: View {
                     for ingredient in ingredients {
                         if self.draftRecipe.ingredients[key] == nil {
                             for ingredient in self.recipe.ingredients[key]! {
-                                self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                                self.appState.deleteIngredient(ingredient)
                             }
-                        }
-                        else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
-                            self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                        } else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
+                            self.draftRecipe.ingredients[key]!.forEach { ingredient in
+                                print(ingredient.id.uuidString)
+                            }
+                            print(ingredient.id.uuidString)
+                            self.appState.deleteIngredient(ingredient)
                         }
                     }
                 }
@@ -110,7 +115,7 @@ struct RecipeView: View {
                 .padding(.trailing, 20)
             
             if self.editMode?.wrappedValue == .inactive {
-                RecipeChecklistView(recipe: $recipe, appState: appState, color: self.color)
+                RecipeChecklistView(recipe: $recipe, color: self.color)
             } else {
                 EditRecipeView(recipe: draftRecipe)
             }

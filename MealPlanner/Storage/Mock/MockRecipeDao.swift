@@ -9,17 +9,17 @@
 import Foundation
 
 let recipes = [
-    Recipe(category: Recipe.Category.Breakfast,
+    Recipe(id: nil, category: Recipe.Category.Breakfast,
            title: "Omelet",
            ingredients: [IngredientType.Dairy : [Ingredient(name: "eggs", notes: "3.0", type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))
     ),
-    Recipe(category: Recipe.Category.Lunch,
+    Recipe(id: nil, category: Recipe.Category.Lunch,
            title: "Sandwich",
            ingredients: [IngredientType.Bread : [Ingredient(name: "bread", notes: "loaf", type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))
     ),
-    Recipe(category: Recipe.Category.Dinner,
+    Recipe(id: nil, category: Recipe.Category.Dinner,
            title: "Hamburgers",
            ingredients: [IngredientType.Meat : [Ingredient(name: "ground beef", notes: "1 lb", type: IngredientType.Dairy, isSelected: false)]],
            date: CalendarDate(year: CalendarYear(year: 2019), month: CalendarMonth(month: 8), week:  CalendarWeek(week: [CalendarDay(day: 26, isBeforeCurrentDay: false)], isCurrentWeek: true), day: CalendarDay(day: 26))

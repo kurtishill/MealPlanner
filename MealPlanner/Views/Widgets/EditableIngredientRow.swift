@@ -23,7 +23,7 @@ struct EditableIngredientRow: View {
                 }).autocapitalization(.none)
                     .padding(.all, 1)
                     .frame(width: UIScreen.main.bounds.width - 80)
-                    .background(Color.white)
+                    .background(Color("ingredientTextFieldColor"))
                     .mask(RoundedRectangle(cornerRadius: 5))
                 HStack {
                     TextField("Notes", text: self.$notes, onEditingChanged: { _ in
@@ -32,7 +32,7 @@ struct EditableIngredientRow: View {
                         .autocapitalization(.none)
                         .padding(.all, 1)
                         .frame(width: UIScreen.main.bounds.width - 80)
-                        .background(Color.white)
+                        .background(Color("ingredientTextFieldColor"))
                         .mask(RoundedRectangle(cornerRadius: 5))
                 }
             }.padding(.leading, 8)
