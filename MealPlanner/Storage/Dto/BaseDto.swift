@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol BaseDto {
     var id: String { get set }
+    
+    func getChildrenObjects<T>() -> List<T>? where T : BaseDto
 }

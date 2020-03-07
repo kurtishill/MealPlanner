@@ -36,7 +36,6 @@ class AppState: ObservableObject {
     
     init() {
         self.recipeRepository.recipeObservable
-            .distinctUntilChanged()
             .observeOn(MainScheduler())
             .subscribe(onNext: { (recipes: [Int:[Recipe.Category:Recipe]]) in
                 print("week recipes updated")
@@ -49,7 +48,10 @@ class AppState: ObservableObject {
             .distinctUntilChanged()
             .observeOn(MainScheduler())
             .subscribe(onNext: { recipe in
-                self.weekRecipes[recipe.date.day.day]?[recipe.category] = recipe
+                if self.weekRecipes[recipe.date.day.day] == nil {
+                    self.weekRecipes[recipe.date.day.day] = [:]
+                }
+                self.weekRecipes[recipe.date.day.day]![recipe.category] = recipe
                 self.objectWillChange.send()
             }).disposed(by: self.bag)
         
@@ -128,6 +130,11 @@ class AppState: ObservableObject {
     func updateRecipe(_ recipe: Recipe) {
         self.recipeRepository.createRecipe(recipe, week: weekKey)
         self.recipeRepository.getRecipe(with: recipe.id.uuidString)
+    }
+    
+    func deleteRecipe(_ recipe: Recipe) {
+        self.recipeRepository.deleteRecipe(recipe)
+        self.fetchAllRecipesForWeek()
     }
     
     func createIngredientForWeek(_ ingredient: Ingredient) {

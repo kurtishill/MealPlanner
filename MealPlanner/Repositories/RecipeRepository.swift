@@ -58,6 +58,11 @@ class RecipeRepository {
         self.singleRecipeRelay.accept(Recipe.make(from: dto))
     }
     
+    func deleteRecipe(_ recipe: Recipe) {
+        storage.recipeDao().delete(item: RecipeDto.make(from: recipe))
+        getRecipe(with: recipe.id.uuidString)
+    }
+    
     func getAllRecipesForWeek(with date: CalendarDate) {
         let dateDao = storage.dateDao() as! RxDateDao
         dateDao.getAllDateDataForWeek(with: date)
@@ -74,10 +79,10 @@ class RecipeRepository {
                         if let recipe = recipe {
                             dict[recipe.date.day.day]![recipe.category] = recipe
                         }
-                        
-                        self.recipeRelay.accept(dict)
                     }
                 }
+                
+                self.recipeRelay.accept(dict)
             }).disposed(by: bag)
     }
 }

@@ -15,7 +15,7 @@ class IngredientDto: Object, BaseDto {
     @objc dynamic var notes: String?
     @objc dynamic var type: String = ""
     @objc dynamic var isSelected: Int = 0
-    let recipe = LinkingObjects(fromType: RecipeDto.self, property: "ingredients")
+    var recipe = LinkingObjects(fromType: RecipeDto.self, property: "ingredients")
     @objc dynamic var week: String = ""
     
     static func make(from ingredient: Ingredient, and week: String) -> IngredientDto {
@@ -32,5 +32,9 @@ class IngredientDto: Object, BaseDto {
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+    
+    func getChildrenObjects<T>() -> List<T>? where T : BaseDto {
+        return nil
     }
 }

@@ -24,6 +24,7 @@
 		0A316024240B18E5001104A2 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316023240B18E5001104A2 /* CalendarModel.swift */; };
 		0A316026240B306E001104A2 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316025240B306E001104A2 /* LoadingIndicator.swift */; };
 		0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3160282411CCD9001104A2 /* BaseDto.swift */; };
+		0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31602D24140091001104A2 /* ViewExtensions.swift */; };
 		0A4050B923196333009CB15B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050B823196333009CB15B /* AppDelegate.swift */; };
 		0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BA23196333009CB15B /* SceneDelegate.swift */; };
 		0A4050BD23196333009CB15B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BC23196333009CB15B /* ContentView.swift */; };
@@ -96,6 +97,7 @@
 		0A316023240B18E5001104A2 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		0A316025240B306E001104A2 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		0A3160282411CCD9001104A2 /* BaseDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDto.swift; sourceTree = "<group>"; };
+		0A31602D24140091001104A2 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0A4050B523196333009CB15B /* Meal Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4050B823196333009CB15B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4050BA23196333009CB15B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +206,14 @@
 			path = ChecklistViews;
 			sourceTree = "<group>";
 		};
+		0A31602C2414007E001104A2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A31602D24140091001104A2 /* ViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		0A4050AC23196333009CB15B = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +235,7 @@
 		0A4050B723196333009CB15B /* MealPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				0A31602C2414007E001104A2 /* Extensions */,
 				0A4051162319646D009CB15B /* Repositories */,
 				0A40511323196462009CB15B /* Helpers */,
 				0A4050F523196413009CB15B /* Storage */,
@@ -574,6 +585,7 @@
 				0A4050F323196408009CB15B /* CalendarState.swift in Sources */,
 				0A4051102319644F009CB15B /* SqlStorage.swift in Sources */,
 				0A2944412402D19D00ADB2BC /* RealmConnectionFactory.swift in Sources */,
+				0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */,
 				0A4050DA231963BF009CB15B /* CalendarView.swift in Sources */,
 				0AE36C082405F45900915779 /* StateAssembly.swift in Sources */,
 				0A2C587F231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift in Sources */,
