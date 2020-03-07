@@ -57,6 +57,7 @@ struct MiscWeeklyItemsView: View {
                         self.appState.createIngredientForWeek(ingredient)
                     }
                 }
+                self.appState.getIngredients()
                 self.editMode?.animation().wrappedValue = .inactive
             }
         }) {

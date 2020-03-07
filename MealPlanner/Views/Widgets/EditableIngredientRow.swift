@@ -25,7 +25,7 @@ struct EditableIngredientRow: View {
     
     private let bag = DisposeBag()
     
-    private func delay(for time: Int = 100, _ update: @escaping () -> Void) {
+    private func delay(for time: Int = 50, _ update: @escaping () -> Void) {
         Observable<NSInteger>.interval(RxTimeInterval.milliseconds(time), scheduler: MainScheduler())
         .take(1)
         .subscribe(onNext: { _ in
@@ -102,11 +102,15 @@ struct EditableIngredientRow: View {
         }.onAppear {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                 let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                if self.listOffset == value.height { return }
+                
                 self.keyboardHeight = value.height
                 self.keyboardIsShowing = true
             }
 
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in
+                if self.listOffset == 0 { return }
+                
                 self.listOffset = 0
                 self.keyboardHeight = 0
                 self.keyboardIsShowing = false
