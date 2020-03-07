@@ -25,7 +25,7 @@ struct EditableIngredientRow: View {
     
     private let bag = DisposeBag()
     
-    private func delay(for time: Int = 50, _ update: @escaping () -> Void) {
+    private func delay(for time: Int = 100, _ update: @escaping () -> Void) {
         Observable<NSInteger>.interval(RxTimeInterval.milliseconds(time), scheduler: MainScheduler())
         .take(1)
         .subscribe(onNext: { _ in
@@ -36,19 +36,14 @@ struct EditableIngredientRow: View {
     private func textFieldFocusChanged(_ changed: Bool) {
         if changed {
             self.delay {
-                print("started")
                 let itemPosition = self.scrollViewItems[self.id]
-                print(self.keyboardHeight)
                 
                 if let position = itemPosition?.position {
                     print("Position for \(self.name) = \(position)")
-                    self.listOffset = position - self.keyboardHeight
+                    if position + self.keyboardHeight >= UIScreen.main.bounds.height - 20 {
+                        self.listOffset = position - self.keyboardHeight - 60
+                    }
                 }
-            }
-        } else {
-            self.delay {
-                print("done")
-                print(self.keyboardHeight)
             }
         }
     }
@@ -114,12 +109,12 @@ struct EditableIngredientRow: View {
                 self.listOffset = 0
                 self.keyboardHeight = 0
                 self.keyboardIsShowing = false
+                
+                print(self.keyboardHeight)
             }
         }.onFrameChange({ (frame) in
-            if !self.keyboardIsShowing || self.scrollViewItems[self.id] == nil {
-                DispatchQueue.main.async {
-                    self.scrollViewItems[self.id] = ScrollViewItem(id: self.id, position: frame.origin.y)
-                }
+            DispatchQueue.main.async {
+                self.scrollViewItems[self.id] = ScrollViewItem(id: self.id, position: frame.origin.y)
             }
         })
     }

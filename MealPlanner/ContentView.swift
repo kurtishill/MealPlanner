@@ -82,7 +82,7 @@ struct ContentView: View {
                                     destination: WeekIngredientChecklistView(color: "purpleColor")
                                 ) {
                                     HStack {
-                                        Text("Week's ingredients")
+                                        Text("Week's items")
                                             .font(.system(size: 15))
                                             .foregroundColor(Color("primaryText"))
                                         Image(systemName: "chevron.right")
