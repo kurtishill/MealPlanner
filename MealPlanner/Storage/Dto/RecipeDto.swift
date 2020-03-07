@@ -38,4 +38,11 @@ class RecipeDto: Object, BaseDto {
         
         return dto
     }
+    
+    func getChildrenObjects<T>() -> List<T>? where T : BaseDto {
+        ingredients.forEach { (ing) in
+            print(ing.name)
+        }
+        return ingredients as? List<T>
+    }
 }

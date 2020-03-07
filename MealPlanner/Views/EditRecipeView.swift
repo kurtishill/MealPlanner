@@ -13,6 +13,8 @@ struct EditRecipeView: View {
     
     @State var makeNewCategory = false
     
+    @State var listOffset: CGFloat = 0
+    
     var body: some View {
         let keys = recipe.ingredients.keys.map {$0.self}.sorted()
         
@@ -26,19 +28,21 @@ struct EditRecipeView: View {
                             .padding(.leading, 20)
                         ForEach(self.recipe.ingredients[key]!, id: \.self) { (ingredient: Ingredient) in
                             VStack {
-                                EditableIngredientRow(name: ingredient.name,
-                                                      notes: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.notes ?? "",
-                                                      onNamedEdited: { name in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.name = name
-                                                        
+                                EditableIngredientRow(
+                                    id: ingredient.id.uuidString,
+                                    name: ingredient.name,
+                                    notes: self.recipe.ingredients[key]?.first(where: {$0 == ingredient})!.notes ?? "",
+                                    onNameEdited: { name in
+                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.name = name
                                 },
-                                                      onNotesEdited: { notes in
-                                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.notes = notes
-                                                        
+                                    onNotesEdited: { notes in
+                                        self.recipe.ingredients[key]?.first(where: {$0 == ingredient})?.notes = notes              
                                 },
-                                                      onDelete: {
-                                                        self.recipe.removeIngredient(ingredient, with: key)
-                                })
+                                    onDelete: {
+                                        self.recipe.removeIngredient(ingredient, with: key)
+                                },
+                                    listOffset: self.$listOffset
+                                )
                                     .frame(height: 60)
                                     .background(Color("cardColor"))
                                     .mask(RoundedRectangle(cornerRadius: 10.0))
@@ -47,13 +51,13 @@ struct EditRecipeView: View {
                             }
                         }
                         HStack {
-//                            Spacer()
                             AddIngredientButton(add: {
                                 self.recipe.addIngredient(Ingredient(name: "", notes: nil, type: key), for: key)
                             })
                             Spacer()
                         }.padding(.leading, 20)
-                    }
+                    }.offset(y: -self.listOffset)
+                        .animation(.spring())
                 }
             }
             VStack {
@@ -71,7 +75,6 @@ struct EditRecipeView: View {
                 }.padding(.trailing, 20)
             }.frame(alignment: .bottomTrailing)
                 .padding(.bottom, 10)
-//                .offset(y: 40)
         }
     }
 }

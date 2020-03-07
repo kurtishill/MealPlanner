@@ -37,6 +37,16 @@ class RxRealmDao<T> : RxDaoBase where T : Object, T : BaseDto {
     
     func delete(item: T) {
         transaction(item: item) {
+            let obj = get(for: item.id)
+            if T.self is RecipeDto.Type {
+                if let children: List<IngredientDto> = obj?.getChildrenObjects() {
+                    realm.delete(children)
+                }
+            } else if T.self is DateDto.Type {
+                if let children: List<RecipeDto> = obj?.getChildrenObjects() {
+                    realm.delete(children)
+                }
+            }
             realm.delete(self.realm.objects(T.self).filter(NSPredicate(format: "id=%@", item.id)))
         }
     }

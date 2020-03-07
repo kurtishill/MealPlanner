@@ -30,7 +30,7 @@ struct IngredientChecklistRow: View {
                                 .foregroundColor(Color("primaryText"))
                         }
                         
-                        if ingredient.notes != nil {
+                        if ingredient.notes != nil && !ingredient.notes!.isEmpty {
                             HStack {
                                 Text(ingredient.notes!)
                                     .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
@@ -83,6 +83,8 @@ struct IngredientChecklistRow: View {
 
 extension String {
     func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        if self.isEmpty { return 0.0 }
+        
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font: font], context: nil)
         return boundingBox.height

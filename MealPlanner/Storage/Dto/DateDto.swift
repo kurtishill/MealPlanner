@@ -30,4 +30,8 @@ class DateDto: Object, BaseDto {
     override class func primaryKey() -> String? {
         return "id"
     }
+    
+    func getChildrenObjects<T>() -> List<T>? where T : BaseDto {
+        return recipes as? List<T>
+    }
 }
