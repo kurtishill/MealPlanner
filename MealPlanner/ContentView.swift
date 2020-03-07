@@ -90,6 +90,12 @@ struct ContentView: View {
                                             .scaledToFit()
                                             .frame(width: 10, height: 10)
                                             .foregroundColor(Color("primaryText"))
+                                        ZStack {
+                                            Circle()
+                                                .foregroundColor(Color(self.appState.itemsForWeekNumber > 0 ? "yellowColor" : "greenColor"))
+                                            Text("\(self.appState.itemsForWeekNumber)")
+                                                .foregroundColor(self.appState.itemsForWeekNumber > 0 ? .black : .white)
+                                        }.frame(width: 25, height: 25)
                                         Spacer()
                                     }
                                 }

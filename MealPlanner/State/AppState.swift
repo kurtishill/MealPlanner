@@ -23,6 +23,8 @@ class AppState: ObservableObject {
     
     var miscItems: [IngredientType:[Ingredient]] = [:]
     
+    var itemsForWeekNumber: Int = 0
+    
     var calendarLoading: Bool = false
     
     @Inject var calendarState: CalendarState
@@ -69,6 +71,14 @@ class AppState: ObservableObject {
             .observeOn(MainScheduler())
             .subscribe(onNext: { (miscItems: [IngredientType : [Ingredient]]) in
                 self.miscItems = miscItems
+            }).disposed(by: self.bag)
+        
+        self.ingredientRepository.weekItemsNumberObservable
+            .distinctUntilChanged()
+            .observeOn(MainScheduler())
+            .subscribe(onNext: { number in
+                self.itemsForWeekNumber = number
+                self.objectWillChange.send()
             }).disposed(by: self.bag)
         
         self.calendarState.calendar

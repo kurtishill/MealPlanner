@@ -25,11 +25,15 @@ class IngredientRepository {
     private let miscItemsRelay: PublishRelay<[IngredientType:[Ingredient]]> = PublishRelay()
     let miscItemsObservable: Observable<[IngredientType:[Ingredient]]>
     
+    private let weekItemsNumberRelay: PublishRelay<Int> = PublishRelay()
+    let weekItemsNumberObservable: Observable<Int>
+    
     private let bag = DisposeBag()
     
     init() {
         self.weekIngredientsObservable = weekIngredientsRelay.asObservable()
         self.miscItemsObservable = miscItemsRelay.asObservable()
+        self.weekItemsNumberObservable = weekItemsNumberRelay.asObservable()
     }
     
     func createIngredient(_ ingredient: Ingredient, for recipeDto: RecipeDto?, week: String) {
@@ -93,6 +97,13 @@ class IngredientRepository {
                 
                 self.weekIngredientsRelay.accept(ingredients)
                 self.miscItemsRelay.accept(miscItems)
+                
+                var numberUnselected = 0
+                for (_, ing) in ingredients {
+                    numberUnselected += ing.filter { !$0.isSelected }.count
+                }
+                
+                self.weekItemsNumberRelay.accept(numberUnselected)
             }).disposed(by: bag)
     }
     
