@@ -7,13 +7,34 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct IngredientDto {
-    let id: String
-    let name: String
-    let notes: String?
-    let type: String
-    let isSelected: Int
-    let recipeId: String?
-    let week: String?
+class IngredientDto: Object, BaseDto {
+    @objc dynamic var id: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var notes: String?
+    @objc dynamic var type: String = ""
+    @objc dynamic var isSelected: Int = 0
+    var recipe = LinkingObjects(fromType: RecipeDto.self, property: "ingredients")
+    @objc dynamic var week: String = ""
+    
+    static func make(from ingredient: Ingredient, and week: String) -> IngredientDto {
+        let ingredientDto = IngredientDto()
+        ingredientDto.id = ingredient.id.uuidString
+        ingredientDto.name = ingredient.name
+        ingredientDto.notes = ingredient.notes
+        ingredientDto.type = ingredient.type.rawValue
+        ingredientDto.isSelected = ingredient.isSelected ? 1 : 0
+        ingredientDto.week = week
+        
+        return ingredientDto
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    func getChildrenObjects<T>() -> List<T>? where T : BaseDto {
+        return nil
+    }
 }

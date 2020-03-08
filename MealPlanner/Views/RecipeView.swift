@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import SwiftDI
+import RxSwift
 
 struct RecipeView: View {
     @State var recipe: Recipe
@@ -15,8 +17,11 @@ struct RecipeView: View {
     var day: CalendarDay
     
     @State var recipeTitle: String = ""
+    @State var shouldDelete: Bool = false
+    @State var dialogTitleText: String = ""
+    @State var dialogSubTitleText: String = ""
     
-    @EnvironmentObject var appState: AppState
+    @EnvironmentObservedInject var appState: AppState
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
@@ -24,6 +29,7 @@ struct RecipeView: View {
     private var leadingButton: some View {
         Button(action: {
             if self.editMode?.wrappedValue == .inactive {
+                self.appState.fetchRecipe(with: self.recipe.id.uuidString)
                 self.presentationMode.wrappedValue.dismiss()
             } else {
                 self.draftRecipe.title = self.recipeTitle
@@ -35,15 +41,27 @@ struct RecipeView: View {
                     }
                 }
                 
+                if self.recipeTitle.isEmpty && !self.draftRecipe.ingredients.isEmpty {
+                    self.dialogTitleText = "Recipe must have title"
+                    self.dialogSubTitleText = "Add title to create recipe"
+                    self.shouldDelete = true
+                    return
+                } else if self.recipeTitle.isEmpty && self.draftRecipe.ingredients.isEmpty {
+                    self.appState.deleteRecipe(self.recipe)
+                }
+                
                 for (key, ingredients) in self.recipe.ingredients {
                     for ingredient in ingredients {
                         if self.draftRecipe.ingredients[key] == nil {
                             for ingredient in self.recipe.ingredients[key]! {
-                                self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                                self.appState.deleteIngredient(ingredient)
                             }
-                        }
-                        else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
-                            self.appState.deleteIngredient(with: ingredient.id.uuidString)
+                        } else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
+                            self.draftRecipe.ingredients[key]!.forEach { ingredient in
+                                print(ingredient.id.uuidString)
+                            }
+                            print(ingredient.id.uuidString)
+                            self.appState.deleteIngredient(ingredient)
                         }
                     }
                 }
@@ -82,35 +100,60 @@ struct RecipeView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        let titleBinding = Binding<String>(get: {
+            self.recipeTitle
+        }, set: {
+            self.recipeTitle = $0
+        })
+        
+        return VStack(alignment: .leading) {
             Group {
                 HStack {
                     leadingButton
                     Spacer()
                     editButton
                 }.frame(height: 40)
-                Text(recipe.category.rawValue)
-                    .font(.system(size: 35))
-                    .foregroundColor(Color("primaryText"))
-                    .bold()
+                HStack {
+                    Text(recipe.category.rawValue)
+                        .font(.system(size: 35))
+                        .foregroundColor(Color("primaryText"))
+                        .bold()
+                    
+                    Spacer()
+                    
+                    if self.editMode?.wrappedValue == .active && !self.recipe.title.isEmpty {
+                        Button(action: {
+                            self.dialogTitleText = "Delete Recipe"
+                            self.dialogSubTitleText = "Are you sure?"
+                            self.shouldDelete = true
+                        }) {
+                            Text("Delete Recipe")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
                 if self.editMode?.wrappedValue == .inactive {
                     Text(recipe.title)
                         .font(.system(size: 25))
                         .foregroundColor(Color(color))
                         .bold()
                 } else {
-                    TextField("Title", text: self.$recipeTitle, onEditingChanged: { _ in
-                        self.draftRecipe.title = self.recipeTitle
-                    }).padding(.all, 5)
+                    TextField("Title", text: titleBinding)
+                        .padding(.all, 5)
                         .background(Color("textFieldColor"))
                         .mask(RoundedRectangle(cornerRadius: 5))
+//                    TextField("Title", text: self.$recipeTitle, onEditingChanged: { _ in
+//                        self.draftRecipe.title = self.recipeTitle
+//                    }).padding(.all, 5)
+//                        .background(Color("textFieldColor"))
+//                        .mask(RoundedRectangle(cornerRadius: 5))
                 }
                 Divider()
             }.padding(.leading, 20)
                 .padding(.trailing, 20)
             
             if self.editMode?.wrappedValue == .inactive {
-                RecipeChecklistView(recipe: $recipe, appState: appState, color: self.color)
+                RecipeChecklistView(recipe: $recipe, color: self.color)
             } else {
                 EditRecipeView(recipe: draftRecipe)
             }
@@ -119,6 +162,19 @@ struct RecipeView: View {
             .navigationBarTitle("")
             .onAppear {
                 self.recipeTitle = self.draftRecipe.title
+        }.alert(isPresented: self.$shouldDelete) {
+            Alert(
+                title: Text(self.dialogTitleText),
+                message: Text(self.dialogSubTitleText),
+                primaryButton: .destructive(Text("Delete Recipe"), action: {
+                    self.appState.deleteRecipe(self.recipe)
+                    self.presentationMode.wrappedValue.dismiss()
+                    self.shouldDelete = false
+                }),
+                secondaryButton: .default(Text("Cancel"), action: {
+                    self.shouldDelete = false
+                })
+            )
         }
     }
 }

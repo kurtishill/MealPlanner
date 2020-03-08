@@ -1,0 +1,54 @@
+PODS:
+  - Realm (4.3.2):
+    - Realm/Headers (= 4.3.2)
+  - Realm/Headers (4.3.2)
+  - RealmSwift (4.3.2):
+    - Realm (= 4.3.2)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRealm (2.0.0):
+    - RealmSwift (~> 4.0)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
+  - SwiftDI (1.1)
+
+DEPENDENCIES:
+  - RealmSwift
+  - RxCocoa (~> 5)
+  - RxRealm
+  - RxSwift (~> 5)
+  - SwiftDI (from `https://github.com/LiteCode/SwiftDI.git`)
+
+SPEC REPOS:
+  trunk:
+    - Realm
+    - RealmSwift
+    - RxCocoa
+    - RxRealm
+    - RxRelay
+    - RxSwift
+
+EXTERNAL SOURCES:
+  SwiftDI:
+    :git: https://github.com/LiteCode/SwiftDI.git
+
+CHECKOUT OPTIONS:
+  SwiftDI:
+    :commit: 0836fd68479ed3ee0c4f83c0ab2ad148b08a0ac1
+    :git: https://github.com/LiteCode/SwiftDI.git
+
+SPEC CHECKSUMS:
+  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
+  RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRealm: 900f5c7e6f0a2d6527b56eaf7283f3035ec1e8ba
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  SwiftDI: 58f8167ae0a85d349ff51683cddf15d78b24e45c
+
+PODFILE CHECKSUM: c6039b1c15f35dc6da8b79c98f920b5e0eb58673
+
+COCOAPODS: 1.8.3

@@ -18,7 +18,7 @@ struct CategorySelectionModal: View {
         VStack(alignment: .leading, spacing: 3) {
             ForEach(ingredientTypes, id: \.self) { type in
                 Text(type.rawValue)
-                    .foregroundColor(self.ingredients.keys.contains(type) ? .gray : .white)
+                    .foregroundColor(self.ingredients.keys.contains(type) ? Color("secondaryText") : .white)
                     .onTapGesture {
                         self.onCategorySelected(type)
                 }
