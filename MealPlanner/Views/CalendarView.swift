@@ -19,8 +19,7 @@ struct CalendarView: View {
     
     var body: some View {
         let calendar = appState.calendarState.calendar.value!
-        let highlightWidth = (self.calendarWidth + 30.0) / 7.2 * (8.0 - (CGFloat(calendar.currDayOfWeek!)))
-//        let hightlightXOffset = (CGFloat(self.calendarState.calendar.value!.currDayOfWeek!) - 1) * UIScreen.main.bounds.width / 15
+        let highlightWidth = (self.calendarWidth + 30.0) / 7.2 * (8 - (CGFloat(calendar.currDayOfWeek!)))
         
         return VStack(alignment: .center, spacing: 40) {
             Group {
@@ -34,7 +33,10 @@ struct CalendarView: View {
                             GeometryReader { geometry in
                                 WeekHighlight(color: self.color)
                                     .frame(width: highlightWidth, height: 50)
-                                    .offset(x: /*54 **/ CGFloat(calendar.currDayOfWeek! - 1) * geometry.size.width / 6.9, y: -geometry.size.height + 5)
+                                    .offset(
+                                        x: (CGFloat(calendar.currDayOfWeek!) - CGFloat(calendar.currDayOfWeek! == 1 ? 1 : 0.9)) * geometry.size.width / 6.9,
+                                        y: -geometry.size.height + 5
+                                ).shadow(radius: 5)
                             }
                         }
                         WeekRow(week: week)
