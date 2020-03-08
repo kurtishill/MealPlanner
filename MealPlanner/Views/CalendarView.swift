@@ -7,28 +7,37 @@
 //
 
 import SwiftUI
+import SwiftDI
 
 let daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"]
 
 struct CalendarView: View {
-    @EnvironmentObject var calendarState: CalendarState
+    @EnvironmentObservedInject var appState: AppState
     var color: String
     
     let calendarWidth = UIScreen.main.bounds.width - 60
     
     var body: some View {
-        VStack(alignment: .center, spacing: 40) {
+        let calendar = appState.calendarState.calendar.value!
+        let highlightWidth = (self.calendarWidth + 30.0) / 7.2 * (8 - (CGFloat(calendar.currDayOfWeek!)))
+        
+        return VStack(alignment: .center, spacing: 40) {
             Group {
                 DaysOfTheWeek(row: daysOfWeek)
                 Divider()
             }
             Group {
-                ForEach(self.calendarState.calendar.weeks, id: \.id) { (week: CalendarWeek) in
+                ForEach(calendar.weeks, id: \.id) { (week: CalendarWeek) in
                     ZStack {
                         if week.isCurrentWeek {
-                            WeekHighlight(color: self.color)
-                                .frame(width: (self.calendarWidth + 30) / 7 * (8 - (CGFloat(self.calendarState.calendar.currDayOfWeek!))), height: 50)
-                                .offset(x: (CGFloat(self.calendarState.calendar.currDayOfWeek!) - 1) * UIScreen.main.bounds.width / 15/*25*/) // 'UIScreen.main.bounds.width / 15' used to be 28
+                            GeometryReader { geometry in
+                                WeekHighlight(color: self.color)
+                                    .frame(width: highlightWidth, height: 50)
+                                    .offset(
+                                        x: (CGFloat(calendar.currDayOfWeek!) - CGFloat(calendar.currDayOfWeek! == 1 ? 1 : 0.9)) * geometry.size.width / 6.9,
+                                        y: -geometry.size.height + 5
+                                ).shadow(radius: 5)
+                            }
                         }
                         WeekRow(week: week)
                             .frame(width: self.calendarWidth)
@@ -67,7 +76,13 @@ struct WeekRow: View {
                 HStack(alignment: .center) {
                     ZStack {
                         Text(String(day.day))
-                            .foregroundColor(day.isBeforeCurrentDay ? Color("secondaryText") : (day.isCurrentDay ? Color("primaryText") : (self.week.isCurrentWeek ? .white : Color("primaryText"))))
+                            .foregroundColor(day.isBeforeCurrentDay ? Color("secondaryText") :
+                                (day.isCurrentDay ? Color("primaryText") :
+                                    (self.week.isCurrentWeek ? .white :
+                                        Color("primaryText")
+                                    )
+                                )
+                            )
                     }
                     
                     if day != self.week.week.last! {

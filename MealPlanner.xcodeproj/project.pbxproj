@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A294428240242EE00ADB2BC /* DateDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A294427240242EE00ADB2BC /* DateDto.swift */; };
+		0A29442C2402441B00ADB2BC /* DateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29442B2402441B00ADB2BC /* DateDao.swift */; };
+		0A2944302402450700ADB2BC /* SqlDateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29442F2402450700ADB2BC /* SqlDateDao.swift */; };
+		0A2944412402D19D00ADB2BC /* RealmConnectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2944402402D19D00ADB2BC /* RealmConnectionFactory.swift */; };
 		0A2C586C231B5B8B00CFD45C /* AddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586B231B5B8B00CFD45C /* AddCategoryButton.swift */; };
 		0A2C586E231B5C1700CFD45C /* AddIngredientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */; };
 		0A2C5870231B62E800CFD45C /* EditableIngredientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586F231B62E800CFD45C /* EditableIngredientRow.swift */; };
@@ -17,6 +21,10 @@
 		0A2C587A231B7D1600CFD45C /* IngredientChecklistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5879231B7D1600CFD45C /* IngredientChecklistRow.swift */; };
 		0A2C587D231C358E00CFD45C /* EditMiscWeeklyItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */; };
 		0A2C587F231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */; };
+		0A316024240B18E5001104A2 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316023240B18E5001104A2 /* CalendarModel.swift */; };
+		0A316026240B306E001104A2 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316025240B306E001104A2 /* LoadingIndicator.swift */; };
+		0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3160282411CCD9001104A2 /* BaseDto.swift */; };
+		0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31602D24140091001104A2 /* ViewExtensions.swift */; };
 		0A4050B923196333009CB15B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050B823196333009CB15B /* AppDelegate.swift */; };
 		0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BA23196333009CB15B /* SceneDelegate.swift */; };
 		0A4050BD23196333009CB15B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BC23196333009CB15B /* ContentView.swift */; };
@@ -33,7 +41,7 @@
 		0A4050E3231963DD009CB15B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E1231963DD009CB15B /* Recipe.swift */; };
 		0A4050EA231963E6009CB15B /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E4231963E6009CB15B /* CalendarDate.swift */; };
 		0A4050EB231963E6009CB15B /* CalendarWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E5231963E6009CB15B /* CalendarWeek.swift */; };
-		0A4050EC231963E6009CB15B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E6231963E6009CB15B /* CalendarModel.swift */; };
+		0A4050EC231963E6009CB15B /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E6231963E6009CB15B /* CalendarController.swift */; };
 		0A4050ED231963E6009CB15B /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E7231963E6009CB15B /* CalendarDay.swift */; };
 		0A4050EE231963E6009CB15B /* CalendarMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E8231963E6009CB15B /* CalendarMonth.swift */; };
 		0A4050EF231963E6009CB15B /* CalendarYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E9231963E6009CB15B /* CalendarYear.swift */; };
@@ -53,11 +61,29 @@
 		0A4051112319644F009CB15B /* SqlIngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510C2319644F009CB15B /* SqlIngredientDao.swift */; };
 		0A4051122319644F009CB15B /* ConnectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510D2319644F009CB15B /* ConnectionFactory.swift */; };
 		0A40511523196469009CB15B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511423196469009CB15B /* Helper.swift */; };
-		0A40511923196474009CB15B /* IngredientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511723196474009CB15B /* IngredientService.swift */; };
-		0A40511A23196474009CB15B /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511823196474009CB15B /* RecipeService.swift */; };
+		0A40511923196474009CB15B /* IngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511723196474009CB15B /* IngredientRepository.swift */; };
+		0A40511A23196474009CB15B /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511823196474009CB15B /* RecipeRepository.swift */; };
+		0AE36BDE2402D22E00915779 /* RealmRecipeDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BDD2402D22E00915779 /* RealmRecipeDao.swift */; };
+		0AE36BE42402D27E00915779 /* RxRecipeDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BE32402D27E00915779 /* RxRecipeDao.swift */; };
+		0AE36BE82402D37D00915779 /* RxIngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BE72402D37D00915779 /* RxIngredientDao.swift */; };
+		0AE36BEA2402D3C400915779 /* RxDateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BE92402D3C400915779 /* RxDateDao.swift */; };
+		0AE36BEC2402D42B00915779 /* RxStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BEB2402D42B00915779 /* RxStorage.swift */; };
+		0AE36BEE2402FD0D00915779 /* RxRealmDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BED2402FD0D00915779 /* RxRealmDao.swift */; };
+		0AE36BF02403047900915779 /* RxDaoBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BEF2403047900915779 /* RxDaoBase.swift */; };
+		0AE36BF22403145A00915779 /* RealmIngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BF12403145A00915779 /* RealmIngredientDao.swift */; };
+		0AE36BF42403146500915779 /* RealmDateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BF32403146500915779 /* RealmDateDao.swift */; };
+		0AE36BF724034C9D00915779 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BF624034C9D00915779 /* RealmStorage.swift */; };
+		0AE36BFF2405EFAE00915779 /* StorageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36BFE2405EFAE00915779 /* StorageAssembly.swift */; };
+		0AE36C052405F33300915779 /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36C042405F33300915779 /* RepositoryAssembly.swift */; };
+		0AE36C082405F45900915779 /* StateAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE36C072405F45900915779 /* StateAssembly.swift */; };
+		D5FCCB0CCB3796851DFA8188 /* Pods_MealPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A388CD88F324896082B8365F /* Pods_MealPlanner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A294427240242EE00ADB2BC /* DateDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDto.swift; sourceTree = "<group>"; };
+		0A29442B2402441B00ADB2BC /* DateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDao.swift; sourceTree = "<group>"; };
+		0A29442F2402450700ADB2BC /* SqlDateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqlDateDao.swift; sourceTree = "<group>"; };
+		0A2944402402D19D00ADB2BC /* RealmConnectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConnectionFactory.swift; sourceTree = "<group>"; };
 		0A2C586B231B5B8B00CFD45C /* AddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryButton.swift; sourceTree = "<group>"; };
 		0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientButton.swift; sourceTree = "<group>"; };
 		0A2C586F231B62E800CFD45C /* EditableIngredientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableIngredientRow.swift; sourceTree = "<group>"; };
@@ -68,6 +94,10 @@
 		0A2C5879231B7D1600CFD45C /* IngredientChecklistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientChecklistRow.swift; sourceTree = "<group>"; };
 		0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMiscWeeklyItemsView.swift; sourceTree = "<group>"; };
 		0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscWeeklyItemsChecklistView.swift; sourceTree = "<group>"; };
+		0A316023240B18E5001104A2 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
+		0A316025240B306E001104A2 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		0A3160282411CCD9001104A2 /* BaseDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDto.swift; sourceTree = "<group>"; };
+		0A31602D24140091001104A2 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0A4050B523196333009CB15B /* Meal Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4050B823196333009CB15B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4050BA23196333009CB15B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +116,7 @@
 		0A4050E1231963DD009CB15B /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		0A4050E4231963E6009CB15B /* CalendarDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
 		0A4050E5231963E6009CB15B /* CalendarWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeek.swift; sourceTree = "<group>"; };
-		0A4050E6231963E6009CB15B /* CalendarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
+		0A4050E6231963E6009CB15B /* CalendarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
 		0A4050E7231963E6009CB15B /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		0A4050E8231963E6009CB15B /* CalendarMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonth.swift; sourceTree = "<group>"; };
 		0A4050E9231963E6009CB15B /* CalendarYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarYear.swift; sourceTree = "<group>"; };
@@ -106,8 +136,24 @@
 		0A40510C2319644F009CB15B /* SqlIngredientDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlIngredientDao.swift; sourceTree = "<group>"; };
 		0A40510D2319644F009CB15B /* ConnectionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionFactory.swift; sourceTree = "<group>"; };
 		0A40511423196469009CB15B /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		0A40511723196474009CB15B /* IngredientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientService.swift; sourceTree = "<group>"; };
-		0A40511823196474009CB15B /* RecipeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		0A40511723196474009CB15B /* IngredientRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientRepository.swift; sourceTree = "<group>"; };
+		0A40511823196474009CB15B /* RecipeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
+		0AE36BDD2402D22E00915779 /* RealmRecipeDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRecipeDao.swift; sourceTree = "<group>"; };
+		0AE36BE32402D27E00915779 /* RxRecipeDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxRecipeDao.swift; sourceTree = "<group>"; };
+		0AE36BE72402D37D00915779 /* RxIngredientDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxIngredientDao.swift; sourceTree = "<group>"; };
+		0AE36BE92402D3C400915779 /* RxDateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxDateDao.swift; sourceTree = "<group>"; };
+		0AE36BEB2402D42B00915779 /* RxStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStorage.swift; sourceTree = "<group>"; };
+		0AE36BED2402FD0D00915779 /* RxRealmDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxRealmDao.swift; sourceTree = "<group>"; };
+		0AE36BEF2403047900915779 /* RxDaoBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxDaoBase.swift; sourceTree = "<group>"; };
+		0AE36BF12403145A00915779 /* RealmIngredientDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmIngredientDao.swift; sourceTree = "<group>"; };
+		0AE36BF32403146500915779 /* RealmDateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDateDao.swift; sourceTree = "<group>"; };
+		0AE36BF624034C9D00915779 /* RealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
+		0AE36BFE2405EFAE00915779 /* StorageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAssembly.swift; sourceTree = "<group>"; };
+		0AE36C042405F33300915779 /* RepositoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
+		0AE36C072405F45900915779 /* StateAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAssembly.swift; sourceTree = "<group>"; };
+		6002DCDA6BA314153D69A4DF /* Pods-MealPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealPlanner.debug.xcconfig"; path = "Target Support Files/Pods-MealPlanner/Pods-MealPlanner.debug.xcconfig"; sourceTree = "<group>"; };
+		A388CD88F324896082B8365F /* Pods_MealPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B361C2A4967BF4DBB9ED2392 /* Pods-MealPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealPlanner.release.xcconfig"; path = "Target Support Files/Pods-MealPlanner/Pods-MealPlanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +161,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FCCB0CCB3796851DFA8188 /* Pods_MealPlanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A29443F2402D19100ADB2BC /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				0A2944402402D19D00ADB2BC /* RealmConnectionFactory.swift */,
+				0AE36BF624034C9D00915779 /* RealmStorage.swift */,
+				0AE36BDD2402D22E00915779 /* RealmRecipeDao.swift */,
+				0AE36BF12403145A00915779 /* RealmIngredientDao.swift */,
+				0AE36BF32403146500915779 /* RealmDateDao.swift */,
+				0AE36BED2402FD0D00915779 /* RxRealmDao.swift */,
+				0AE36BEF2403047900915779 /* RxDaoBase.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		0A2C587B231C0B0C00CFD45C /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,8 +191,27 @@
 				0A2C586B231B5B8B00CFD45C /* AddCategoryButton.swift */,
 				0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */,
 				0A2C5877231B780900CFD45C /* CategorySelectionModal.swift */,
+				0A316025240B306E001104A2 /* LoadingIndicator.swift */,
 			);
 			path = Widgets;
+			sourceTree = "<group>";
+		};
+		0A316027240EA081001104A2 /* ChecklistViews */ = {
+			isa = PBXGroup;
+			children = (
+				0A4050D3231963BF009CB15B /* RecipeChecklistView.swift */,
+				0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */,
+				0A4050D1231963BF009CB15B /* WeekIngredientChecklistView.swift */,
+			);
+			path = ChecklistViews;
+			sourceTree = "<group>";
+		};
+		0A31602C2414007E001104A2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A31602D24140091001104A2 /* ViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0A4050AC23196333009CB15B = {
@@ -139,6 +219,8 @@
 			children = (
 				0A4050B723196333009CB15B /* MealPlanner */,
 				0A4050B623196333009CB15B /* Products */,
+				67BEB17B650BE84FC6FBB65A /* Pods */,
+				D9E9FE0AC790174D80A266A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,7 +235,8 @@
 		0A4050B723196333009CB15B /* MealPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				0A4051162319646D009CB15B /* Services */,
+				0A31602C2414007E001104A2 /* Extensions */,
+				0A4051162319646D009CB15B /* Repositories */,
 				0A40511323196462009CB15B /* Helpers */,
 				0A4050F523196413009CB15B /* Storage */,
 				0A4050F0231963FB009CB15B /* State */,
@@ -181,14 +264,12 @@
 		0A4050D0231963B5009CB15B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A316027240EA081001104A2 /* ChecklistViews */,
 				0A2C587B231C0B0C00CFD45C /* Widgets */,
 				0A4050D4231963BF009CB15B /* CalendarView.swift */,
 				0A4050D6231963BF009CB15B /* RecipeView.swift */,
-				0A4050D3231963BF009CB15B /* RecipeChecklistView.swift */,
 				0A4050D2231963BF009CB15B /* EditRecipeView.swift */,
-				0A4050D1231963BF009CB15B /* WeekIngredientChecklistView.swift */,
 				0A2C5875231B6B8D00CFD45C /* MiscWeeklyItemsView.swift */,
-				0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */,
 				0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */,
 			);
 			path = Views;
@@ -206,12 +287,13 @@
 		0A4050DE231963D1009CB15B /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				0A4050E6231963E6009CB15B /* CalendarModel.swift */,
+				0A4050E6231963E6009CB15B /* CalendarController.swift */,
 				0A4050E4231963E6009CB15B /* CalendarDate.swift */,
 				0A4050E7231963E6009CB15B /* CalendarDay.swift */,
 				0A4050E8231963E6009CB15B /* CalendarMonth.swift */,
 				0A4050E5231963E6009CB15B /* CalendarWeek.swift */,
 				0A4050E9231963E6009CB15B /* CalendarYear.swift */,
+				0A316023240B18E5001104A2 /* CalendarModel.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -230,6 +312,7 @@
 		0A4050F0231963FB009CB15B /* State */ = {
 			isa = PBXGroup;
 			children = (
+				0AE36C062405F44F00915779 /* Assembly */,
 				0A4050F223196408009CB15B /* AppState.swift */,
 				0A4050F123196408009CB15B /* CalendarState.swift */,
 			);
@@ -239,11 +322,11 @@
 		0A4050F523196413009CB15B /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				0AE36BFD2405EFA300915779 /* Assembly */,
+				0AE36BDF2402D25000915779 /* Protocols */,
+				0A29443F2402D19100ADB2BC /* Realm */,
 				0A40510823196446009CB15B /* Sql */,
 				0A4051012319643B009CB15B /* Mock */,
-				0A4050FF23196438009CB15B /* Storage.swift */,
-				0A4050FD2319642F009CB15B /* RecipeDao.swift */,
-				0A4050FB23196428009CB15B /* IngredientDao.swift */,
 				0A4050F623196418009CB15B /* Dto */,
 			);
 			path = Storage;
@@ -252,8 +335,10 @@
 		0A4050F623196418009CB15B /* Dto */ = {
 			isa = PBXGroup;
 			children = (
+				0A3160282411CCD9001104A2 /* BaseDto.swift */,
 				0A4050F823196421009CB15B /* IngredientDto.swift */,
 				0A4050F723196421009CB15B /* RecipeDto.swift */,
+				0A294427240242EE00ADB2BC /* DateDto.swift */,
 			);
 			path = Dto;
 			sourceTree = "<group>";
@@ -276,6 +361,7 @@
 				0A40510C2319644F009CB15B /* SqlIngredientDao.swift */,
 				0A40510A2319644F009CB15B /* SqlRecipeDao.swift */,
 				0A40510B2319644F009CB15B /* SqlStorage.swift */,
+				0A29442F2402450700ADB2BC /* SqlDateDao.swift */,
 			);
 			path = Sql;
 			sourceTree = "<group>";
@@ -288,13 +374,78 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		0A4051162319646D009CB15B /* Services */ = {
+		0A4051162319646D009CB15B /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0A40511723196474009CB15B /* IngredientService.swift */,
-				0A40511823196474009CB15B /* RecipeService.swift */,
+				0AE36C032405F32300915779 /* Assembly */,
+				0A40511823196474009CB15B /* RecipeRepository.swift */,
+				0A40511723196474009CB15B /* IngredientRepository.swift */,
 			);
-			path = Services;
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		0AE36BDF2402D25000915779 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0AE36BE02402D25F00915779 /* Rx */,
+				0A4050FF23196438009CB15B /* Storage.swift */,
+				0A4050FD2319642F009CB15B /* RecipeDao.swift */,
+				0A4050FB23196428009CB15B /* IngredientDao.swift */,
+				0A29442B2402441B00ADB2BC /* DateDao.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0AE36BE02402D25F00915779 /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				0AE36BE32402D27E00915779 /* RxRecipeDao.swift */,
+				0AE36BE72402D37D00915779 /* RxIngredientDao.swift */,
+				0AE36BE92402D3C400915779 /* RxDateDao.swift */,
+				0AE36BEB2402D42B00915779 /* RxStorage.swift */,
+			);
+			path = Rx;
+			sourceTree = "<group>";
+		};
+		0AE36BFD2405EFA300915779 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				0AE36BFE2405EFAE00915779 /* StorageAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		0AE36C032405F32300915779 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				0AE36C042405F33300915779 /* RepositoryAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		0AE36C062405F44F00915779 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				0AE36C072405F45900915779 /* StateAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		67BEB17B650BE84FC6FBB65A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6002DCDA6BA314153D69A4DF /* Pods-MealPlanner.debug.xcconfig */,
+				B361C2A4967BF4DBB9ED2392 /* Pods-MealPlanner.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D9E9FE0AC790174D80A266A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A388CD88F324896082B8365F /* Pods_MealPlanner.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,9 +455,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A4050C923196334009CB15B /* Build configuration list for PBXNativeTarget "MealPlanner" */;
 			buildPhases = (
+				8B7D415FD36941FE6A0D9B59 /* [CP] Check Pods Manifest.lock */,
 				0A4050B123196333009CB15B /* Sources */,
 				0A4050B223196333009CB15B /* Frameworks */,
 				0A4050B323196333009CB15B /* Resources */,
+				1B8BAA8B6B90228309A58A14 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,50 +516,113 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1B8BAA8B6B90228309A58A14 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MealPlanner/Pods-MealPlanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MealPlanner/Pods-MealPlanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealPlanner/Pods-MealPlanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B7D415FD36941FE6A0D9B59 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MealPlanner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0A4050B123196333009CB15B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AE36BF02403047900915779 /* RxDaoBase.swift in Sources */,
 				0A4050EF231963E6009CB15B /* CalendarYear.swift in Sources */,
 				0A2C5874231B68BE00CFD45C /* WeeklyItemType.swift in Sources */,
+				0AE36BDE2402D22E00915779 /* RealmRecipeDao.swift in Sources */,
 				0A4050DC231963BF009CB15B /* RecipeView.swift in Sources */,
 				0A2C5872231B67E000CFD45C /* IngredientType.swift in Sources */,
 				0A2C587A231B7D1600CFD45C /* IngredientChecklistRow.swift in Sources */,
-				0A40511A23196474009CB15B /* RecipeService.swift in Sources */,
+				0A40511A23196474009CB15B /* RecipeRepository.swift in Sources */,
 				0A4050F423196408009CB15B /* AppState.swift in Sources */,
 				0A4050EA231963E6009CB15B /* CalendarDate.swift in Sources */,
+				0AE36BF42403146500915779 /* RealmDateDao.swift in Sources */,
 				0A2C587D231C358E00CFD45C /* EditMiscWeeklyItemsView.swift in Sources */,
+				0A316026240B306E001104A2 /* LoadingIndicator.swift in Sources */,
 				0A4050B923196333009CB15B /* AppDelegate.swift in Sources */,
+				0A29442C2402441B00ADB2BC /* DateDao.swift in Sources */,
 				0A40510023196438009CB15B /* Storage.swift in Sources */,
-				0A40511923196474009CB15B /* IngredientService.swift in Sources */,
+				0A40511923196474009CB15B /* IngredientRepository.swift in Sources */,
+				0AE36C052405F33300915779 /* RepositoryAssembly.swift in Sources */,
 				0A4050E2231963DD009CB15B /* Ingredient.swift in Sources */,
 				0A4050F323196408009CB15B /* CalendarState.swift in Sources */,
 				0A4051102319644F009CB15B /* SqlStorage.swift in Sources */,
+				0A2944412402D19D00ADB2BC /* RealmConnectionFactory.swift in Sources */,
+				0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */,
 				0A4050DA231963BF009CB15B /* CalendarView.swift in Sources */,
+				0AE36C082405F45900915779 /* StateAssembly.swift in Sources */,
 				0A2C587F231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift in Sources */,
+				0A294428240242EE00ADB2BC /* DateDto.swift in Sources */,
 				0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */,
 				0A40511523196469009CB15B /* Helper.swift in Sources */,
 				0A40510F2319644F009CB15B /* SqlRecipeDao.swift in Sources */,
+				0A316024240B18E5001104A2 /* CalendarModel.swift in Sources */,
 				0A2C586E231B5C1700CFD45C /* AddIngredientButton.swift in Sources */,
 				0A4050D7231963BF009CB15B /* WeekIngredientChecklistView.swift in Sources */,
+				0AE36BEE2402FD0D00915779 /* RxRealmDao.swift in Sources */,
+				0AE36BFF2405EFAE00915779 /* StorageAssembly.swift in Sources */,
 				0A40510E2319644F009CB15B /* SqlDao.swift in Sources */,
 				0A2C5878231B780900CFD45C /* CategorySelectionModal.swift in Sources */,
-				0A4050EC231963E6009CB15B /* CalendarModel.swift in Sources */,
+				0A4050EC231963E6009CB15B /* CalendarController.swift in Sources */,
+				0AE36BEC2402D42B00915779 /* RxStorage.swift in Sources */,
+				0AE36BE42402D27E00915779 /* RxRecipeDao.swift in Sources */,
 				0A4050FC23196428009CB15B /* IngredientDao.swift in Sources */,
 				0A4050ED231963E6009CB15B /* CalendarDay.swift in Sources */,
 				0A4050DB231963BF009CB15B /* RecipeOverviewCard.swift in Sources */,
 				0A2C5876231B6B8D00CFD45C /* MiscWeeklyItemsView.swift in Sources */,
 				0A40510523196443009CB15B /* MockStorage.swift in Sources */,
 				0A40510723196443009CB15B /* MockRecipeDao.swift in Sources */,
+				0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */,
 				0A4050F923196421009CB15B /* RecipeDto.swift in Sources */,
 				0A4050FE2319642F009CB15B /* RecipeDao.swift in Sources */,
 				0A4050D8231963BF009CB15B /* EditRecipeView.swift in Sources */,
 				0A2C5870231B62E800CFD45C /* EditableIngredientRow.swift in Sources */,
 				0A40510623196443009CB15B /* MockIngredientDao.swift in Sources */,
 				0A4050BD23196333009CB15B /* ContentView.swift in Sources */,
+				0AE36BF724034C9D00915779 /* RealmStorage.swift in Sources */,
 				0A2C586C231B5B8B00CFD45C /* AddCategoryButton.swift in Sources */,
+				0AE36BEA2402D3C400915779 /* RxDateDao.swift in Sources */,
 				0A4050EB231963E6009CB15B /* CalendarWeek.swift in Sources */,
+				0A2944302402450700ADB2BC /* SqlDateDao.swift in Sources */,
+				0AE36BE82402D37D00915779 /* RxIngredientDao.swift in Sources */,
+				0AE36BF22403145A00915779 /* RealmIngredientDao.swift in Sources */,
 				0A4051122319644F009CB15B /* ConnectionFactory.swift in Sources */,
 				0A4051112319644F009CB15B /* SqlIngredientDao.swift in Sources */,
 				0A4050D9231963BF009CB15B /* RecipeChecklistView.swift in Sources */,
@@ -546,6 +762,7 @@
 		};
 		0A4050CA23196334009CB15B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6002DCDA6BA314153D69A4DF /* Pods-MealPlanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -566,6 +783,7 @@
 		};
 		0A4050CB23196334009CB15B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B361C2A4967BF4DBB9ED2392 /* Pods-MealPlanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

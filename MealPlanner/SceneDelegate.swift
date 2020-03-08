@@ -8,42 +8,28 @@
 
 import UIKit
 import SwiftUI
+import RxRelay
+import RxSwift
+import SwiftDI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    @Inject var storage: RxStorage
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "primaryText") ?? .black]
         
-        // Create the SwiftUI view that provides the window contents.
-        let calendarState = CalendarState()
-        
-        let storage: Storage = SqlStorage()
-        let dbInit = storage.initStorage()
-        print(dbInit)
-    
-        let appState = AppState(
-            date: calendarState.calendar.currDate!,
-            recipeService: RecipeService(
-                storage: storage,
-                ingredientService: IngredientService(storage: storage)),
-            ingredientService: IngredientService(storage: storage))
-        
-        let contentView = ContentView()
-            .environmentObject(calendarState)
-            .environmentObject(appState)
+        storage.initStorage()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            window.tintColor = UIColor(named: "secondaryText")
+            window.rootViewController = UIHostingController(rootView: ContentView())
+            window.tintColor = UIColor(named: "backButton")
             self.window = window
             window.makeKeyAndVisible()
         }

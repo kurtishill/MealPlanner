@@ -37,7 +37,19 @@ class Ingredient: NSObject, NSCopying {
             lhs.id.uuidString == rhs.id.uuidString &&
             lhs.name == rhs.name &&
             lhs.notes == rhs.notes &&
-            lhs.type == rhs.type
+            lhs.type == rhs.type &&
+            lhs.isSelected == rhs.isSelected
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        if object == nil { return false }
+        if !(object.self is Ingredient) { return false }
+        
+        let o = object as! Ingredient
+        
+        return
+            o.id.uuidString == self.id.uuidString &&
+                o.isSelected == self.isSelected
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
