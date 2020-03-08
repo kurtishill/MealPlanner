@@ -56,7 +56,7 @@ struct DaysOfTheWeek: View {
             ForEach(row, id: \.self) { item in
                 HStack {
                     Text(item)
-                        .foregroundColor(Color("secondaryText"))
+                        .foregroundColor(AppColors.secondaryText)
                         .bold()
                     
                     if item != self.row.last! {
@@ -76,10 +76,10 @@ struct WeekRow: View {
                 HStack(alignment: .center) {
                     ZStack {
                         Text(String(day.day))
-                            .foregroundColor(day.isBeforeCurrentDay ? Color("secondaryText") :
-                                (day.isCurrentDay ? Color("primaryText") :
+                            .foregroundColor(day.isBeforeCurrentDay ? AppColors.secondaryText :
+                                (day.isCurrentDay ? AppColors.primaryText :
                                     (self.week.isCurrentWeek ? .white :
-                                        Color("primaryText")
+                                        AppColors.primaryText
                                     )
                                 )
                             )

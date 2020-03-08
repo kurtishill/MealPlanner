@@ -65,11 +65,11 @@ struct MiscWeeklyItemsView: View {
                 Image(systemName: "chevron.left")
                     .resizable()
                     .frame(width: 13, height: 22)
-                    .foregroundColor(Color("secondaryText"))
+                    .foregroundColor(AppColors.secondaryText)
             } else {
                 Text("Done")
             }
-        }.foregroundColor(Color("mainColor"))
+        }.foregroundColor(AppColors.main)
     }
     
     private var editButton: some View {
@@ -87,7 +87,7 @@ struct MiscWeeklyItemsView: View {
             } else {
                 Text("Cancel")
             }
-        }.foregroundColor(Color("mainColor"))
+        }.foregroundColor(AppColors.main)
     }
     
     var body: some View {
@@ -105,11 +105,11 @@ struct MiscWeeklyItemsView: View {
             Group {
                 Text("Miscellaneous Items")
                     .font(.system(size: 35))
-                    .foregroundColor(Color("primaryText"))
+                    .foregroundColor(AppColors.primaryText)
                     .bold()
                 Text("\(Helper().monthToString(date.month.month)) \(date.week.week.first!.day) - \(date.week.week.last!.day), \(numberFormatter.string(for: date.year.year)!)")
                     .font(.system(size: 25))
-                    .foregroundColor(Color("secondaryText"))
+                    .foregroundColor(AppColors.secondaryText)
                 Divider()
             }.padding(.leading, 20)
                 .padding(.trailing, 20)

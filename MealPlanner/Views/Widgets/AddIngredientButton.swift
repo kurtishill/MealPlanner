@@ -16,7 +16,7 @@ struct AddIngredientButton: View {
             self.add()
         }) {
             Circle()
-            .foregroundColor(Color("greenColor"))
+                .foregroundColor(AppColors.green)
             .frame(width: 40, height: 40)
             .overlay(Image(systemName: "plus")
                 .resizable()

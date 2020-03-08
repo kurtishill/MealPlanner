@@ -18,13 +18,13 @@ struct CategorySelectionModal: View {
         VStack(alignment: .leading, spacing: 3) {
             ForEach(ingredientTypes, id: \.self) { type in
                 Text(type.rawValue)
-                    .foregroundColor(self.ingredients.keys.contains(type) ? Color("secondaryText") : .white)
+                    .foregroundColor(self.ingredients.keys.contains(type) ? AppColors.secondaryText : .white)
                     .onTapGesture {
                         self.onCategorySelected(type)
                 }
             }
         }.frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 3, minHeight: 0, maxHeight: ((CGFloat(ingredientTypes.count) + 3) * 20))
-            .background(Color("primaryText"))
+            .background(AppColors.primaryText)
             .cornerRadius(10)
             .shadow(radius: 3)
             .scaleEffect(self.makeNewCategory ? 1 : 0.001)

@@ -41,8 +41,9 @@ struct LoadingView<Content>: View where Content: View {
                     LoadingIndicator(isAnimating: .constant(true), style: .large)
                 }
                 .frame(width: geometry.size.width / 4,
-                       height: geometry.size.height / 7.5)
-                .background(Color("loadingModalColor"))
+                       height: geometry.size.height / 7.5
+                )
+                .background(AppColors.loadingModal)
                 .cornerRadius(20)
                 .opacity(self.isShowing ? 1 : 0)
                 .shadow(radius: 4)

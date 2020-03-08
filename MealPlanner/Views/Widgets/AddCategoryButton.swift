@@ -20,7 +20,7 @@ struct AddCategoryButton: View {
             }
         }) {
             RoundedRectangle(cornerRadius: 25)
-            .foregroundColor(typesAvailable ? Color("primaryText") : Color("backButton"))
+                .foregroundColor(typesAvailable ? AppColors.primaryText : AppColors.backButton)
             .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 6, minHeight: 0, maxHeight: 40)
             .overlay(
                 Image(systemName: "plus")

@@ -44,7 +44,7 @@ struct EditRecipeView: View {
                                     listOffset: self.$listOffset
                                 )
                                     .frame(height: 60)
-                                    .background(Color("cardColor"))
+                                    .background(AppColors.card)
                                     .mask(RoundedRectangle(cornerRadius: 10.0))
                                     .padding(.leading, 20)
                                     .padding(.trailing, 20)

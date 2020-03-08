@@ -92,7 +92,7 @@ struct ContentView: View {
                                             .foregroundColor(Color("primaryText"))
                                         ZStack {
                                             Circle()
-                                                .foregroundColor(Color(self.appState.itemsForWeekNumber > 0 ? "primaryText" : "greenColor"))
+                                                .foregroundColor(self.appState.itemsForWeekNumber > 0 ? AppColors.primaryText : AppColors.green)
                                                 .shadow(radius: 2)
                                             Text("\(self.appState.itemsForWeekNumber)")
                                                 .foregroundColor(self.appState.itemsForWeekNumber > 0 ? .white : .white)

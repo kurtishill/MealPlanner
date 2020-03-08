@@ -48,7 +48,7 @@ struct RecipeOverviewCard: View {
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: UIScreen.main.bounds.width - 100, height: self.cardHeight)
-                    .foregroundColor(Color("cardColor"))
+                    .foregroundColor(AppColors.card)
                     .padding(.trailing, 20)
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -111,28 +111,30 @@ struct DateCard: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color(day.isCurrentDay ? "mainColor" : "cardColor"))
+                .foregroundColor(day.isCurrentDay ? AppColors.main : AppColors.card)
             
             VStack(alignment: .center) {
-//                Spacer()
+                Spacer()
                 Text(String(day.day))
-//                    .font(.headline)
                     .font(.system(size: 15))
-                    .foregroundColor(day.isCurrentDay ? .white : Color("primaryText"))
+                    .foregroundColor(day.isCurrentDay ? .white : AppColors.primaryText)
                     .bold()
                 Text(dayName)
                     .font(.footnote)
-                    .foregroundColor(day.isCurrentDay ? .white : Color("primaryText"))
-//                Spacer()
-//                Text("Plan")
-//                    .bold()
-//                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: cardHeight / 3)
-//                    .foregroundColor(.white)
-//                    .background(Color("primaryText"))
-//                    .font(.footnote)
-//                    .cornerRadius(10)
+                    .foregroundColor(day.isCurrentDay ? .white : AppColors.primaryText)
+                Spacer()
+                Text("Plan")
+                    .bold()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: cardHeight / 3)
+                    .foregroundColor(.white)
+                    .background(AppColors.primaryText)
+                    .font(.footnote)
+                    .cornerRadius(10)
             }
         }.frame(height: cardHeight / 3)
+            .onTapGesture {
+                print("Plan was tapped for \(self.dayName)")
+        }
     }
 }
 
@@ -156,7 +158,7 @@ struct RecipeRow<T>: View where T : View {
                             .padding(.top, 10)
                         Text(recipe?.title ?? "")
                             .font(.subheadline)
-                            .foregroundColor(Color("secondaryCardText"))
+                            .foregroundColor(AppColors.secondaryCardText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .lineLimit(nil)
                         Spacer()

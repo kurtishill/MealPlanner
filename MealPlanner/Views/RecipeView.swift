@@ -75,11 +75,11 @@ struct RecipeView: View {
                 Image(systemName: "chevron.left")
                     .resizable()
                     .frame(width: 13, height: 22)
-                    .foregroundColor(Color("secondaryText"))
+                    .foregroundColor(AppColors.secondaryText)
             } else {
                 Text("Done")
             }
-        }.foregroundColor(Color("mainColor"))
+        }.foregroundColor(AppColors.main)
     }
     
     private var editButton: some View {
@@ -96,7 +96,7 @@ struct RecipeView: View {
             } else {
                 Text("Cancel")
             }
-        }.foregroundColor(Color("mainColor"))
+        }.foregroundColor(AppColors.main)
     }
     
     var body: some View {
@@ -116,7 +116,7 @@ struct RecipeView: View {
                 HStack {
                     Text(recipe.category.rawValue)
                         .font(.system(size: 35))
-                        .foregroundColor(Color("primaryText"))
+                        .foregroundColor(AppColors.primaryText)
                         .bold()
                     
                     Spacer()
@@ -140,13 +140,8 @@ struct RecipeView: View {
                 } else {
                     TextField("Title", text: titleBinding)
                         .padding(.all, 5)
-                        .background(Color("textFieldColor"))
+                        .background(AppColors.textField)
                         .mask(RoundedRectangle(cornerRadius: 5))
-//                    TextField("Title", text: self.$recipeTitle, onEditingChanged: { _ in
-//                        self.draftRecipe.title = self.recipeTitle
-//                    }).padding(.all, 5)
-//                        .background(Color("textFieldColor"))
-//                        .mask(RoundedRectangle(cornerRadius: 5))
                 }
                 Divider()
             }.padding(.leading, 20)

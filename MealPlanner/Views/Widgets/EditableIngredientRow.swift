@@ -71,7 +71,7 @@ struct EditableIngredientRow: View {
                     .autocapitalization(.none)
                     .padding(.all, 1)
                     .frame(width: UIScreen.main.bounds.width - 80)
-                    .background(Color("ingredientTextFieldColor"))
+                    .background(AppColors.ingredientTextField)
                     .mask(RoundedRectangle(cornerRadius: 5))
                 HStack {
                     TextField("Notes", text: notesBinding, onEditingChanged: { changed in
@@ -80,7 +80,7 @@ struct EditableIngredientRow: View {
                         .autocapitalization(.none)
                         .padding(.all, 1)
                         .frame(width: UIScreen.main.bounds.width - 80)
-                        .background(Color("ingredientTextFieldColor"))
+                        .background(AppColors.ingredientTextField)
                         .mask(RoundedRectangle(cornerRadius: 5))
                 }
             }.padding(.leading, 8)
@@ -91,7 +91,7 @@ struct EditableIngredientRow: View {
                 Image(systemName: "xmark")
                     .resizable()
                     .frame(width: 16, height: 16)
-                    .foregroundColor(Color("mainColor"))
+                    .foregroundColor(AppColors.main)
                     .padding(.trailing, 12)
             }
         }.onAppear {

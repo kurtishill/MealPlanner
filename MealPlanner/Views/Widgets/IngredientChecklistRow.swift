@@ -35,7 +35,7 @@ struct IngredientChecklistRow: View {
                                 Text(ingredient.notes!)
                                     .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
                                     .font(.subheadline)
-                                    .foregroundColor(Color("secondaryCardText"))
+                                    .foregroundColor(AppColors.secondaryCardText)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(nil)
                             }
@@ -62,7 +62,7 @@ struct IngredientChecklistRow: View {
             }
             
         }.frame(height: 40.0 + (ingredient.notes?.heightWithConstrainedWidth(width: UIScreen.main.bounds.width - 80, font: UIFont.systemFont(ofSize: 17)) ?? 0.0))
-            .background(ingredient.isSelected ? Color("cardColor") : Color("peachColor"))
+            .background(ingredient.isSelected ? AppColors.card : AppColors.peach)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(.leading, ingredient.isSelected ? 35 : 20)
             .padding(.trailing, ingredient.isSelected ? 0 : 20)
