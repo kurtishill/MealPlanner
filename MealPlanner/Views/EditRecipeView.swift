@@ -58,6 +58,7 @@ struct EditRecipeView: View {
                         }.padding(.leading, 20)
                     }.offset(y: -self.listOffset)
                         .animation(.spring())
+                        .padding(.bottom, 20)
                 }
             }
             VStack {

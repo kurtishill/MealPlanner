@@ -8,24 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		0A294428240242EE00ADB2BC /* DateDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A294427240242EE00ADB2BC /* DateDto.swift */; };
-		0A29442C2402441B00ADB2BC /* DateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29442B2402441B00ADB2BC /* DateDao.swift */; };
-		0A2944302402450700ADB2BC /* SqlDateDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29442F2402450700ADB2BC /* SqlDateDao.swift */; };
 		0A2944412402D19D00ADB2BC /* RealmConnectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2944402402D19D00ADB2BC /* RealmConnectionFactory.swift */; };
 		0A2C586C231B5B8B00CFD45C /* AddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586B231B5B8B00CFD45C /* AddCategoryButton.swift */; };
 		0A2C586E231B5C1700CFD45C /* AddIngredientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */; };
 		0A2C5870231B62E800CFD45C /* EditableIngredientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C586F231B62E800CFD45C /* EditableIngredientRow.swift */; };
 		0A2C5872231B67E000CFD45C /* IngredientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5871231B67E000CFD45C /* IngredientType.swift */; };
 		0A2C5874231B68BE00CFD45C /* WeeklyItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5873231B68BE00CFD45C /* WeeklyItemType.swift */; };
-		0A2C5876231B6B8D00CFD45C /* MiscWeeklyItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5875231B6B8D00CFD45C /* MiscWeeklyItemsView.swift */; };
 		0A2C5878231B780900CFD45C /* CategorySelectionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5877231B780900CFD45C /* CategorySelectionModal.swift */; };
 		0A2C587A231B7D1600CFD45C /* IngredientChecklistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C5879231B7D1600CFD45C /* IngredientChecklistRow.swift */; };
-		0A2C587D231C358E00CFD45C /* EditMiscWeeklyItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */; };
-		0A2C587F231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */; };
 		0A316024240B18E5001104A2 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316023240B18E5001104A2 /* CalendarModel.swift */; };
 		0A316026240B306E001104A2 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316025240B306E001104A2 /* LoadingIndicator.swift */; };
 		0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3160282411CCD9001104A2 /* BaseDto.swift */; };
 		0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31602D24140091001104A2 /* ViewExtensions.swift */; };
 		0A3160302414961D001104A2 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31602F2414961D001104A2 /* AppColors.swift */; };
+		0A31603224191D05001104A2 /* CreateShoppingListDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31603124191D05001104A2 /* CreateShoppingListDialog.swift */; };
+		0A316034241B0A60001104A2 /* DateSelectionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316033241B0A60001104A2 /* DateSelectionCache.swift */; };
+		0A316036241BD598001104A2 /* WeekDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316035241BD598001104A2 /* WeekDayViewModel.swift */; };
 		0A4050B923196333009CB15B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050B823196333009CB15B /* AppDelegate.swift */; };
 		0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BA23196333009CB15B /* SceneDelegate.swift */; };
 		0A4050BD23196333009CB15B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BC23196333009CB15B /* ContentView.swift */; };
@@ -47,20 +45,9 @@
 		0A4050EE231963E6009CB15B /* CalendarMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E8231963E6009CB15B /* CalendarMonth.swift */; };
 		0A4050EF231963E6009CB15B /* CalendarYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050E9231963E6009CB15B /* CalendarYear.swift */; };
 		0A4050F323196408009CB15B /* CalendarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F123196408009CB15B /* CalendarState.swift */; };
-		0A4050F423196408009CB15B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F223196408009CB15B /* AppState.swift */; };
+		0A4050F423196408009CB15B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F223196408009CB15B /* AppViewModel.swift */; };
 		0A4050F923196421009CB15B /* RecipeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F723196421009CB15B /* RecipeDto.swift */; };
 		0A4050FA23196421009CB15B /* IngredientDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050F823196421009CB15B /* IngredientDto.swift */; };
-		0A4050FC23196428009CB15B /* IngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050FB23196428009CB15B /* IngredientDao.swift */; };
-		0A4050FE2319642F009CB15B /* RecipeDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050FD2319642F009CB15B /* RecipeDao.swift */; };
-		0A40510023196438009CB15B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050FF23196438009CB15B /* Storage.swift */; };
-		0A40510523196443009CB15B /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510223196443009CB15B /* MockStorage.swift */; };
-		0A40510623196443009CB15B /* MockIngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510323196443009CB15B /* MockIngredientDao.swift */; };
-		0A40510723196443009CB15B /* MockRecipeDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510423196443009CB15B /* MockRecipeDao.swift */; };
-		0A40510E2319644F009CB15B /* SqlDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4051092319644F009CB15B /* SqlDao.swift */; };
-		0A40510F2319644F009CB15B /* SqlRecipeDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510A2319644F009CB15B /* SqlRecipeDao.swift */; };
-		0A4051102319644F009CB15B /* SqlStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510B2319644F009CB15B /* SqlStorage.swift */; };
-		0A4051112319644F009CB15B /* SqlIngredientDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510C2319644F009CB15B /* SqlIngredientDao.swift */; };
-		0A4051122319644F009CB15B /* ConnectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40510D2319644F009CB15B /* ConnectionFactory.swift */; };
 		0A40511523196469009CB15B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511423196469009CB15B /* Helper.swift */; };
 		0A40511923196474009CB15B /* IngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511723196474009CB15B /* IngredientRepository.swift */; };
 		0A40511A23196474009CB15B /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40511823196474009CB15B /* RecipeRepository.swift */; };
@@ -82,24 +69,22 @@
 
 /* Begin PBXFileReference section */
 		0A294427240242EE00ADB2BC /* DateDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDto.swift; sourceTree = "<group>"; };
-		0A29442B2402441B00ADB2BC /* DateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDao.swift; sourceTree = "<group>"; };
-		0A29442F2402450700ADB2BC /* SqlDateDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqlDateDao.swift; sourceTree = "<group>"; };
 		0A2944402402D19D00ADB2BC /* RealmConnectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConnectionFactory.swift; sourceTree = "<group>"; };
 		0A2C586B231B5B8B00CFD45C /* AddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryButton.swift; sourceTree = "<group>"; };
 		0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientButton.swift; sourceTree = "<group>"; };
 		0A2C586F231B62E800CFD45C /* EditableIngredientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableIngredientRow.swift; sourceTree = "<group>"; };
 		0A2C5871231B67E000CFD45C /* IngredientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientType.swift; sourceTree = "<group>"; };
 		0A2C5873231B68BE00CFD45C /* WeeklyItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyItemType.swift; sourceTree = "<group>"; };
-		0A2C5875231B6B8D00CFD45C /* MiscWeeklyItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscWeeklyItemsView.swift; sourceTree = "<group>"; };
 		0A2C5877231B780900CFD45C /* CategorySelectionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionModal.swift; sourceTree = "<group>"; };
 		0A2C5879231B7D1600CFD45C /* IngredientChecklistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientChecklistRow.swift; sourceTree = "<group>"; };
-		0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMiscWeeklyItemsView.swift; sourceTree = "<group>"; };
-		0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscWeeklyItemsChecklistView.swift; sourceTree = "<group>"; };
 		0A316023240B18E5001104A2 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		0A316025240B306E001104A2 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		0A3160282411CCD9001104A2 /* BaseDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDto.swift; sourceTree = "<group>"; };
 		0A31602D24140091001104A2 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0A31602F2414961D001104A2 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		0A31603124191D05001104A2 /* CreateShoppingListDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateShoppingListDialog.swift; sourceTree = "<group>"; };
+		0A316033241B0A60001104A2 /* DateSelectionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectionCache.swift; sourceTree = "<group>"; };
+		0A316035241BD598001104A2 /* WeekDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayViewModel.swift; sourceTree = "<group>"; };
 		0A4050B523196333009CB15B /* Meal Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4050B823196333009CB15B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4050BA23196333009CB15B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,20 +108,9 @@
 		0A4050E8231963E6009CB15B /* CalendarMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonth.swift; sourceTree = "<group>"; };
 		0A4050E9231963E6009CB15B /* CalendarYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarYear.swift; sourceTree = "<group>"; };
 		0A4050F123196408009CB15B /* CalendarState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarState.swift; sourceTree = "<group>"; };
-		0A4050F223196408009CB15B /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		0A4050F223196408009CB15B /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		0A4050F723196421009CB15B /* RecipeDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDto.swift; sourceTree = "<group>"; };
 		0A4050F823196421009CB15B /* IngredientDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientDto.swift; sourceTree = "<group>"; };
-		0A4050FB23196428009CB15B /* IngredientDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientDao.swift; sourceTree = "<group>"; };
-		0A4050FD2319642F009CB15B /* RecipeDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDao.swift; sourceTree = "<group>"; };
-		0A4050FF23196438009CB15B /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		0A40510223196443009CB15B /* MockStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
-		0A40510323196443009CB15B /* MockIngredientDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockIngredientDao.swift; sourceTree = "<group>"; };
-		0A40510423196443009CB15B /* MockRecipeDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecipeDao.swift; sourceTree = "<group>"; };
-		0A4051092319644F009CB15B /* SqlDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlDao.swift; sourceTree = "<group>"; };
-		0A40510A2319644F009CB15B /* SqlRecipeDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlRecipeDao.swift; sourceTree = "<group>"; };
-		0A40510B2319644F009CB15B /* SqlStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlStorage.swift; sourceTree = "<group>"; };
-		0A40510C2319644F009CB15B /* SqlIngredientDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqlIngredientDao.swift; sourceTree = "<group>"; };
-		0A40510D2319644F009CB15B /* ConnectionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionFactory.swift; sourceTree = "<group>"; };
 		0A40511423196469009CB15B /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		0A40511723196474009CB15B /* IngredientRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientRepository.swift; sourceTree = "<group>"; };
 		0A40511823196474009CB15B /* RecipeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
@@ -194,6 +168,7 @@
 				0A2C586D231B5C1700CFD45C /* AddIngredientButton.swift */,
 				0A2C5877231B780900CFD45C /* CategorySelectionModal.swift */,
 				0A316025240B306E001104A2 /* LoadingIndicator.swift */,
+				0A31603124191D05001104A2 /* CreateShoppingListDialog.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -202,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				0A4050D3231963BF009CB15B /* RecipeChecklistView.swift */,
-				0A2C587E231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift */,
 				0A4050D1231963BF009CB15B /* WeekIngredientChecklistView.swift */,
 			);
 			path = ChecklistViews;
@@ -271,8 +245,6 @@
 				0A4050D4231963BF009CB15B /* CalendarView.swift */,
 				0A4050D6231963BF009CB15B /* RecipeView.swift */,
 				0A4050D2231963BF009CB15B /* EditRecipeView.swift */,
-				0A2C5875231B6B8D00CFD45C /* MiscWeeklyItemsView.swift */,
-				0A2C587C231C358E00CFD45C /* EditMiscWeeklyItemsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,8 +287,10 @@
 			isa = PBXGroup;
 			children = (
 				0AE36C062405F44F00915779 /* Assembly */,
-				0A4050F223196408009CB15B /* AppState.swift */,
+				0A4050F223196408009CB15B /* AppViewModel.swift */,
 				0A4050F123196408009CB15B /* CalendarState.swift */,
+				0A316033241B0A60001104A2 /* DateSelectionCache.swift */,
+				0A316035241BD598001104A2 /* WeekDayViewModel.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -327,8 +301,6 @@
 				0AE36BFD2405EFA300915779 /* Assembly */,
 				0AE36BDF2402D25000915779 /* Protocols */,
 				0A29443F2402D19100ADB2BC /* Realm */,
-				0A40510823196446009CB15B /* Sql */,
-				0A4051012319643B009CB15B /* Mock */,
 				0A4050F623196418009CB15B /* Dto */,
 			);
 			path = Storage;
@@ -343,29 +315,6 @@
 				0A294427240242EE00ADB2BC /* DateDto.swift */,
 			);
 			path = Dto;
-			sourceTree = "<group>";
-		};
-		0A4051012319643B009CB15B /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				0A40510323196443009CB15B /* MockIngredientDao.swift */,
-				0A40510423196443009CB15B /* MockRecipeDao.swift */,
-				0A40510223196443009CB15B /* MockStorage.swift */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
-		0A40510823196446009CB15B /* Sql */ = {
-			isa = PBXGroup;
-			children = (
-				0A40510D2319644F009CB15B /* ConnectionFactory.swift */,
-				0A4051092319644F009CB15B /* SqlDao.swift */,
-				0A40510C2319644F009CB15B /* SqlIngredientDao.swift */,
-				0A40510A2319644F009CB15B /* SqlRecipeDao.swift */,
-				0A40510B2319644F009CB15B /* SqlStorage.swift */,
-				0A29442F2402450700ADB2BC /* SqlDateDao.swift */,
-			);
-			path = Sql;
 			sourceTree = "<group>";
 		};
 		0A40511323196462009CB15B /* Helpers */ = {
@@ -391,10 +340,6 @@
 			isa = PBXGroup;
 			children = (
 				0AE36BE02402D25F00915779 /* Rx */,
-				0A4050FF23196438009CB15B /* Storage.swift */,
-				0A4050FD2319642F009CB15B /* RecipeDao.swift */,
-				0A4050FB23196428009CB15B /* IngredientDao.swift */,
-				0A29442B2402441B00ADB2BC /* DateDao.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -574,61 +519,48 @@
 				0A2C5872231B67E000CFD45C /* IngredientType.swift in Sources */,
 				0A2C587A231B7D1600CFD45C /* IngredientChecklistRow.swift in Sources */,
 				0A40511A23196474009CB15B /* RecipeRepository.swift in Sources */,
-				0A4050F423196408009CB15B /* AppState.swift in Sources */,
+				0A4050F423196408009CB15B /* AppViewModel.swift in Sources */,
 				0A4050EA231963E6009CB15B /* CalendarDate.swift in Sources */,
 				0AE36BF42403146500915779 /* RealmDateDao.swift in Sources */,
-				0A2C587D231C358E00CFD45C /* EditMiscWeeklyItemsView.swift in Sources */,
 				0A316026240B306E001104A2 /* LoadingIndicator.swift in Sources */,
 				0A4050B923196333009CB15B /* AppDelegate.swift in Sources */,
-				0A29442C2402441B00ADB2BC /* DateDao.swift in Sources */,
-				0A40510023196438009CB15B /* Storage.swift in Sources */,
+				0A31603224191D05001104A2 /* CreateShoppingListDialog.swift in Sources */,
 				0A40511923196474009CB15B /* IngredientRepository.swift in Sources */,
 				0AE36C052405F33300915779 /* RepositoryAssembly.swift in Sources */,
 				0A4050E2231963DD009CB15B /* Ingredient.swift in Sources */,
 				0A4050F323196408009CB15B /* CalendarState.swift in Sources */,
-				0A4051102319644F009CB15B /* SqlStorage.swift in Sources */,
 				0A2944412402D19D00ADB2BC /* RealmConnectionFactory.swift in Sources */,
+				0A316036241BD598001104A2 /* WeekDayViewModel.swift in Sources */,
 				0A31602E24140091001104A2 /* ViewExtensions.swift in Sources */,
 				0A4050DA231963BF009CB15B /* CalendarView.swift in Sources */,
+				0A316034241B0A60001104A2 /* DateSelectionCache.swift in Sources */,
 				0AE36C082405F45900915779 /* StateAssembly.swift in Sources */,
-				0A2C587F231C359F00CFD45C /* MiscWeeklyItemsChecklistView.swift in Sources */,
 				0A294428240242EE00ADB2BC /* DateDto.swift in Sources */,
 				0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */,
 				0A40511523196469009CB15B /* Helper.swift in Sources */,
-				0A40510F2319644F009CB15B /* SqlRecipeDao.swift in Sources */,
 				0A316024240B18E5001104A2 /* CalendarModel.swift in Sources */,
 				0A2C586E231B5C1700CFD45C /* AddIngredientButton.swift in Sources */,
 				0A4050D7231963BF009CB15B /* WeekIngredientChecklistView.swift in Sources */,
 				0AE36BEE2402FD0D00915779 /* RxRealmDao.swift in Sources */,
 				0AE36BFF2405EFAE00915779 /* StorageAssembly.swift in Sources */,
-				0A40510E2319644F009CB15B /* SqlDao.swift in Sources */,
 				0A2C5878231B780900CFD45C /* CategorySelectionModal.swift in Sources */,
 				0A4050EC231963E6009CB15B /* CalendarController.swift in Sources */,
 				0AE36BEC2402D42B00915779 /* RxStorage.swift in Sources */,
 				0A3160302414961D001104A2 /* AppColors.swift in Sources */,
 				0AE36BE42402D27E00915779 /* RxRecipeDao.swift in Sources */,
-				0A4050FC23196428009CB15B /* IngredientDao.swift in Sources */,
 				0A4050ED231963E6009CB15B /* CalendarDay.swift in Sources */,
 				0A4050DB231963BF009CB15B /* RecipeOverviewCard.swift in Sources */,
-				0A2C5876231B6B8D00CFD45C /* MiscWeeklyItemsView.swift in Sources */,
-				0A40510523196443009CB15B /* MockStorage.swift in Sources */,
-				0A40510723196443009CB15B /* MockRecipeDao.swift in Sources */,
 				0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */,
 				0A4050F923196421009CB15B /* RecipeDto.swift in Sources */,
-				0A4050FE2319642F009CB15B /* RecipeDao.swift in Sources */,
 				0A4050D8231963BF009CB15B /* EditRecipeView.swift in Sources */,
 				0A2C5870231B62E800CFD45C /* EditableIngredientRow.swift in Sources */,
-				0A40510623196443009CB15B /* MockIngredientDao.swift in Sources */,
 				0A4050BD23196333009CB15B /* ContentView.swift in Sources */,
 				0AE36BF724034C9D00915779 /* RealmStorage.swift in Sources */,
 				0A2C586C231B5B8B00CFD45C /* AddCategoryButton.swift in Sources */,
 				0AE36BEA2402D3C400915779 /* RxDateDao.swift in Sources */,
 				0A4050EB231963E6009CB15B /* CalendarWeek.swift in Sources */,
-				0A2944302402450700ADB2BC /* SqlDateDao.swift in Sources */,
 				0AE36BE82402D37D00915779 /* RxIngredientDao.swift in Sources */,
 				0AE36BF22403145A00915779 /* RealmIngredientDao.swift in Sources */,
-				0A4051122319644F009CB15B /* ConnectionFactory.swift in Sources */,
-				0A4051112319644F009CB15B /* SqlIngredientDao.swift in Sources */,
 				0A4050D9231963BF009CB15B /* RecipeChecklistView.swift in Sources */,
 				0A4050FA23196421009CB15B /* IngredientDto.swift in Sources */,
 				0A4050EE231963E6009CB15B /* CalendarMonth.swift in Sources */,

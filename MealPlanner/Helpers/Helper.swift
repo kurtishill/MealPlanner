@@ -9,7 +9,7 @@
 import Foundation
 
 struct Helper {
-    func monthToString(_ month: Int) -> String {
+    static func monthToString(_ month: Int) -> String {
         switch month {
         case 1:
             return "January"
@@ -40,19 +40,19 @@ struct Helper {
         }
     }
     
-    func categoryStringToEnum(_ category: String) -> Recipe.Category {
-        switch category {
-        case "Breakfast":
-            return Recipe.Category.Breakfast
-        case "Lunch":
-            return Recipe.Category.Lunch
-        case "Dinner":
-            return Recipe.Category.Dinner
-        default:
-            // should never get here
-            return Recipe.Category.Breakfast
-        }
-    }
+//    func categoryStringToEnum(_ category: String) -> Recipe.Category {
+//        switch category {
+//        case "Breakfast":
+//            return Recipe.Category.Breakfast
+//        case "Lunch":
+//            return Recipe.Category.Lunch
+//        case "Dinner":
+//            return Recipe.Category.Dinner
+//        default:
+//            // should never get here
+//            return Recipe.Category.Breakfast
+//        }
+//    }
     
     /**
      static let ingredientTypes = [
@@ -73,7 +73,7 @@ struct Helper {
      }
      */
     
-    func ingredientTypeStringToEnum(_ type: String) -> IngredientType {
+    static func ingredientTypeStringToEnum(_ type: String) -> IngredientType {
         switch type {
         case "Bread":
             return IngredientType.Bread

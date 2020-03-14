@@ -13,9 +13,13 @@ class StateAssembly: DIPart {
     var body: some DIPart {
         DIGroup {
             DIRegister(CalendarController.init)
-            DIRegister(AppState.init)
+            DIRegister(DateSelectionCache<CacheKey, CacheValue>.init)
+                .lifeCycle(.single)
+            DIRegister(AppViewModel.init)
                 .lifeCycle(.single)
             DIRegister(CalendarState.init)
+            DIRegister(WeekDayViewModel.init)
+                .lifeCycle(.prototype)
         }
     }
 }

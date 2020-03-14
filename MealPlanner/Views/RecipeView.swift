@@ -16,12 +16,11 @@ struct RecipeView: View {
     var color: String
     var day: CalendarDay
     
-    @State var recipeTitle: String = ""
     @State var shouldDelete: Bool = false
     @State var dialogTitleText: String = ""
     @State var dialogSubTitleText: String = ""
     
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
@@ -29,10 +28,9 @@ struct RecipeView: View {
     private var leadingButton: some View {
         Button(action: {
             if self.editMode?.wrappedValue == .inactive {
-                self.appState.fetchRecipe(with: self.recipe.id.uuidString)
+                self.appViewModel.fetchRecipe(with: self.recipe.id.uuidString)
                 self.presentationMode.wrappedValue.dismiss()
             } else {
-                self.draftRecipe.title = self.recipeTitle
                 self.draftRecipe.date.day = self.day
                 for (key, _) in self.draftRecipe.ingredients {
                     self.draftRecipe.ingredients[key] = self.draftRecipe.ingredients[key]?.filter({$0.name != ""})
@@ -41,33 +39,33 @@ struct RecipeView: View {
                     }
                 }
                 
-                if self.recipeTitle.isEmpty && !self.draftRecipe.ingredients.isEmpty {
-                    self.dialogTitleText = "Recipe must have title"
-                    self.dialogSubTitleText = "Add title to create recipe"
-                    self.shouldDelete = true
-                    return
-                } else if self.recipeTitle.isEmpty && self.draftRecipe.ingredients.isEmpty {
-                    self.appState.deleteRecipe(self.recipe)
-                }
+//                if self.recipeTitle.isEmpty && !self.draftRecipe.ingredients.isEmpty {
+//                    self.dialogTitleText = "Recipe must have title"
+//                    self.dialogSubTitleText = "Add title to create recipe"
+//                    self.shouldDelete = true
+//                    return
+//                } else if self.recipeTitle.isEmpty && self.draftRecipe.ingredients.isEmpty {
+//                    self.appViewModel.deleteRecipe(self.recipe)
+//                }
                 
                 for (key, ingredients) in self.recipe.ingredients {
                     for ingredient in ingredients {
                         if self.draftRecipe.ingredients[key] == nil {
                             for ingredient in self.recipe.ingredients[key]! {
-                                self.appState.deleteIngredient(ingredient)
+                                self.appViewModel.deleteIngredient(ingredient)
                             }
                         } else if !self.draftRecipe.ingredients[key]!.contains(ingredient) {
                             self.draftRecipe.ingredients[key]!.forEach { ingredient in
                                 print(ingredient.id.uuidString)
                             }
                             print(ingredient.id.uuidString)
-                            self.appState.deleteIngredient(ingredient)
+                            self.appViewModel.deleteIngredient(ingredient)
                         }
                     }
                 }
                 
                 self.recipe = self.draftRecipe.copy() as! Recipe
-                self.appState.updateRecipe(self.recipe)
+                self.appViewModel.updateRecipe(self.recipe)
                 self.editMode?.animation().wrappedValue = .inactive
             }
         }) {
@@ -100,12 +98,6 @@ struct RecipeView: View {
     }
     
     var body: some View {
-        let titleBinding = Binding<String>(get: {
-            self.recipeTitle
-        }, set: {
-            self.recipeTitle = $0
-        })
-        
         return VStack(alignment: .leading) {
             Group {
                 HStack {
@@ -114,35 +106,25 @@ struct RecipeView: View {
                     editButton
                 }.frame(height: 40)
                 HStack {
-                    Text(recipe.category.rawValue)
+                    Text(recipe.shoppingList.type)
                         .font(.system(size: 35))
                         .foregroundColor(AppColors.primaryText)
                         .bold()
                     
                     Spacer()
                     
-                    if self.editMode?.wrappedValue == .active && !self.recipe.title.isEmpty {
+                    if self.editMode?.wrappedValue == .active {
                         Button(action: {
-                            self.dialogTitleText = "Delete Recipe"
+                            self.dialogTitleText = "Delete Shopping List"
                             self.dialogSubTitleText = "Are you sure?"
                             self.shouldDelete = true
                         }) {
-                            Text("Delete Recipe")
+                            Text("Delete List")
                                 .foregroundColor(.red)
                         }
                     }
                 }
-                if self.editMode?.wrappedValue == .inactive {
-                    Text(recipe.title)
-                        .font(.system(size: 25))
-                        .foregroundColor(Color(color))
-                        .bold()
-                } else {
-                    TextField("Title", text: titleBinding)
-                        .padding(.all, 5)
-                        .background(AppColors.textField)
-                        .mask(RoundedRectangle(cornerRadius: 5))
-                }
+                
                 Divider()
             }.padding(.leading, 20)
                 .padding(.trailing, 20)
@@ -155,14 +137,12 @@ struct RecipeView: View {
         }.navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitle("")
-            .onAppear {
-                self.recipeTitle = self.draftRecipe.title
-        }.alert(isPresented: self.$shouldDelete) {
+            .alert(isPresented: self.$shouldDelete) {
             Alert(
                 title: Text(self.dialogTitleText),
                 message: Text(self.dialogSubTitleText),
-                primaryButton: .destructive(Text("Delete Recipe"), action: {
-                    self.appState.deleteRecipe(self.recipe)
+                primaryButton: .destructive(Text("Delete List"), action: {
+                    self.appViewModel.deleteRecipe(self.recipe)
                     self.presentationMode.wrappedValue.dismiss()
                     self.shouldDelete = false
                 }),

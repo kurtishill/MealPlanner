@@ -9,19 +9,17 @@
 import Foundation
 import Combine
 
-class Recipe: NSObject, ObservableObject, NSCopying {
+class Recipe: NSObject, ObservableObject, NSCopying, Identifiable {
     var objectWillChange = PassthroughSubject<Recipe, Never>()
     
     var id: UUID = UUID()
-    var category: Category = Category.Breakfast
-    var title: String = ""
+    var shoppingList: ShoppingList = ShoppingList(type: "")
     var ingredients: [IngredientType:[Ingredient]] = [:]
     var date: CalendarDate
     
-    init(id: UUID?, category: Category, title: String, ingredients: [IngredientType:[Ingredient]], date: CalendarDate) {
+    init(id: UUID?, shoppingList: ShoppingList, ingredients: [IngredientType:[Ingredient]], date: CalendarDate) {
         self.id = id ?? UUID()
-        self.category = category
-        self.title = title
+        self.shoppingList = shoppingList
         self.ingredients = ingredients
         self.date = date
     }
@@ -33,7 +31,7 @@ class Recipe: NSObject, ObservableObject, NSCopying {
             ingredientsCopy[key]?.append(contentsOf: value.map({$0.copy() as! Ingredient}))
         }
         
-        let copy = Recipe(id: self.id, category: self.category, title: self.title, ingredients: ingredientsCopy, date: self.date)
+        let copy = Recipe(id: self.id, shoppingList: self.shoppingList, ingredients: ingredientsCopy, date: self.date)
         return copy
     }
     
@@ -58,8 +56,7 @@ class Recipe: NSObject, ObservableObject, NSCopying {
     }
     
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
-        return lhs.category == rhs.category &&
-            lhs.title == rhs.title &&
+        return lhs.shoppingList == rhs.shoppingList &&
             lhs.ingredients == rhs.ingredients
     }
     
@@ -70,11 +67,11 @@ class Recipe: NSObject, ObservableObject, NSCopying {
                 id: UUID.init(uuidString: ingredientDto.id)!,
                 name: ingredientDto.name,
                 notes: ingredientDto.notes,
-                type: Helper().ingredientTypeStringToEnum(ingredientDto.type),
+                type: Helper.ingredientTypeStringToEnum(ingredientDto.type),
                 isSelected: ingredientDto.isSelected == 1
             )
             
-            let type = Helper().ingredientTypeStringToEnum(ingredientDto.type)
+            let type = Helper.ingredientTypeStringToEnum(ingredientDto.type)
             
             if ingredients[type] == nil { ingredients[type] = [] }
             
@@ -84,20 +81,21 @@ class Recipe: NSObject, ObservableObject, NSCopying {
         let date = CalendarDate()
         date.year = CalendarYear(year: dto.date.first!.year)
         date.month = CalendarMonth(month: dto.date.first!.month)
-        date.day = CalendarDay(day: dto.date.first!.day)
+        date.day = CalendarDay(day: dto.date.first!.day, dayName: dto.date.first!.dayName)
         
         return Recipe(
             id: UUID.init(uuidString: dto.id),
-            category: Helper().categoryStringToEnum(dto.category),
-            title: dto.title,
+            shoppingList: ShoppingList(type: dto.shoppingList),
             ingredients: ingredients,
             date: date
         )
     }
     
-    enum Category: String {
-        case Breakfast = "Breakfast"
-        case Lunch = "Lunch"
-        case Dinner = "Dinner"
+    struct ShoppingList : Hashable {
+        let type: String
+        
+        static func == (lhs: ShoppingList, rhs: ShoppingList) -> Bool {
+            return lhs.type == rhs.type
+        }
     }
 }

@@ -13,51 +13,27 @@ import RealmSwift
 import RxRelay
 
 class RealmDateDao: RxRealmDao<DateDto>, RxDateDao {
-    func getAllRecipes(for date: DateDto) -> Observable<[RecipeDto]> {
-        return Observable.from(object: realm.objects(DateDto.self)
-            .first { dateDto in
-                dateDto == date
-            }!).map { dateDto in
-                dateDto.recipes.toArray()
-        }
-    }
-    
-    func getAllDateDataForWeek(with date: CalendarDate/*, relay: PublishRelay<[RecipeDto]>*/) -> Observable<[DateDto]> {
-        let filterPredicate = NSPredicate(format:
-            """
+    func getDate(_ date: CalendarDate) -> Observable<DateDto> {
+        let filterPredicate = NSPredicate(format: """
             year == %d and
             month == %d and
-            day between {%d,%d}
+            day == %d
             """,
             date.year.year,
             date.month.month,
-            date.week.week.first!.day,
-            date.week.week.last!.day
+            date.day.day
         )
         
-        return Observable.from(optional: realm.objects(DateDto.self).filter(filterPredicate).toArray())
-        
-//        return Observable.from(optional: realm.objects(DateDto.self).filter(filterPredicate).toArray()).flatMap { (dateDtos) in
-//            Observable.just(dateDtos.map { $0.recipes.toArray() })
-//        }
-        
-//        realm.objects(DateDto.self).filter(filterPredicate).observe({ change in
-//            switch change {
-//            case .initial(let dateDtos):
-//                relay.accept(dateDtos.first!.recipes.toArray())
-//            case .update:
-//                break
-//            case .error(_):
-//                break
-//            }
-//        })
+        return Observable.from(optional: realm.objects(DateDto.self).filter(filterPredicate).first)
+    }
     
-//        let recipes = realm.objects(DateDto.self).filter(filterPredicate)
-//        return Observable.from(optional: recipes)
-//            .map({ dateDtoResult in
-//                dateDtoResult.first?.recipes.toArray() ?? []
-//            }).subscribe(onNext: { (recipeDtos) in
-//                relay.accept(recipeDtos)
-//            }).disposed(by: bag)
+    func getDates(_ dates: [CalendarDate]) -> Observable<[DateDto]> {
+        return Observable.from(optional: realm.objects(DateDto.self).filter({ dateDto -> Bool in
+            return dates.contains(where: { calendarDate -> Bool in
+                return calendarDate.day.day == dateDto.day &&
+                    calendarDate.year.year == dateDto.year &&
+                    calendarDate.month.month == dateDto.month
+            })
+        }))
     }
 }

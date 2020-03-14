@@ -80,7 +80,74 @@ class CalendarController {
     
     var counter: Int = 1
     
-    private func buildFirstWeekOfMonth(startOfMonthWeekday: Int, daysInLastMonth: Range<Int>, weekOffset: Int, currDay: Int) -> [CalendarDay] {
+    func constructCalendar(month: Int?, year: Int?) {
+        var weeks = [CalendarWeek]()
+        var currMonthName: String
+        var currDateLocal: CalendarDate
+        
+        let calendar = Calendar.current
+        let currDate = Date()
+        
+        let actualYear: Int = calendar.component(.year, from: currDate)
+        let actualMonth: Int = calendar.component(.month, from: currDate)
+        
+        let currYear: Int = year ?? actualYear
+        let currMonth: Int = month ?? actualMonth
+        
+        let yearDate: Date = calendar.date(byAdding: .year, value: currYear - actualYear, to: currDate)!
+        let monthDate: Date = calendar.date(byAdding: .month, value: currMonth - actualMonth, to: yearDate)!
+        
+        let lastMonthDate: Date = calendar.getDateOfMonthAgo(for: monthDate)
+        
+        let currMonthNum: Int = calendar.getMonth(for: monthDate)
+        currMonthName = Helper.monthToString(currMonthNum)
+        
+        let startOfMonthDate: Date = calendar.getStartOfMonthDate(for: monthDate)
+        let startOfMonthWeekday: Int = calendar.getWeekday(for: startOfMonthDate)
+        
+        let currDay: Int = calendar.component(.day, from: monthDate)
+        
+        let daysInCurrMonth: Range<Int> = calendar.getNumDaysInMonth(with: monthDate)
+        let daysInLastMonth: Range<Int> = calendar.getNumDaysInMonth(with: lastMonthDate)
+        
+        let firstWeek = buildFirstWeekOfMonth(
+            startOfMonthWeekday: startOfMonthWeekday,
+            daysInLastMonth: daysInLastMonth,
+            currDay: currDay
+        )
+        
+        let firstCalendarWeek = CalendarWeek(week: firstWeek)
+        
+        weeks.append(firstCalendarWeek)
+        
+        // rest of the month
+        
+        weeks = buildRestOfMonth(
+            currWeeks: weeks,
+            daysInCurrMonth: daysInCurrMonth,
+            currDay: currDay,
+            calendar: calendar,
+            currDate: currDate
+        )
+        
+        // set days of the week for all days in the month
+        weeks = setDayNames(for: weeks)
+        
+        currDateLocal = CalendarDate(
+            year: CalendarYear(year: year ?? currYear),
+            month: CalendarMonth(month: month ?? currMonth),
+            day: CalendarDay(day: currDay, dayName: "")
+        )
+        
+        let model = CalendarModel()
+        model.weeks = weeks
+        model.currMonthName = currMonthName
+        model.currDate = currDateLocal
+        
+        self.calendarRelay.accept(model)
+    }
+    
+    private func buildFirstWeekOfMonth(startOfMonthWeekday: Int, daysInLastMonth: Range<Int>, currDay: Int) -> [CalendarDay] {
         var firstWeek = [CalendarDay]()
         
         if startOfMonthWeekday > 1 {
@@ -88,14 +155,14 @@ class CalendarController {
             
             // first week
             for i in daysFromLastMonth.first!.lowerBound...daysFromLastMonth.first!.upperBound {
-                let calendarDay = CalendarDay(day: i, isBeforeCurrentDay: weekOffset > 0 ? false : true)
+                let calendarDay = CalendarDay(day: i, dayName: "", isPartOfCurrentMonth: false)
                 firstWeek.append(calendarDay)
             }
         }
         
         self.counter = 1
         while firstWeek.count < 7 {
-            let calendarDay = CalendarDay(day: self.counter, isBeforeCurrentDay: weekOffset < 0 ? true : self.counter < currDay, isCurrentDay: self.counter == currDay)
+            let calendarDay = CalendarDay(day: self.counter, dayName: "", isPartOfCurrentMonth: true, isCurrentDay: self.counter == currDay)
             firstWeek.append(calendarDay)
             self.counter += 1
         }
@@ -103,16 +170,17 @@ class CalendarController {
         return firstWeek
     }
     
-    private func buildRestOfMonth(currWeeks: [CalendarWeek], currWeek: Int, weekOffset: Int, daysInCurrMonth: Range<Int>, currDay: Int, calendar: Calendar, currDate: Date) -> [CalendarWeek] {
+    private func buildRestOfMonth(currWeeks: [CalendarWeek], daysInCurrMonth: Range<Int>, currDay: Int, calendar: Calendar, currDate: Date) -> [CalendarWeek] {
         var weeks = currWeeks
+        var currMonthEnded = false
         
         // row
-        for week in 1..<5 {
+        for _ in 1..<6 {
             // column
             var dayList = [CalendarDay]()
             for _ in 0..<7 {
                 if self.counter > daysInCurrMonth.last! { break }
-                let calendarDay = CalendarDay(day: self.counter, isBeforeCurrentDay:  calendar.isSelectedMonthSameAsRealCurrentMonth(date1: currDate, date2: Date()) ? self.counter < currDay : weekOffset < 0 ? true : self.counter < currDay, isCurrentDay: self.counter == currDay)
+                let calendarDay = CalendarDay(day: self.counter, dayName: "", isPartOfCurrentMonth: true, isCurrentDay: self.counter == currDay)
                 dayList.append(calendarDay)
                 self.counter += 1
             }
@@ -121,14 +189,18 @@ class CalendarController {
             if dayList.count < 7 {
                 self.counter = 1
                 while dayList.count < 7 {
-                    let calendarDay = CalendarDay(day: self.counter, isBeforeCurrentDay: weekOffset < 0 ? true : false)
+                    let calendarDay = CalendarDay(day: self.counter, dayName: "", isPartOfCurrentMonth: false)
                     dayList.append(calendarDay)
                     self.counter += 1
                 }
+                currMonthEnded = true
             }
             
-            let calendarWeek = CalendarWeek(week: dayList, isCurrentWeek: week + 1 == currWeek)
+            let calendarWeek = CalendarWeek(week: dayList)
             weeks.append(calendarWeek)
+            
+            if self.counter > daysInCurrMonth.last! { currMonthEnded = true }
+            if currMonthEnded { break }
         }
         
         return weeks
@@ -139,81 +211,11 @@ class CalendarController {
         
         for weeksIndices in newWeeks.indices {
             for weekIndices in newWeeks[weeksIndices].week.indices {
-                newWeeks[weeksIndices].week[weekIndices].dayName = Helper.dayNames[weekIndices]
+                newWeeks[weeksIndices].week[weekIndices].dayName = Helper.dayNames[weekIndices]!
             }
         }
         
         return newWeeks
-    }
-    
-    func constructCalendar(for weekOffset: Int = 0) {
-        var weeksLocal = [CalendarWeek]()
-        var currMonthNameLocal: String?
-        var currDayOfWeekLocal: Int?
-        var currDateLocal: CalendarDate?
-        
-        
-        let calendar = Calendar.current
-        var currDate = Date()
-        
-        currDate = calendar.getDate(for: weekOffset, with: currDate)
-        let lastMonthDate = calendar.getDateOfMonthAgo(for: currDate)
-        
-        let currMonth = calendar.getMonth(for: currDate)
-        currMonthNameLocal = Helper().monthToString(currMonth)
-        
-        let currWeek = calendar.getWeek(for: currDate)
-        
-        let startOfMonthDate = calendar.getStartOfMonthDate(for: currDate)
-        let startOfMonthWeekday = calendar.getWeekday(for: startOfMonthDate)
-        
-        let daysInfo = calendar.getCurrentDay(with: weekOffset, selectedDate: currDate)
-        let currDay: Int = daysInfo.0
-        currDayOfWeekLocal = daysInfo.1
-        
-        let daysInCurrMonth = calendar.getNumDaysInMonth(with: currDate)
-        let daysInLastMonth = calendar.getNumDaysInMonth(with: lastMonthDate)
-        
-        let firstWeek = buildFirstWeekOfMonth(
-            startOfMonthWeekday: startOfMonthWeekday,
-            daysInLastMonth: daysInLastMonth,
-            weekOffset: weekOffset,
-            currDay: currDay
-        )
-        
-        let firstCalendarWeek = CalendarWeek(week: firstWeek, isCurrentWeek: currWeek == 1)
-        
-        weeksLocal.append(firstCalendarWeek)
-        
-        // rest of the month
-        
-        weeksLocal = buildRestOfMonth(
-            currWeeks: weeksLocal,
-            currWeek: currWeek,
-            weekOffset: weekOffset,
-            daysInCurrMonth: daysInCurrMonth,
-            currDay: currDay,
-            calendar: calendar,
-            currDate: currDate
-        )
-        
-        // set days of the week for all days in the month
-        weeksLocal = setDayNames(for: weeksLocal)
-        
-        currDateLocal = CalendarDate(
-            year: CalendarYear(year: calendar.component(.year, from: currDate)),
-            month: CalendarMonth(month: currMonth),
-            week: weeksLocal.first(where: {$0.isCurrentWeek})!,
-            day: CalendarDay(day: currDay)
-        )
-        
-        let model = CalendarModel()
-        model.weeks = weeksLocal
-        model.currMonthName = currMonthNameLocal
-        model.currDayOfWeek = currDayOfWeekLocal
-        model.currDate = currDateLocal
-        
-        self.calendarRelay.accept(model)
     }
     
     func clear(calendar: CalendarModel) {

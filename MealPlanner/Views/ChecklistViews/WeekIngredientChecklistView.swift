@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftDI
 
 struct WeekIngredientChecklistView: View {
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     var color: String
     
     private let numberFormatter: NumberFormatter = {
@@ -20,15 +20,12 @@ struct WeekIngredientChecklistView: View {
     }()
     
     var body: some View {
-        let ingredients = appState.getIngredientsForWeekDisplay()
+        self.appViewModel.getIngredients()
+        let ingredients = appViewModel.itemsForWeek
         let keys = ingredients.keys.map {$0}.sorted()
-        let date = appState.calendarState.calendar.value!.currDate!
         
         return VStack(alignment: .leading) {
             Group {
-                Text("\(Helper().monthToString(date.month.month)) \(date.week.week.first!.day) - \(date.week.week.last!.day), \(numberFormatter.string(for: date.year.year)!)")
-                    .font(.title)
-                    .bold()
                 Divider()
             }.padding(.leading, 20)
                 .padding(.trailing, 20)
@@ -44,11 +41,9 @@ struct WeekIngredientChecklistView: View {
                     }
                 }
             }
-        }.navigationBarTitle("Grocery List")
-        .onAppear {
-            self.appState.getIngredients()
-        }.onDisappear {
-            self.appState.fetchAllRecipesForWeek()
+        }.navigationBarTitle("Days' Items")
+        .onDisappear {
+            self.appViewModel.fetchAllRecipesForSelectedDays()
         }
     }
 }

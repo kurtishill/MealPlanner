@@ -16,16 +16,14 @@ class IngredientDto: Object, BaseDto {
     @objc dynamic var type: String = ""
     @objc dynamic var isSelected: Int = 0
     var recipe = LinkingObjects(fromType: RecipeDto.self, property: "ingredients")
-    @objc dynamic var week: String = ""
     
-    static func make(from ingredient: Ingredient, and week: String) -> IngredientDto {
+    static func make(from ingredient: Ingredient) -> IngredientDto {
         let ingredientDto = IngredientDto()
         ingredientDto.id = ingredient.id.uuidString
         ingredientDto.name = ingredient.name
         ingredientDto.notes = ingredient.notes
         ingredientDto.type = ingredient.type.rawValue
         ingredientDto.isSelected = ingredient.isSelected ? 1 : 0
-        ingredientDto.week = week
         
         return ingredientDto
     }

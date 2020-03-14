@@ -13,7 +13,7 @@ import RxSwift
 struct IngredientChecklistRow: View {
     var ingredient: Ingredient
     var color: String
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
     @State var animationHack: Animation?
     
@@ -70,7 +70,7 @@ struct IngredientChecklistRow: View {
             .animation(animationHack)
             .onTapGesture {
                 self.ingredient.isSelected.toggle()
-                self.appState.updateIngredient(self.ingredient)
+                self.appViewModel.updateIngredient(self.ingredient)
         }.onAppear {
             Observable<NSInteger>.interval(RxTimeInterval.milliseconds(100), scheduler: MainScheduler())
                 .take(1)

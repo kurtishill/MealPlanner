@@ -8,8 +8,17 @@
 
 import Foundation
 
-struct CalendarWeek: Identifiable {
+struct CalendarWeek: Identifiable, Equatable, Hashable {
     var id = UUID()
     var week: [CalendarDay]
-    let isCurrentWeek: Bool
+    var isCurrentWeek: Bool = false
+    
+    static func == (lhs: CalendarWeek, rhs: CalendarWeek) -> Bool {
+        for index in lhs.week.indices {
+            if lhs.week[index] != rhs.week[index] {
+                return false
+            }
+        }
+        return true
+    }
 }
