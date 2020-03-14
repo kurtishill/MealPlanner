@@ -39,9 +39,11 @@ struct IngredientType: RawRepresentable, Equatable, Hashable, Comparable {
         IngredientType.Dairy,
         IngredientType.Deli,
         IngredientType.Frozen,
+        IngredientType.Hygeine,
         IngredientType.Meat,
         IngredientType.Miscellaneous,
         IngredientType.Produce,
+        IngredientType.Snacks,
         IngredientType.Spices
     ]
     

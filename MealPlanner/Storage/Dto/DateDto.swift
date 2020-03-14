@@ -13,14 +13,16 @@ class DateDto: Object, BaseDto {
     @objc dynamic var id: String = ""
     @objc dynamic var month: Int = 0
     @objc dynamic var day: Int = 0
+    @objc dynamic var dayName: String = ""
     @objc dynamic var year: Int = 0
     let recipes = List<RecipeDto>()
     
-    static func make(id: String, month: Int, day: Int, year: Int, recipes: [RecipeDto]) -> DateDto {
+    static func make(id: String, month: Int, day: Int, dayName: String, year: Int, recipes: [RecipeDto]) -> DateDto {
         let dto = DateDto()
         dto.id = id
         dto.month = month
         dto.day = day
+        dto.dayName = dayName
         dto.year = year
         dto.recipes.append(objectsIn: recipes)
         

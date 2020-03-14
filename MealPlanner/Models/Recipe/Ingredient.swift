@@ -56,4 +56,14 @@ class Ingredient: NSObject, NSCopying {
         let copy = Ingredient(id: self.id, name: self.name, notes: self.notes, type: self.type, isSelected: self.isSelected)
         return copy
     }
+    
+    static func make(from ingredientDto: IngredientDto) -> Ingredient {
+        return Ingredient(
+            id: UUID.init(uuidString: ingredientDto.id)!,
+            name: ingredientDto.name,
+            notes: ingredientDto.notes,
+            type: Helper.ingredientTypeStringToEnum(ingredientDto.type),
+            isSelected: ingredientDto.isSelected == 1
+        )
+    }
 }

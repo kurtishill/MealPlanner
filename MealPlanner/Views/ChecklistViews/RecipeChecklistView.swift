@@ -11,7 +11,7 @@ import SwiftDI
 
 struct RecipeChecklistView: View {
     @Binding var recipe: Recipe
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
     var color: String
     
@@ -30,9 +30,6 @@ struct RecipeChecklistView: View {
                 }
             }
         }
-//        }.onAppear {
-//            self.appState.fetchRecipe(with: self.recipe.id.uuidString)
-//        }
     }
 }
 

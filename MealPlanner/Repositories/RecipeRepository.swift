@@ -16,8 +16,8 @@ class RecipeRepository {
     @Inject private var storage: RxStorage
     @Inject private var ingredientRepository: IngredientRepository
     
-    private let recipeRelay: PublishRelay<[Int:[Recipe.Category:Recipe]]> = PublishRelay()
-    let recipeObservable: Observable<[Int:[Recipe.Category:Recipe]]>
+    private let recipeRelay: PublishRelay<[CalendarDate:[Recipe.ShoppingList:Recipe]]> = PublishRelay()
+    let recipeObservable: Observable<[CalendarDate:[Recipe.ShoppingList:Recipe]]>
     
     private let singleRecipeRelay: PublishRelay<Recipe> = PublishRelay()
     let singleRecipeObservable: Observable<Recipe>
@@ -29,27 +29,50 @@ class RecipeRepository {
         self.singleRecipeObservable = self.singleRecipeRelay.asObservable()
     }
     
-    func createRecipe(_ recipe: Recipe, week: String) {
-        storage.recipeDao().update(item: RecipeDto.make(from: recipe))
+    func createRecipe(with name: String, for date: CalendarDate) {
+        let recipeDto = RecipeDto.make(id: UUID().uuidString, shoppingList: name, ingredients: [])
+        
+        storage.recipeDao().update(item: recipeDto)
+        
+        let dateFromDb = storage.dateDao().get(for: date.id)
+        
+        var recipes = [RecipeDto]()
+        recipes.append(contentsOf: dateFromDb?.recipes.toArray() ?? [])
+        recipes.append(recipeDto)
+        
+        let dateDto = DateDto.make(id: date.id, month: date.month.month, day: date.day.day, dayName: date.day.dayName, year: date.year.year, recipes: recipes)
+        
+        storage.dateDao().update(item: dateDto)
+    }
+    
+    func createRecipe(_ recipe: Recipe) {
+//        storage.recipeDao().update(item: RecipeDto.make(from: recipe))
         
         let recipeDto = storage.recipeDao().get(for: recipe.id.uuidString)
         if recipe.ingredients.count > 0 && recipeDto == nil { fatalError("Recipe didn't create successfully") }
         
         for (_, value) in recipe.ingredients {
             for ingredient in value {
-                self.ingredientRepository.createIngredient(ingredient, for: recipeDto, week: week)
+                self.ingredientRepository.createIngredient(ingredient, for: recipeDto)
             }
         }
         
-        let date = storage.dateDao().get(for: recipe.date.id)
-        
-        var recipes = [RecipeDto]()
-        recipes.append(contentsOf: date?.recipes.toArray() ?? [])
-        recipes.append(recipeDto!)
-        
-        let dateDto = DateDto.make(id: recipe.date.id, month: recipe.date.month.month, day: recipe.date.day.day, year: recipe.date.year.year, recipes: recipes)
-        
-        storage.dateDao().update(item: dateDto)
+//        let date = storage.dateDao().get(for: recipe.date.id)
+//
+//        var recipes = [RecipeDto]()
+//        recipes.append(contentsOf: date?.recipes.toArray() ?? [])
+//        recipes.append(recipeDto!)
+//
+//        let dateDto = DateDto.make(
+//            id: recipe.date.id,
+//            month: recipe.date.month.month,
+//            day: recipe.date.day.day,
+//            dayName: recipe.date.day.dayName,
+//            year: recipe.date.year.year,
+//            recipes: recipes
+//        )
+//
+//        storage.dateDao().update(item: dateDto)
     }
     
     func getRecipe(with id: String) {
@@ -63,26 +86,44 @@ class RecipeRepository {
         getRecipe(with: recipe.id.uuidString)
     }
     
-    func getAllRecipesForWeek(with date: CalendarDate) {
+    func getRecipes(for date: CalendarDate) {
         let dateDao = storage.dateDao() as! RxDateDao
-        dateDao.getAllDateDataForWeek(with: date)
-            .subscribe(onNext: { dtos in
-                var dict: [Int:[Recipe.Category:Recipe]] = [:]
+        dateDao.getDate(date)
+            .subscribe(onNext: { dateDto in
+                var dict: [CalendarDate:[Recipe.ShoppingList:Recipe]] = [:]
+                dict[date] = [:]
                 
-                for day in date.week.week {
-                    dict[day.day] = [:]
-                }
-                
-                for dates in dtos {
-                    for recipeDto in dates.recipes {
-                        let recipe: Recipe? = Recipe.make(from: recipeDto)
-                        if let recipe = recipe {
-                            dict[recipe.date.day.day]![recipe.category] = recipe
-                        }
+                for recipeDto in dateDto.recipes {
+                    let recipe: Recipe? = Recipe.make(from: recipeDto)
+                    if let recipe = recipe {
+                        dict[date]![recipe.shoppingList] = recipe
                     }
                 }
                 
                 self.recipeRelay.accept(dict)
-            }).disposed(by: bag)
+            }).disposed(by: self.bag)
     }
+    
+//    func getAllRecipesForWeek(with date: CalendarDate) {
+//        let dateDao = storage.dateDao() as! RxDateDao
+//        dateDao.getAllDateDataForWeek(with: date)
+//            .subscribe(onNext: { dtos in
+//                var dict: [Int:[Recipe.ShoppingList:Recipe]] = [:]
+//
+//                for day in date.week.week {
+//                    dict[day.day] = [:]
+//                }
+//
+//                for dates in dtos {
+//                    for recipeDto in dates.recipes {
+//                        let recipe: Recipe? = Recipe.make(from: recipeDto)
+//                        if let recipe = recipe {
+//                            dict[recipe.date.day.day]![recipe.shoppingList] = recipe
+//                        }
+//                    }
+//                }
+//
+//                self.recipeRelay.accept(dict)
+//            }).disposed(by: self.bag)
+//    }
 }

@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct CalendarYear {
+struct CalendarYear: Equatable, Hashable {
     let year: Int
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(year)
+    }
 }

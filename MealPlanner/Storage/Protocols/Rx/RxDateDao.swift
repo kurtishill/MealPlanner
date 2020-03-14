@@ -11,6 +11,6 @@ import RxSwift
 import RxRelay
 
 protocol RxDateDao {
-    func getAllRecipes(for date: DateDto) -> Observable<[RecipeDto]>
-    func getAllDateDataForWeek(with date: CalendarDate/*, relay: PublishRelay<[RecipeDto]>*/) -> Observable<[DateDto]>
+    func getDate(_ date: CalendarDate) -> Observable<DateDto>
+    func getDates(_ dates: [CalendarDate]) -> Observable<[DateDto]>
 }

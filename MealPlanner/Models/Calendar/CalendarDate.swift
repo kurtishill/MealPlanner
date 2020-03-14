@@ -8,13 +8,17 @@
 
 import Foundation
 
-class CalendarDate: Equatable {
+class CalendarDate: Equatable, Hashable {
     static func == (lhs: CalendarDate, rhs: CalendarDate) -> Bool {
-        return lhs.id == rhs.id &&
-            lhs.year.year == rhs.year.year &&
+        return lhs.year.year == rhs.year.year &&
             lhs.month.month == rhs.month.month &&
-            lhs.week.week == rhs.week.week &&
             lhs.day == rhs.day
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(year)
+        hasher.combine(month)
+        hasher.combine(day)
     }
     
     var id: String {
@@ -22,22 +26,23 @@ class CalendarDate: Equatable {
     }
     var year: CalendarYear
     var month: CalendarMonth
-    var week: CalendarWeek
     var day: CalendarDay
     
     init() {
         self.year = CalendarYear(year: 0)
         self.month = CalendarMonth(month: 0)
-        self.week = CalendarWeek(week: [], isCurrentWeek: false)
-        self.day = CalendarDay(day: 0)
+        self.day = CalendarDay(day: 0, dayName: "")
     }
     
-    convenience init(year: CalendarYear, month: CalendarMonth, week: CalendarWeek, day: CalendarDay) {
+    convenience init(year: CalendarYear, month: CalendarMonth, day: CalendarDay) {
         self.init()
         
         self.year = year
         self.month = month
-        self.week = week
         self.day = day
+    }
+    
+    var description: String {
+        return "\(Helper.monthToString(self.month.month)) \(self.day.day), \(self.year.year)"
     }
 }

@@ -12,28 +12,23 @@ import RxSwift
 
 struct ContentView: View {
     private let bag = DisposeBag()
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
-    @State var selectedWeek: Int = 0
+    private let yearFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.groupingSeparator = ""
+        return nf
+    }()
     
     var body: some View {
-        var highlightColor: String
-        if self.selectedWeek < 0 {
-            highlightColor = "greenColor"
-        } else if self.selectedWeek == 0 {
-            highlightColor = "mainColor"
-        } else {
-            highlightColor = "purpleColor"
-        }
-        
-        return LoadingView(isShowing: self.appState.calendarLoading) {
+        return LoadingView(isShowing: self.appViewModel.calendarLoading) {
             NavigationView {
                 ZStack(alignment: .topLeading) {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .leading) {
                             Group {
-                                if self.appState.calendarState.calendar.value != nil {
-                                    CalendarView(color: highlightColor)
+                                if self.appViewModel.calendarState.calendar.value != nil {
+                                    CalendarView()
                                         .padding(.horizontal, 20)
                                 }
                             }
@@ -43,8 +38,7 @@ struct ContentView: View {
                             Group {
                                 HStack {
                                     Button(action: {
-                                        self.selectedWeek -= 1
-                                        self.appState.calendarState.setCalendar(for: self.selectedWeek)
+                                        self.appViewModel.calendarState.lastMonthTapped()
                                     }) {
                                         HStack {
                                             Image(systemName: "arrow.left")
@@ -52,20 +46,19 @@ struct ContentView: View {
                                                 .scaledToFit()
                                                 .frame(width: 10, height: 10)
                                                 .foregroundColor(Color("primaryText"))
-                                            Text("Previous week")
+                                            Text("Last month")
                                                 .font(.system(size: 15))
                                                 .foregroundColor(Color("primaryText"))
                                         }
                                     }
-                                    
+
                                     Spacer()
-                                    
+
                                     Button(action: {
-                                        self.selectedWeek += 1
-                                        self.appState.calendarState.setCalendar(for: self.selectedWeek)
+                                        self.appViewModel.calendarState.nextMonthTapped()
                                     }) {
                                         HStack {
-                                            Text("Next week")
+                                            Text("Next month")
                                                 .font(.system(size: 15))
                                                 .foregroundColor(Color("primaryText"))
                                             Image(systemName: "arrow.right")
@@ -77,76 +70,80 @@ struct ContentView: View {
                                     }
                                 }.padding(.trailing, 20)
                                 
-                               
-                                NavigationLink(
-                                    destination: WeekIngredientChecklistView(color: "purpleColor")
-                                ) {
-                                    HStack {
-                                        Text("Week's items")
-                                            .font(.system(size: 15))
-                                            .foregroundColor(Color("primaryText"))
-                                        Image(systemName: "chevron.right")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 10, height: 10)
-                                            .foregroundColor(Color("primaryText"))
-                                        ZStack {
-                                            Circle()
-                                                .foregroundColor(self.appState.itemsForWeekNumber > 0 ? AppColors.primaryText : AppColors.green)
-                                                .shadow(radius: 2)
-                                            Text("\(self.appState.itemsForWeekNumber)")
-                                                .foregroundColor(self.appState.itemsForWeekNumber > 0 ? .white : .white)
-                                        }.frame(width: 25, height: 25)
-                                        Spacer()
-                                    }
-                                }
-                                
-                                
-                                NavigationLink(
-                                    destination: MiscWeeklyItemsView(
-                                        items: self.appState.miscItems,
-                                        draftItems: [:].merging(self.appState.miscItems) { _, new in new })
-                                ) {
-                                    HStack {
-                                        Text("Miscellaneous items for the week")
-                                            .font(.system(size: 15))
-                                            .foregroundColor(Color("primaryText"))
-                                        Image(systemName: "chevron.right")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 10, height: 10)
-                                            .foregroundColor(Color("primaryText"))
-                                        Spacer()
-                                    }
-                                }
-                                
-                                Text("Current week's recipes")
-                                    .font(.headline)
-                                    .foregroundColor(Color("primaryText"))
-                                    .bold()
-                                
-                                Spacer(minLength: 20)
-                                
-                                if self.appState.calendarState.calendar.value != nil {
-                                    CardList(calendar: self.appState.calendarState.calendar.value!)
+                                if self.appViewModel.calendarState.calendar.value != nil {
+                                    DaysLayout(dates: self.appViewModel.lists.keys.map { $0.self })
                                 }
                                 
                             }.padding(.leading, 20)
                         }
                     }
-                }.navigationBarTitle(Text(self.appState.calendarState.calendar.value == nil ? "" : self.appState.calendarState.calendar.value!.currMonthName!))
+                }.navigationBarTitle(Text(self.appViewModel.calendarState.calendar.value == nil ? "" : "\(self.appViewModel.calendarState.calendar.value!.currMonthName!) \(self.yearFormatter.string(from:  NSNumber(value: self.appViewModel.calendarState.calendar.value!.currDate!.year.year))!)"))
             }
         }
     }
 }
 
-struct CardList: View {
-    var calendar: CalendarModel
+struct DaysLayout: View {
+    let dates: [CalendarDate]
+    
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
     var body: some View {
-        return VStack {
-            ForEach(calendar.currDate!.week.week, id: \.id) { (day: CalendarDay) in
-                RecipeOverviewCard(day: day, date: self.calendar.currDate!)
+        VStack {
+            if !dates.isEmpty {
+                NavigationLink(
+                    destination: WeekIngredientChecklistView(color: "purpleColor")
+                ) {
+                    HStack {
+                        Text("Days' items")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color("primaryText"))
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 10, height: 10)
+                            .foregroundColor(Color("primaryText"))
+                        ZStack {
+                            Circle()
+                                .foregroundColor(self.appViewModel.itemsForWeekNumber > 0 ? AppColors.primaryText : AppColors.backButton)
+                                .shadow(radius: 2)
+                            Text("\(self.appViewModel.itemsForWeekNumber)")
+                                .foregroundColor(self.appViewModel.itemsForWeekNumber > 0 ? .white : .white)
+                        }.frame(width: 25, height: 45)
+                        Spacer()
+                    }
+                }
+            }
+            
+            CardList(dates: dates)
+        }
+    }
+}
+
+struct CardList: View {
+    let dates: [CalendarDate]
+    
+    var body: some View {
+        VStack {
+            ForEach(dates.sorted(by: {$0.day.day < $1.day.day}), id: \.id) { (date: CalendarDate) in
+                RecipeOverviewCard(day: date.day, date: date)
+            }
+            
+            if dates.isEmpty {
+                GeometryReader { geo in
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("Tap a day to see more")
+                                .font(.subheadline)
+                                .foregroundColor(AppColors.backButton)
+                                .bold()
+                                .padding(.top, geo.size.height * 5)
+                                .padding(.trailing, 20)
+                            Spacer()
+                        }
+                    }
+                }
             }
         }.padding(.bottom, 10)
     }

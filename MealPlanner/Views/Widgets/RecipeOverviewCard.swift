@@ -10,162 +10,137 @@ import SwiftUI
 import SwiftDI
 
 struct RecipeOverviewCard: View {
+    @State var createShoppingList: Bool = false
+    
     var day: CalendarDay
     var date: CalendarDate
     
-    @EnvironmentObservedInject var appState: AppState
+    @EnvironmentObservedInject var appViewModel: AppViewModel
     
-    let cardHeight: CGFloat = 250
+    let rowHeight: CGFloat = 250 / 3
+    
+    func makeRecipeRow(to recipe: Recipe) -> some View {
+        let recipeCopy = recipe.copy() as! Recipe
+        return RecipeRow(
+            destination: RecipeView(
+                recipe: recipe,
+                draftRecipe: recipeCopy,
+                color: "primaryText",
+                day: self.day),
+            recipe: recipe,
+            height: self.rowHeight
+        )
+    }
     
     var body: some View {
-        let breakfastCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Breakfast)?.copy() as? Recipe ?? Recipe(
-            id: nil,
-            category: Recipe.Category.Breakfast,
-            title: "",
-            ingredients: [:],
-            date: date
-        )
+        let lists = self.appViewModel.lists
         
-        let lunchCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Lunch)?.copy() as? Recipe ?? Recipe(
-            id: nil,
-            category: Recipe.Category.Lunch,
-            title: "",
-            ingredients: [:],
-            date: date
-        )
-        
-        let dinnerCopy: Recipe = appState.getRecipe(for: day.day, with: Recipe.Category.Dinner)?.copy() as? Recipe ?? Recipe(
-            id: nil,
-            category: Recipe.Category.Dinner,
-            title: "",
-            ingredients: [:],
-            date: date
-        )
-        
-        return HStack(alignment: VerticalAlignment.top) {
-            DateCard(day: day, dayName: day.dayName!, cardHeight: cardHeight)
+        return HStack(alignment: .top, spacing: 10) {
+            DateCard(
+                day: day,
+                dayName: day.dayName,
+                rowHeight: rowHeight,
+                createShoppingList: self.$createShoppingList
+            )
             
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: UIScreen.main.bounds.width - 100, height: self.cardHeight)
-                    .foregroundColor(AppColors.card)
-                    .padding(.trailing, 20)
-                
-                VStack(alignment: .leading, spacing: 0) {
+            Group {
+                if lists[date] != nil && !(lists[date]?.isEmpty ?? false) {
                     
-                    RecipeRow(
-                        destination: RecipeView(
-                            recipe: breakfastCopy,
-                            draftRecipe: breakfastCopy.copy() as! Recipe,
-                            color: "greenColor",
-                            day: day
-                        ),
-                        color: "greenColor",
-                        recipe: breakfastCopy,
-                        height: cardHeight / 3
-                    )
+                    VStack(spacing: 1) {
+                    
+                        ForEach(lists[date]!.keys.map { $0.self }, id: \.self) { shoppingList in
+                        
+                            ZStack(alignment: .topLeading) {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(AppColors.card)
 
-                    RecipeRow(
-                        destination: RecipeView(
-                            recipe: lunchCopy,
-                            draftRecipe: lunchCopy.copy() as! Recipe,
-                            color: "yellowColor",
-                            day: day
-                        ),
-                        color: "yellowColor",
-                        recipe: lunchCopy,
-                        height: cardHeight / 3
-                    )
+                                self.makeRecipeRow(to: lists[self.date]![shoppingList]!!)
 
-                    RecipeRow(
-                        destination: RecipeView(
-                            recipe: dinnerCopy,
-                            draftRecipe: dinnerCopy.copy() as! Recipe,
-                            color: "purpleColor",
-                            day: day
-                        ),
-                        color: "purpleColor",
-                        recipe: dinnerCopy,
-                        height: cardHeight / 3
-                    )
+                                Divider()
+                                    .offset(y: self.rowHeight)
+                                    .padding(.trailing, 10)
+                            }
+                        }
+                    }
+                } else {
+                    Spacer()
                 }
-                
-                VStack {
-                    Divider()
-                        .offset(y: cardHeight / 3)
-                        .padding(.trailing, 20)
-                    Divider()
-                        .offset(y: cardHeight / 3 * 2 - 9)
-                        .padding(.trailing, 20)
-                }
-            }
-        }
+            }.frame(width: UIScreen.main.bounds.width - 100)
+                .padding(.trailing, 20)
+        }.sheet(isPresented: self.$createShoppingList) {
+            CreateShoppingListDialog(showDialog: self.$createShoppingList, date: self.date)
+        }.frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width)
     }
 }
 
 struct DateCard: View {
     var day: CalendarDay
     var dayName: String
-    var cardHeight: CGFloat
+    var rowHeight: CGFloat
+    @Binding var createShoppingList: Bool
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(day.isCurrentDay ? AppColors.main : AppColors.card)
+                .foregroundColor(AppColors.card)
             
             VStack(alignment: .center) {
                 Spacer()
                 Text(String(day.day))
                     .font(.system(size: 15))
-                    .foregroundColor(day.isCurrentDay ? .white : AppColors.primaryText)
+                    .foregroundColor(AppColors.primaryText)
                     .bold()
                 Text(dayName)
                     .font(.footnote)
-                    .foregroundColor(day.isCurrentDay ? .white : AppColors.primaryText)
+                    .foregroundColor(AppColors.primaryText)
                 Spacer()
                 Text("Plan")
                     .bold()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: cardHeight / 3)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: rowHeight)
                     .foregroundColor(.white)
                     .background(AppColors.primaryText)
                     .font(.footnote)
                     .cornerRadius(10)
             }
-        }.frame(height: cardHeight / 3)
+        }.frame(height: rowHeight)
             .onTapGesture {
                 print("Plan was tapped for \(self.dayName)")
+                self.createShoppingList = true
         }
     }
 }
 
 struct RecipeRow<T>: View where T : View {
     var destination: T
-    var color: String
     var recipe: Recipe?
     var height: CGFloat
     
     var body: some View {
-        VStack {
+        var ingredientCount: Int = 0
+        for (_, value) in recipe?.ingredients ?? [:] { ingredientCount += value.count }
+        
+        return VStack {
             NavigationLink(destination: destination) {
                 HStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 5, height: height)
-                        .foregroundColor(Color(color))
+                        .foregroundColor(AppColors.primaryText)
                     VStack(alignment: .leading) {
-                        Text(recipe?.category.rawValue ?? "")
-                            .foregroundColor(Color(color))
+                        Text(recipe?.shoppingList.type ?? "")
+                            .foregroundColor(AppColors.primaryText)
                             .bold()
                             .padding(.top, 10)
-                        Text(recipe?.title ?? "")
+                        Text("\(ingredientCount) item\(ingredientCount > 1 || ingredientCount == 0 ? "s" : "")")
                             .font(.subheadline)
                             .foregroundColor(AppColors.secondaryCardText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .lineLimit(nil)
                         Spacer()
                     }
+                    Spacer()
                     Image(systemName: "chevron.right")
                         .foregroundColor(Color("primaryText"))
-                        .padding(.trailing, 35)
+                        .padding(.trailing, 25)
                 }
             }
         }

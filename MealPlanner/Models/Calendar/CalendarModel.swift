@@ -10,7 +10,8 @@ import Foundation
 
 class CalendarModel: Equatable {
     static func == (lhs: CalendarModel, rhs: CalendarModel) -> Bool {
-        return lhs.currDayOfWeek == rhs.currDayOfWeek &&
+        return lhs.weeks == rhs.weeks &&
+            lhs.currDayOfWeek == rhs.currDayOfWeek &&
             lhs.currMonthName == rhs.currMonthName &&
             lhs.currDate == rhs.currDate
     }
