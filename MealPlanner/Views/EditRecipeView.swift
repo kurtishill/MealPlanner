@@ -15,6 +15,8 @@ struct EditRecipeView: View {
     
     @State var listOffset: CGFloat = 0
     
+    @State var canAnimate: Bool = false
+    
     var body: some View {
         let keys = recipe.ingredients.keys.map {$0.self}.sorted()
         
@@ -41,7 +43,8 @@ struct EditRecipeView: View {
                                     onDelete: {
                                         self.recipe.removeIngredient(ingredient, with: key)
                                 },
-                                    listOffset: self.$listOffset
+                                    listOffset: self.$listOffset,
+                                    canAnimate: self.$canAnimate
                                 )
                                     .frame(height: 60)
                                     .background(AppColors.card)
@@ -52,12 +55,13 @@ struct EditRecipeView: View {
                         }
                         HStack {
                             AddIngredientButton(add: {
+                                self.canAnimate = true
                                 self.recipe.addIngredient(Ingredient(name: "", notes: nil, type: key), for: key)
                             })
                             Spacer()
                         }.padding(.leading, 20)
                     }.offset(y: -self.listOffset)
-                        .animation(.spring())
+                        .animation(self.canAnimate ? .spring() : nil)
                         .padding(.bottom, 20)
                 }
             }

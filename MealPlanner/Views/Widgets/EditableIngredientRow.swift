@@ -18,6 +18,7 @@ struct EditableIngredientRow: View {
     var onDelete: () -> Void
     
     @Binding var listOffset: CGFloat
+    @Binding var canAnimate: Bool
     @State var keyboardHeight: CGFloat = 0
     @State var keyboardIsShowing: Bool = false
     
@@ -95,10 +96,15 @@ struct EditableIngredientRow: View {
                     .padding(.trailing, 12)
             }
         }.onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
+                self.canAnimate = false
+            }
+            
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                 let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                 if self.listOffset == value.height { return }
                 
+                self.canAnimate = true
                 self.keyboardHeight = value.height
                 self.keyboardIsShowing = true
             }

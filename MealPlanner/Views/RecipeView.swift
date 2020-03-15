@@ -39,15 +39,6 @@ struct RecipeView: View {
                     }
                 }
                 
-//                if self.recipeTitle.isEmpty && !self.draftRecipe.ingredients.isEmpty {
-//                    self.dialogTitleText = "Recipe must have title"
-//                    self.dialogSubTitleText = "Add title to create recipe"
-//                    self.shouldDelete = true
-//                    return
-//                } else if self.recipeTitle.isEmpty && self.draftRecipe.ingredients.isEmpty {
-//                    self.appViewModel.deleteRecipe(self.recipe)
-//                }
-                
                 for (key, ingredients) in self.recipe.ingredients {
                     for ingredient in ingredients {
                         if self.draftRecipe.ingredients[key] == nil {
