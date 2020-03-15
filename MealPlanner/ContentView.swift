@@ -45,10 +45,10 @@ struct ContentView: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 10, height: 10)
-                                                .foregroundColor(Color("primaryText"))
+                                                .foregroundColor(AppColors.primaryText)
                                             Text("Last month")
                                                 .font(.system(size: 15))
-                                                .foregroundColor(Color("primaryText"))
+                                                .foregroundColor(AppColors.primaryText)
                                         }
                                     }
 
@@ -60,12 +60,12 @@ struct ContentView: View {
                                         HStack {
                                             Text("Next month")
                                                 .font(.system(size: 15))
-                                                .foregroundColor(Color("primaryText"))
+                                                .foregroundColor(AppColors.primaryText)
                                             Image(systemName: "arrow.right")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 10, height: 10)
-                                                .foregroundColor(Color("primaryText"))
+                                                .foregroundColor(AppColors.primaryText)
                                         }
                                     }
                                 }.padding(.trailing, 20)
@@ -97,15 +97,15 @@ struct DaysLayout: View {
                     HStack {
                         Text("Days' items")
                             .font(.system(size: 15))
-                            .foregroundColor(Color("primaryText"))
+                            .foregroundColor(AppColors.primaryText)
                         Image(systemName: "chevron.right")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 10, height: 10)
-                            .foregroundColor(Color("primaryText"))
+                            .foregroundColor(AppColors.primaryText)
                         ZStack {
                             Circle()
-                                .foregroundColor(self.appViewModel.itemsForWeekNumber > 0 ? AppColors.primaryText : AppColors.backButton)
+                                .foregroundColor(self.appViewModel.itemsForWeekNumber > 0 ? AppColors.main : AppColors.backButton)
                                 .shadow(radius: 2)
                             Text("\(self.appViewModel.itemsForWeekNumber)")
                                 .foregroundColor(self.appViewModel.itemsForWeekNumber > 0 ? .white : .white)

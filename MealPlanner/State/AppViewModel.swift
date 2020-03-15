@@ -135,6 +135,8 @@ class AppViewModel: ObservableObject {
     
     func deleteRecipe(_ recipe: Recipe) {
         self.recipeRepository.deleteRecipe(recipe)
+        self.lists[recipe.date] = nil
+        self.itemsForWeekNumber = self.calcItemNumForDaysSelected()
         self.recipeRepository.getRecipes(for: recipe.date)
     }
     

@@ -110,7 +110,7 @@ struct WeekDay: View {
                 if self.weekDayViewModel.ingredientCount > 0 {
                     ZStack {
                         Circle()
-                            .foregroundColor(AppColors.green)
+                            .foregroundColor(AppColors.main)
                             .frame(width: 13, height: 13)
                         
                         Text("\(self.weekDayViewModel.ingredientCount)")

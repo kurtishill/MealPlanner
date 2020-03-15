@@ -114,7 +114,7 @@ class CalendarState {
     }
     
     func setCalendar(month: Int?, year: Int?) {
-        self.loading.accept(true)
+//        self.loading.accept(true)
         DispatchQueue.global(qos: .background).async {
             self.controller.constructCalendar(month: month, year: year)
         }
