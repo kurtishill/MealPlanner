@@ -24,6 +24,8 @@
 		0A31603224191D05001104A2 /* CreateShoppingListDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31603124191D05001104A2 /* CreateShoppingListDialog.swift */; };
 		0A316034241B0A60001104A2 /* DateSelectionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316033241B0A60001104A2 /* DateSelectionCache.swift */; };
 		0A316036241BD598001104A2 /* WeekDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316035241BD598001104A2 /* WeekDayViewModel.swift */; };
+		0A316039241D783A001104A2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A316038241D783A001104A2 /* PageViewController.swift */; };
+		0A31603B241D89BD001104A2 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31603A241D89BD001104A2 /* PageView.swift */; };
 		0A4050B923196333009CB15B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050B823196333009CB15B /* AppDelegate.swift */; };
 		0A4050BB23196333009CB15B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BA23196333009CB15B /* SceneDelegate.swift */; };
 		0A4050BD23196333009CB15B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4050BC23196333009CB15B /* ContentView.swift */; };
@@ -85,6 +87,8 @@
 		0A31603124191D05001104A2 /* CreateShoppingListDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateShoppingListDialog.swift; sourceTree = "<group>"; };
 		0A316033241B0A60001104A2 /* DateSelectionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectionCache.swift; sourceTree = "<group>"; };
 		0A316035241BD598001104A2 /* WeekDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayViewModel.swift; sourceTree = "<group>"; };
+		0A316038241D783A001104A2 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		0A31603A241D89BD001104A2 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		0A4050B523196333009CB15B /* Meal Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meal Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4050B823196333009CB15B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4050BA23196333009CB15B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +194,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		0A316037241D780F001104A2 /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				0A316038241D783A001104A2 /* PageViewController.swift */,
+				0A31603A241D89BD001104A2 /* PageView.swift */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
 		0A4050AC23196333009CB15B = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +253,7 @@
 		0A4050D0231963B5009CB15B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A316037241D780F001104A2 /* Carousel */,
 				0A316027240EA081001104A2 /* ChecklistViews */,
 				0A2C587B231C0B0C00CFD45C /* Widgets */,
 				0A4050D4231963BF009CB15B /* CalendarView.swift */,
@@ -552,12 +566,14 @@
 				0A4050DB231963BF009CB15B /* RecipeOverviewCard.swift in Sources */,
 				0A3160292411CCD9001104A2 /* BaseDto.swift in Sources */,
 				0A4050F923196421009CB15B /* RecipeDto.swift in Sources */,
+				0A31603B241D89BD001104A2 /* PageView.swift in Sources */,
 				0A4050D8231963BF009CB15B /* EditRecipeView.swift in Sources */,
 				0A2C5870231B62E800CFD45C /* EditableIngredientRow.swift in Sources */,
 				0A4050BD23196333009CB15B /* ContentView.swift in Sources */,
 				0AE36BF724034C9D00915779 /* RealmStorage.swift in Sources */,
 				0A2C586C231B5B8B00CFD45C /* AddCategoryButton.swift in Sources */,
 				0AE36BEA2402D3C400915779 /* RxDateDao.swift in Sources */,
+				0A316039241D783A001104A2 /* PageViewController.swift in Sources */,
 				0A4050EB231963E6009CB15B /* CalendarWeek.swift in Sources */,
 				0AE36BE82402D37D00915779 /* RxIngredientDao.swift in Sources */,
 				0AE36BF22403145A00915779 /* RealmIngredientDao.swift in Sources */,

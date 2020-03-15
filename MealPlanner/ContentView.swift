@@ -28,8 +28,13 @@ struct ContentView: View {
                         VStack(alignment: .leading) {
                             Group {
                                 if self.appViewModel.calendarState.calendar.value != nil {
-                                    CalendarView()
-                                        .padding(.horizontal, 20)
+                                    PageView(
+                                        [CalendarView(index: 0).padding(.horizontal, 20),
+                                         CalendarView(index: 1).padding(.horizontal, 20),
+                                         CalendarView(index: 2).padding(.horizontal, 20)])
+                                        .frame(height: 400)
+//                                    CalendarView()
+//                                        .padding(.horizontal, 20)
                                 }
                             }
                             

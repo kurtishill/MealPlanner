@@ -16,8 +16,10 @@ struct CalendarView: View {
     
     let calendarWidth = UIScreen.main.bounds.width - 60
     
+    let index: Int
+    
     var body: some View {
-        let calendar = appViewModel.calendarState.calendar.value!
+        let calendar = appViewModel.calendarState.calendars[index]
         
         return VStack(alignment: .center, spacing: 25) {
             Group {

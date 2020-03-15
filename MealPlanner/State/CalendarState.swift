@@ -22,12 +22,17 @@ class CalendarState {
     let loading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     let daySelectionRelay: PublishRelay<CalendarDate> = PublishRelay()
     
+    var calendars: [CalendarModel] = []
+    
     init() {
         self.controller.calendarObservable
             .subscribe(onNext: { calendarModel in
                 print("calendar algo finished")
                 self.loading.accept(false)
                 self.calendar.accept(calendarModel)
+                
+                self.calendars.append(calendarModel)
+                self.sortCalendars()
                 
                 let key = CacheKey(
                     month: calendarModel.currDate!.month.month,
@@ -41,7 +46,20 @@ class CalendarState {
                 }
             }).disposed(by: bag)
         
+        initializeCalendarList()
+    }
+    
+    func initializeCalendarList() {
         setCalendar(month: nil, year: nil)
+        lastMonthTapped()
+        nextMonthTapped()
+    }
+    
+    func sortCalendars() {
+        self.calendars.sort { (m0, m1) -> Bool in
+            return m0.currDate!.month.month < m1.currDate!.month.month &&
+                m0.currDate!.year.year <= m1.currDate!.year.year
+        }
     }
     
     func nextMonthTapped() {
@@ -84,7 +102,8 @@ class CalendarState {
             for weeksIndex in newCalendar.weeks.indices {
                 var found = false
                 for index in newCalendar.weeks[weeksIndex].week.indices {
-                    if newCalendar.weeks[weeksIndex].week[index].day == day.day && newCalendar.weeks[weeksIndex].week[index].isPartOfCurrentMonth {
+                    if newCalendar.weeks[weeksIndex].week[index].day == day.day &&
+                        newCalendar.weeks[weeksIndex].week[index].isPartOfCurrentMonth {
                         
                         newCalendar.weeks[weeksIndex].week[index].isSelected.toggle()
                         
