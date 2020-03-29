@@ -39,7 +39,7 @@ class IngredientRepository {
         dateDao.getDate(date)
             .subscribe(onNext: { dateDto in
                 dateDto.recipes.forEach { recipeDto in
-                    count += recipeDto.ingredients.count
+                    count += recipeDto.ingredients.filter(NSPredicate(format: "isSelected == 0")).count
                 }
                 
                 self.dayIngredientCountRelay.accept(count)
